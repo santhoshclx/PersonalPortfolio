@@ -2,6 +2,43 @@
 
 A modern, responsive personal portfolio website showcasing my work as a Software Engineer specializing in AI/ML, DevOps, and Web Development.
 
+## 🚀 Release Notes - v0.9.0
+
+### New Features
+
+#### Dynamic Content Loading
+- **Single-page application experience** with seamless navigation between sections
+- **Project detail pages** load dynamically without page refresh using `loadProjectContent()`
+- **Blog posts** integrate smoothly into the main portfolio interface
+
+#### Interactive Code Examples
+- **Copy-to-clipboard functionality** for all code snippets across projects and blog posts
+- **Syntax highlighting** support for multiple programming languages
+- **Interactive code blocks** with visual feedback on copy actions
+
+#### Enhanced Project Showcase
+- **Linear Regression from Scratch** - Complete implementation with mathematical explanations
+- **Pattern Matching with RegEx** - Interactive regex demonstration and guide
+- **Detailed project pages** with comprehensive code examples and usage instructions
+
+#### Blog Integration
+- **Regular Expressions Guide** - Comprehensive tutorial with practical examples
+- **Technical articles** with proper formatting and code highlighting
+- **Responsive blog layout** that matches the overall portfolio design
+
+### UI/UX Improvements
+- **Mobile-first responsive design** optimized for all screen sizes
+- **Smooth transitions** and animations throughout the interface
+- **Modern color scheme** using CSS custom properties
+- **Professional typography** with Google Fonts (Poppins)
+- **Enhanced project cards** with hover effects
+
+### Technical Improvements
+- **Modular CSS structure** with well-organized custom properties
+- **Clean JavaScript implementation** for navigation and dynamic content
+- **Semantic HTML structure** for better accessibility and SEO
+- **Performance optimizations** with efficient asset loading
+
 ## 🌟 Features
 
 - **Responsive Design** - Works seamlessly across desktop, tablet, and mobile devices
@@ -102,6 +139,13 @@ Code snippets include copy-to-clipboard functionality for better user experience
 ### Responsive Navigation
 Mobile-friendly navigation with smooth transitions and active state management.
 
+## 🎯 What's Next (v1.0.0)
+- Additional project showcases
+- More technical blog posts
+- Enhanced animations and micro-interactions
+- Dark/light theme toggle
+- Advanced contact form features
+
 ## 📞 Contact
 
 - **Email**: santhoshkumar007r@gmail.com
@@ -123,4 +167,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ⭐ Star this repository if you found it helpful!
+
 

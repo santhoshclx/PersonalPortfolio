@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linear Regression From Scratch - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h2 class="h2 article-title">Linear Regression From Scratch</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            A simple implementation of linear regression using only Python's built-in libraries and NumPy. This helps in understanding the mathematical foundation behind the model.
+          </p>
+        </section>
+
+        <section class="service">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Key Concepts</h3>
+          <ul class="service-list">
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="trending-up-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Cost Function</h4>
+                <p class="service-item-text">
+                  Measures how well the model fits the data using Mean Squared Error (MSE).
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="construct-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Gradient Descent</h4>
+                <p class="service-item-text">
+                  Optimization technique to minimize the cost by adjusting weights iteratively.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="code-slash-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Model Training</h4>
+                <p class="service-item-text">
+                  Manually computes predictions and updates parameters without using ML libraries.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="analytics-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Evaluation</h4>
+                <p class="service-item-text">
+                  Calculates the error to evaluate the model performance.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Technologies Used</h3>
+          <p>
+            Python, NumPy for numerical operations, Matplotlib for plotting. No machine learning libraries are used to maintain clarity of the algorithm.
+          </p>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Code</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
+<code>import numpy as np
+
+# Mean Squared Error
+def mse(y_true, y_pred):
+    return np.mean((y_true - y_pred)**2)
+
+# Prediction
+def predict(X, weights, bias):
+    return np.dot(X, weights) + bias
+
+# Training using Gradient Descent
+def train(X, y, lr=0.01, epochs=1000):
+    n_samples, n_features = X.shape
+    weights = np.zeros(n_features)
+    bias = 0
+
+    for _ in range(epochs):
+        y_pred = predict(X, weights, bias)
+        dw = -(2/n_samples) * np.dot(X.T, (y - y_pred))
+        db = -(2/n_samples) * np.sum(y - y_pred)
+
+        weights -= lr * dw
+        bias -= lr * db
+
+    return weights, bias</code>
+          </pre>
+          <!-- <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+            <span>Copy Code</span>
+          </button> -->
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">How to Use</h3>
+          <p>
+            Prepare your data in NumPy arrays, then pass them into the <code>train()</code> function. After training, use the returned weights and bias to make predictions.
+          </p>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Example</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
+<code># Example usage
+X = np.array([[1], [2], [3], [4], [5]])
+y = np.array([3, 5, 7, 9, 11])  # y = 2x + 1
+
+weights, bias = train(X, y)
+print("Weights:", weights)
+print("Bias:", bias)
+
+y_pred = predict(X, weights, bias)
+print("Predictions:", y_pred)
+</code>
+          </pre>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <script>
+  function copyToClipboard(button, event) {
+    event.stopPropagation();
+    const pre = button.previousElementSibling;
+    const code = pre.querySelector('code').innerText;
+    
+    navigator.clipboard.writeText(code).then(() => {
+      const span = button.querySelector('span');
+      const originalText = span.innerText;
+      span.innerText = "Copied!";
+      setTimeout(() => (span.innerText = originalText), 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+</script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

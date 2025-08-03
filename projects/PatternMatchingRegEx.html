@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regex Pattern Matcher - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h2 class="h2 article-title">Regex Demo</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            Master regular expressions with this comprehensive tool. Test patterns, learn syntax, and understand matches with detailed explanations - perfect for beginners and experts alike.
+          </p>
+        </section>
+
+        <!-- Live Regex Tester -->
+        <section class="service">
+          <div class="regex-tester content-card" style="margin-bottom: 40px;">
+            <h3 class="h3 service-title" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Live Regex Tester</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+              <div>
+                <label style="display: block; margin-bottom: 10px;">
+                  <strong style="color: white;">Regex Pattern:</strong>
+                  <input type="text" id="regexPattern" placeholder="e.g. \\d+" class="form-input" style="margin-top: 5px;" />
+                </label>
+                
+                <label style="display: block; margin-bottom: 10px;">
+                  <strong style="color: white;">Flags:</strong>
+                  <div style="display: flex; gap: 10px; margin-top: 5px; color: var(--orange-yellow-crayola);">
+                    <label><input type="checkbox" id="flagG"> g (global)</label>
+                    <label><input type="checkbox" id="flagI"> i (ignore case)</label>
+                    <label><input type="checkbox" id="flagM"> m (multiline)</label>
+                    <label><input type="checkbox" id="flagS"> s (dotall)</label>
+                  </div>
+                </label>
+              </div>
+              
+              <div>
+                <!-- <label style="display: block; margin-bottom: 10px;">
+                  <strong>Quick Patterns:</strong>
+                  <select id="quickPatterns" class="form-input" style="margin-top: 5px;">
+                    <option value="">Select a pattern...</option>
+                    <option value="\\d+">Numbers (\\d+)</option>
+                    <option value="\\w+">Words (\\w+)</option>
+                    <option value="[a-zA-Z]+">Letters only ([a-zA-Z]+)</option>
+                    <option value="\\b\\w+@\\w+\\.\\w+\\b">Email (\\b\\w+@\\w+\\.\\w+\\b)</option>
+                    <option value="\\b\\d{3}-\\d{3}-\\d{4}\\b">Phone (\\b\\d{3}-\\d{3}-\\d{4}\\b)</option>
+                    <option value="https?://[^\\s]+">URL (https?://[^\\s]+)</option>
+                    <option value="^[A-Z][a-z]+">Capitalized words (^[A-Z][a-z]+)</option>
+                    <option value="\\b\\d{1,2}/\\d{1,2}/\\d{4}\\b">Date MM/DD/YYYY</option>
+                  </select>
+                </label> -->
+                
+                <div style="margin-top: 10px;">
+                  <strong style="color: white;">Match Info:</strong>
+                  <div id="matchInfo" style="background: var(--eerie-black-1); padding: 10px; border-radius: 8px; color: var(--light-gray); font-size: 14px; min-height: 40px;">
+                    <em style="color: gray;">Pattern info will appear here...</em>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <label style="display: block; margin-top: 20px;">
+              <strong style="color: white;">Test String:</strong>
+              <textarea id="testString" rows="6" class="form-input" placeholder="Enter your test string here..." style="margin-top: 5px; font-family: monospace;"></textarea>
+            </label>
+
+            <div style="margin-top: 20px;">
+              <strong style="color: white;">Results:</strong>
+              <div id="regexOutput" style="margin-top: 10px; background: var(--eerie-black-1); padding: 15px; border-radius: 8px; color: var(--light-gray); min-height: 60px;">
+                <em style="color: gray;">Matches will appear here with highlighting...</em>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+              <strong style="color: white;">Match Details:</strong>
+              <div id="matchDetails" style="margin-top: 10px; background: var(--eerie-black-1); padding: 15px; border-radius: 8px; color: var(--light-gray); min-height: 60px;">
+                <em style="color: gray;">Detailed match information will appear here...</em>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Search Patterns -->
+        <!-- <section class="contact-form">
+          <h3 class="h3 form-title">Search Patterns</h3>
+          <form class="form" data-form>
+            <div class="input-wrapper">
+              <input type="text" name="search" class="form-input" placeholder="Search regex patterns and explanations..." required data-form-input>
+            </div>
+          </form>
+        </section> -->
+
+        <!-- Regex Patterns & Examples -->
+        <section class="service">
+          <h3 class="h3 service-title">Complete Regex Reference</h3>
+          
+          <!-- Basic Character Classes -->
+          <h4 class="h4" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Basic Character Classes</h4>
+          
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="calculator-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">\\d — Digit Character</h4>
+              <p class="service-item-text">Matches any digit from 0 to 9. Equivalent to [0-9]</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>\\d</code> matches: "5" in "Room 5"</li>
+                  <li><code>\\d+</code> matches: "42" in "Room 42"</li>
+                  <li><code>\\d{3}</code> matches: "123" in "Call 123-456"</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"Room 42".match(/\\d+/g)  // ["42"]
+"Call 123-456-7890".match(/\\d/g)  // ["1","2","3","4","5","6","7","8","9","0"]
+
+// Python
+import re
+re.findall(r"\\d+", "Room 42")  # ['42']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="text-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">\\w — Word Character</h4>
+              <p class="service-item-text">Matches letters, digits, and underscores. Equivalent to [a-zA-Z0-9_]</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>\\w</code> matches each: "a", "B", "3", "_" in "aB3_"</li>
+                  <li><code>\\w+</code> matches: "hello_world123" as one match</li>
+                  <li><code>\\w{5}</code> matches exactly 5 word characters</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"hello_world123!".match(/\\w+/g)  // ["hello_world123"]
+"user@domain.com".match(/\\w+/g)  // ["user", "domain", "com"]
+
+// Python
+re.findall(r"\\w+", "hello_world123!")  # ['hello_world123']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="albums-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">\\s — Whitespace Character</h4>
+              <p class="service-item-text">Matches spaces, tabs, newlines, and other whitespace characters</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>\\s</code> matches: space in "hello world"</li>
+                  <li><code>\\s+</code> matches: multiple spaces/tabs together</li>
+                  <li><code>\\s*</code> matches: zero or more whitespace</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"hello   world\\t\\ntest".match(/\\s+/g)  // ["   ", "\\t\\n"]
+"word1 word2".split(/\\s+/)  // ["word1", "word2"]
+
+// Python
+re.split(r"\\s+", "word1   word2\\tword3")  # ['word1', 'word2', 'word3']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Anchors -->
+          <h4 class="h4" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Anchors & Boundaries</h4>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="play-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">^ — Start of String/Line</h4>
+              <p class="service-item-text">Matches the beginning of a string or line (with multiline flag)</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>^Hello</code> matches "Hello" only at start</li>
+                  <li><code>^\\d+</code> matches numbers at beginning</li>
+                  <li>With 'm' flag: matches start of each line</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"Hello World".match(/^Hello/)  // ["Hello"]
+"World Hello".match(/^Hello/)  // null
+"Line1\\nLine2".match(/^Line/gm)  // ["Line", "Line"]
+
+// Python
+re.match(r"^Hello", "Hello World")  # Match object
+re.match(r"^Hello", "World Hello")  # None</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="stop-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">$ — End of String/Line</h4>
+              <p class="service-item-text">Matches the end of a string or line (with multiline flag)</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>World$</code> matches "World" only at end</li>
+                  <li><code>\\d+$</code> matches numbers at end</li>
+                  <li>With 'm' flag: matches end of each line</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"Hello World".match(/World$/)  // ["World"]
+"World Hello".match(/World$/)  // null
+"End1\\nEnd2".match(/\\d$/gm)  // ["1", "2"]
+
+// Python
+re.search(r"World$", "Hello World")  # Match object
+re.search(r"World$", "World Hello")  # None</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="contract-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">\\b — Word Boundary</h4>
+              <p class="service-item-text">Matches the boundary between word and non-word characters</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>\\bcat\\b</code> matches "cat" as whole word only</li>
+                  <li><code>\\btest</code> matches "test" at word start</li>
+                  <li><code>ing\\b</code> matches "ing" at word end</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"cat catch".match(/\\bcat\\b/g)  // ["cat"] (not "cat" in "catch")
+"testing test".match(/\\btest/g)  // ["test"] (only the second one)
+"running jumping".match(/ing\\b/g)  // ["ing", "ing"]
+
+// Python
+re.findall(r"\\bcat\\b", "cat catch")  # ['cat']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quantifiers -->
+          <h4 class="h4" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Quantifiers</h4>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="infinite-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">* — Zero or More</h4>
+              <p class="service-item-text">Matches zero or more repetitions of the preceding element</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>ab*</code> matches "a", "ab", "abb", "abbb"</li>
+                  <li><code>\\d*</code> matches zero or more digits</li>
+                  <li><code>.*</code> matches any characters (greedy)</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"a ab abb abbb".match(/ab*/g)  // ["a", "ab", "abb", "abbb"]
+"123 abc 456".match(/\\d*/g)  // ["123", "", "", "", "456", ""]
+
+// Python
+re.findall(r"ab*", "a ab abb abbb")  # ['a', 'ab', 'abb', 'abbb']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="add-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">+ — One or More</h4>
+              <p class="service-item-text">Matches one or more repetitions of the preceding element</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>ab+</code> matches "ab", "abb", "abbb" (not "a")</li>
+                  <li><code>\\d+</code> matches one or more digits</li>
+                  <li><code>.+</code> matches any characters (at least one)</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"a ab abb abbb".match(/ab+/g)  // ["ab", "abb", "abbb"] (no "a")
+"123 abc 456".match(/\\d+/g)  // ["123", "456"]
+
+// Python
+re.findall(r"ab+", "a ab abb abbb")  # ['ab', 'abb', 'abbb']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="help-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">? — Zero or One (Optional)</h4>
+              <p class="service-item-text">Matches zero or one occurrence of the preceding element</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>colou?r</code> matches "color" and "colour"</li>
+                  <li><code>https?</code> matches "http" and "https"</li>
+                  <li><code>\\d?</code> matches zero or one digit</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"color colour".match(/colou?r/g)  // ["color", "colour"]
+"http https".match(/https?/g)  // ["http", "https"]
+
+// Python
+re.findall(r"colou?r", "color colour")  # ['color', 'colour']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="repeat-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">{n,m} — Specific Quantifier</h4>
+              <p class="service-item-text">Matches between n and m repetitions (inclusive)</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>\\d{3}</code> matches exactly 3 digits</li>
+                  <li><code>\\d{2,4}</code> matches 2 to 4 digits</li>
+                  <li><code>\\d{3,}</code> matches 3 or more digits</li>
+                  <li><code>a{0,2}</code> matches 0, 1, or 2 "a"s</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"12 123 1234 12345".match(/\\d{3}/g)  // ["123", "123", "123"]
+"12 123 1234 12345".match(/\\d{2,4}/g)  // ["12", "123", "1234", "1234"]
+
+// Python
+re.findall(r"\\d{3}", "12 123 1234 12345")  # ['123', '123', '123']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Character Sets -->
+          <h4 class="h4" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Character Sets & Classes</h4>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="list-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">[abc] — Character Set</h4>
+              <p class="service-item-text">Matches any one character from the set</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>[aeiou]</code> matches any vowel</li>
+                  <li><code>[0-9]</code> matches any digit (same as \\d)</li>
+                  <li><code>[a-zA-Z]</code> matches any letter</li>
+                  <li><code>[a-z0-9]</code> matches lowercase letters or digits</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"hello world".match(/[aeiou]/g)  // ["e", "o", "o"]
+"abc123XYZ".match(/[a-z]/g)  // ["a", "b", "c"]
+"Test123".match(/[A-Z0-9]/g)  // ["T", "1", "2", "3"]
+
+// Python
+re.findall(r"[aeiou]", "hello world")  # ['e', 'o', 'o']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="remove-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">[^abc] — Negated Character Set</h4>
+              <p class="service-item-text">Matches any character NOT in the set</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>[^aeiou]</code> matches any consonant</li>
+                  <li><code>[^0-9]</code> matches any non-digit</li>
+                  <li><code>[^a-zA-Z]</code> matches any non-letter</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"hello".match(/[^aeiou]/g)  // ["h", "l", "l"]
+"abc123".match(/[^0-9]/g)  // ["a", "b", "c"]
+"Test!123".match(/[^a-zA-Z0-9]/g)  // ["!"]
+
+// Python
+re.findall(r"[^aeiou]", "hello")  # ['h', 'l', 'l']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Special Characters -->
+          <h4 class="h4" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Special Characters</h4>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="ellipse-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">. — Any Character (Dot)</h4>
+              <p class="service-item-text">Matches any character except newline (unless dotall flag is used)</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>h.t</code> matches "hat", "hot", "hit", "h@t"</li>
+                  <li><code>...</code> matches any 3 characters</li>
+                  <li><code>a.+a</code> matches "a" + anything + "a"</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"hat hot hit h@t".match(/h.t/g)  // ["hat", "hot", "hit", "h@t"]
+"abc def".match(/.../g)  // ["abc", " de"]
+
+// Python
+re.findall(r"h.t", "hat hot hit h@t")  # ['hat', 'hot', 'hit', 'h@t']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="git-branch-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">| — Alternation (OR)</h4>
+              <p class="service-item-text">Matches either the expression before or after the |</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>cat|dog</code> matches "cat" or "dog"</li>
+                  <li><code>yes|no|maybe</code> matches any of the three</li>
+                  <li><code>(Mr|Mrs|Ms)\\. \\w+</code> matches titles with names</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+"I have a cat and a dog".match(/cat|dog/g)  // ["cat", "dog"]
+"yes no maybe".match(/yes|no|maybe/g)  // ["yes", "no", "maybe"]
+
+// Python
+re.findall(r"cat|dog", "I have a cat and a dog")  # ['cat', 'dog']</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Groups -->
+          <h4 class="h4" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Groups & Capturing</h4>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="albums-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">() — Capturing Group</h4>
+              <p class="service-item-text">Groups expressions and captures the matched text</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong style="color: #ffdb70;">Examples:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li><code>(\\d{3})-(\\d{3})-(\\d{4})</code> captures phone parts</li>
+                  <li><code>(Mr|Mrs)\\. (\\w+)</code> captures title and name</li>
+                  <li><code>(\\w+)@(\\w+\\.\\w+)</code> captures email parts</li>
+                </ul>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+const match = "123-456-7890".match(/(\\d{3})-(\\d{3})-(\\d{4})/)
+// match[0]: "123-456-7890" (full match)
+// match[1]: "123" (first group)
+// match[2]: "456" (second group)
+// match[3]: "7890" (third group)
+
+// Python
+match = re.search(r"(\\d{3})-(\\d{3})-(\\d{4})", "123-456-7890")
+# match.group(0): "123-456-7890"
+# match.group(1): "123"</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Common Patterns -->
+          <h4 class="h4" style="margin: 30px 0 20px 0; color: var(--orange-yellow-crayola);">Common Patterns</h4>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="mail-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">Email Validation</h4>
+              <p class="service-item-text">Pattern to match email addresses</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong>Simple Pattern:</strong> <code>\\w+@\\w+\\.\\w+</code></p>
+                <p><strong>More Complete:</strong> <code>[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}</code></p>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g
+"Contact: john@example.com or jane.doe@company.org".match(emailPattern)
+// ["john@example.com", "jane.doe@company.org"]
+
+// Python
+email_pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+re.findall(email_pattern, "Contact: john@example.com")</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="call-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">Phone Number</h4>
+              <p class="service-item-text">Pattern to match US phone numbers</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong>Pattern:</strong> <code>\\(?\\d{3}\\)?[-. ]?\\d{3}[-. ]?\\d{4}</code></p>
+                <p><strong>Matches:</strong> (123) 456-7890, 123-456-7890, 123.456.7890, 1234567890</p>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+const phonePattern = /\\(?\\d{3}\\)?[-. ]?\\d{3}[-. ]?\\d{4}/g
+"Call (123) 456-7890 or 987-654-3210".match(phonePattern)
+// ["(123) 456-7890", "987-654-3210"]
+
+// Python
+phone_pattern = r"\\(?\\d{3}\\)?[-. ]?\\d{3}[-. ]?\\d{4}"
+re.findall(phone_pattern, "Call (123) 456-7890")</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-item content-card" style="cursor: pointer; margin-bottom: 20px;" onclick="toggleDetails(this)">
+            <div class="service-icon-box">
+              <ion-icon name="link-outline" style="color: var(--orange-yellow-crayola);"></ion-icon>
+            </div>
+            <div class="service-content-box">
+              <h4 class="h4 service-item-title">URL Pattern</h4>
+              <p class="service-item-text">Pattern to match web URLs</p>
+              <div class="details-content" style="display: none; margin-top: 15px;">
+                <p><strong>Simple:</strong> <code>https?://[^\\s]+</code></p>
+                <p><strong>More Complete:</strong> <code>https?://(?:[-\\w.])+(?:[:\\d]+)?(?:/(?:[\\w/_.])*(?:\\?(?:[\\w&=%.])*)?(?:#(?:[\\w.])*)?)?</code></p>
+                <pre style="background: var(--eerie-black-1); padding: 15px; border-radius: 8px; overflow-x: auto; color: var(--light-gray);"><code>// JavaScript
+const urlPattern = /https?:\\/\\/[^\\s]+/g
+"Visit https://example.com or http://test.org".match(urlPattern)
+// ["https://example.com", "http://test.org"]
+
+// Python
+url_pattern = r"https?://[^\\s]+"
+re.findall(url_pattern, "Visit https://example.com")</code></pre>
+                <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
+                  <span>Copy Code</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <script>
+    // Regex tester functionality
+    const regexPatternInput = document.getElementById('regexPattern');
+    const flagG = document.getElementById('flagG');
+    const flagI = document.getElementById('flagI');
+    const flagM = document.getElementById('flagM');
+    const flagS = document.getElementById('flagS');
+    const testStringInput = document.getElementById('testString');
+    const outputBox = document.getElementById('regexOutput');
+    const matchInfo = document.getElementById('matchInfo');
+    const matchDetails = document.getElementById('matchDetails');
+    const quickPatterns = document.getElementById('quickPatterns');
+
+    // Quick pattern selection
+    quickPatterns.addEventListener('change', function() {
+      if (this.value) {
+        regexPatternInput.value = this.value;
+        updateRegexOutput();
+        updatePatternInfo();
+      }
+    });
+
+    function getFlags() {
+      let flags = '';
+      if (flagG.checked) flags += 'g';
+      if (flagI.checked) flags += 'i';
+      if (flagM.checked) flags += 'm';
+      if (flagS.checked) flags += 's';
+      return flags;
+    }
+
+    function updatePatternInfo() {
+      const pattern = regexPatternInput.value;
+      if (!pattern) {
+        matchInfo.innerHTML = '<em style="color: gray;">Pattern info will appear here...</em>';
+        return;
+      }
+
+      const explanations = {
+        '\\\\d+': 'Matches one or more digits (0-9)',
+        '\\\\w+': 'Matches one or more word characters (letters, digits, underscore)',
+        '[a-zA-Z]+': 'Matches one or more letters (uppercase or lowercase)',
+        '\\\\b\\\\w+@\\\\w+\\\\.\\\\w+\\\\b': 'Matches email addresses (basic pattern)',
+        '\\\\b\\\\d{3}-\\\\d{3}-\\\\d{4}\\\\b': 'Matches US phone numbers (XXX-XXX-XXXX format)',
+        'https?://[^\\\\s]+': 'Matches HTTP and HTTPS URLs',
+        '^[A-Z][a-z]+': 'Matches words that start with uppercase letter',
+        '\\\\b\\\\d{1,2}/\\\\d{1,2}/\\\\d{4}\\\\b': 'Matches dates in MM/DD/YYYY format'
+      };
+
+      const explanation = explanations[pattern] || 'Custom regex pattern';
+      matchInfo.innerHTML = `<strong>Pattern:</strong> ${pattern}<br><strong>Explanation:</strong> ${explanation}`;
+    }
+
+    function updateRegexOutput() {
+      const pattern = regexPatternInput.value;
+      const flags = getFlags();
+      const testStr = testStringInput.value;
+
+      if (!pattern) {
+        outputBox.innerHTML = '<em style="color: gray;">Enter a pattern to see matches...</em>';
+        matchDetails.innerHTML = '<em style="color: gray;">Match details will appear here...</em>';
+        return;
+      }
+
+      if (!testStr) {
+        outputBox.innerHTML = '<em style="color: gray;">Enter test string to see matches...</em>';
+        matchDetails.innerHTML = '<em style="color: gray;">Match details will appear here...</em>';
+        return;
+      }
+
+      try {
+        const regex = new RegExp(pattern, flags);
+        const matches = [...testStr.matchAll(regex)];
+
+        if (matches.length === 0) {
+          outputBox.innerHTML = `<em style="color: #ff6b6b;">No matches found</em>`;
+          matchDetails.innerHTML = `<strong>Result:</strong> No matches found for pattern "${pattern}"`;
+          return;
+        }
+
+        // Highlight matches
+        let highlighted = testStr;
+        const colors = ['#8be9fd88', '#50fa7b88', '#ffb86c88', '#ff79c688', '#bd93f988'];
+        
+        matches.reverse().forEach((match, index) => {
+          const start = match.index;
+          const end = start + match[0].length;
+          const color = colors[index % colors.length];
+          highlighted = highlighted.slice(0, start) +
+            `<mark style="background-color: ${color}; padding: 2px 4px; border-radius: 3px;">${highlighted.slice(start, end)}</mark>` +
+            highlighted.slice(end);
+        });
+
+        outputBox.innerHTML = highlighted;
+
+        // Show match details
+        let details = `<strong>Found ${matches.length} match${matches.length > 1 ? 'es' : ''}:</strong><br><br>`;
+        matches.reverse().forEach((match, index) => {
+          details += `<strong>Match ${index + 1}:</strong> "${match[0]}" at position ${match.index}-${match.index + match[0].length - 1}<br>`;
+          if (match.length > 1) {
+            details += `<strong>Groups:</strong><br>`;
+            for (let i = 1; i < match.length; i++) {
+              details += `&nbsp;&nbsp;Group ${i}: "${match[i]}"<br>`;
+            }
+          }
+          details += '<br>';
+        });
+
+        matchDetails.innerHTML = details;
+
+      } catch (e) {
+        outputBox.innerHTML = `<span style="color: #ff5555;">Error: ${e.message}</span>`;
+        matchDetails.innerHTML = `<span style="color: #ff5555;">Pattern Error: ${e.message}</span>`;
+      }
+    }
+
+    // Event listeners
+    [regexPatternInput, testStringInput].forEach(el =>
+      el.addEventListener('input', () => {
+        updateRegexOutput();
+        updatePatternInfo();
+      })
+    );
+
+    [flagG, flagI, flagM, flagS].forEach(flag =>
+      flag.addEventListener('change', updateRegexOutput)
+    );
+
+    // Other functionality
+    function toggleDetails(element) {
+      const details = element.querySelector('.details-content');
+      const isVisible = details.style.display !== 'none';
+      details.style.display = isVisible ? 'none' : 'block';
+    }
+
+    function copyToClipboard(button, event) {
+      event.stopPropagation();
+      const code = button.previousElementSibling.querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const span = button.querySelector('span');
+        const originalText = span.innerText;
+        span.innerText = "Copied!";
+        setTimeout(() => (span.innerText = originalText), 2000);
+      });
+    }
+
+    // Search functionality
+    document.querySelector('input[name="search"]').addEventListener('input', function () {
+      const searchValue = this.value.toLowerCase();
+      document.querySelectorAll('.service-item').forEach(item => {
+        const title = item.querySelector('.service-item-title').textContent.toLowerCase();
+        const text = item.querySelector('.service-item-text').textContent.toLowerCase();
+        const shouldShow = title.includes(searchValue) || text.includes(searchValue);
+        item.style.display = shouldShow ? 'flex' : 'none';
+      });
+    });
+
+    // Sample data for testing
+    const sampleData = `John Doe - john.doe@example.com - (555) 123-4567
+Jane Smith - jane@company.org - 555-987-6543
+Visit https://www.example.com or http://test.org
+Dates: 12/25/2023, 01/01/2024, 3/15/2024
+Numbers: 123, 4567, 89012
+Mixed: Test123, hello_world, CAPS123`;
+
+    // Set sample data
+    testStringInput.value = sampleData;
+  </script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

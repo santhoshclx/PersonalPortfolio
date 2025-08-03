@@ -1,0 +1,217 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regular Expressions Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #ffa726;
+    }
+    section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #1e1e1e;
+      border-radius: 8px;
+    }
+    pre {
+      background: #2d2d2d;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    .copy-btn {
+      float: right;
+      margin-top: -2.2rem;
+      margin-right: 1rem;
+      padding: 0.3rem 0.6rem;
+      background: #ffa726;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    input[type="text"] {
+      background-color: #2d2d2d;
+      color: #ffffff;
+      border: 1px solid #555;
+      padding: 0.5rem;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>📘 Regular Expressions Guide</h1>
+  <p>A beginner-friendly guide with syntax, definitions, and examples for common regex patterns.</p>
+
+  <section>
+    <h2>\d – Match Any Digit</h2>
+    <p>Matches any digit from 0 to 9.</p>
+    <pre><code class="language-python">import re
+print(re.findall(r"\d", "abc123def"))  # ['1', '2', '3']
+print(re.findall(r"\d+", "abc123def456"))  # ['123', '456']</code></pre>
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+  </section>
+
+  <section>
+    <h2>\w – Match Word Character</h2>
+    <p>Matches any alphanumeric character (a-z, A-Z, 0-9) and underscore (_).</p>
+    <pre><code class="language-python">import re
+print(re.findall(r"\w", "Hi_123!"))  # ['H', 'i', '_', '1', '2', '3']
+print(re.findall(r"\w+", "Hello world_123!"))  # ['Hello', 'world_123']</code></pre>
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+  </section>
+
+  <section>
+    <h2>\s – Match Whitespace</h2>
+    <p>Matches any whitespace character (spaces, tabs, newlines).</p>
+    <pre><code class="language-python">import re
+print(re.findall(r"\s", "a b\tc\n"))  # [' ', '\t', '\n']
+print(re.findall(r"\s+", "word1   word2\tword3"))  # ['   ', '\t']</code></pre>
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+  </section>
+
+  <section>
+    <h2>. – Match Any Character</h2>
+    <p>Matches any single character except newline (\n).</p>
+    <pre><code class="language-python">import re
+print(re.findall(r".", "abc"))  # ['a', 'b', 'c']
+print(re.findall(r"..", "abcdef"))  # ['ab', 'cd', 'ef']</code></pre>
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+  </section>
+
+  <section>
+    <h2>^ and $ – Start and End Anchors</h2>
+    <p>^ matches the start of a line, and $ matches the end.</p>
+    <pre><code class="language-python">import re
+print(re.findall(r"^Hello", "Hello world"))  # ['Hello']
+print(re.findall(r"world$", "Hello world"))  # ['world']</code></pre>
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    function copyCode(button) {
+      const code = button.previousElementSibling.textContent;
+      navigator.clipboard.writeText(code);
+      button.textContent = "Copied!";
+      setTimeout(() => button.textContent = "Copy", 2000);
+    }
+  </script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regular Expressions Guide - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h2 class="h2 article-title">Regular Expressions Guide</h2>
+        </header>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Introduction</h3>
+          <p>
+            Regular Expressions (regex or regexp) are patterns used to match character combinations in strings. They're powerful tools for text processing and data validation in many programming languages.
+          </p>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Basic Syntax</h3>
+          <p>
+            A regex pattern is composed of normal characters and metacharacters. Here's a breakdown:
+          </p>
+          <ul class="service-list">
+            <li><strong>.</strong> – Matches any single character except newline.</li>
+            <li><strong>^</strong> – Matches the beginning of a string.</li>
+            <li><strong>$</strong> – Matches the end of a string.</li>
+            <li><strong>*</strong> – Matches 0 or more repetitions.</li>
+            <li><strong>+</strong> – Matches 1 or more repetitions.</li>
+            <li><strong>?</strong> – Matches 0 or 1 repetition.</li>
+            <li><strong>[]</strong> – Matches any one character in the set.</li>
+            <li><strong>()</strong> – Groups sub-patterns.</li>
+            <li><strong>|</strong> – Acts like OR.</li>
+            <li><strong>\</strong> – Escapes a special character.</li>
+          </ul>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Regular Expressions in Python</h3>
+          <p>
+            Python provides the <code>re</code> module to work with regular expressions:
+          </p>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
+<code>import re
+
+pattern = r"\d+"
+text = "There are 24 apples and 18 bananas."
+
+matches = re.findall(pattern, text)
+print(matches)  # Output: ['24', '18']</code>
+          </pre>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Regular Expressions in JavaScript</h3>
+          <p>
+            JavaScript has built-in support for regex with <code>RegExp</code> and regex literals:
+          </p>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
+<code>const text = "Price: $120 and $85";
+const pattern = /\$\d+/g;
+const matches = text.match(pattern);
+console.log(matches);  // Output: ['$120', '$85']</code>
+          </pre>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Regular Expression Tools</h3>
+          <ul>
+            <li><a href="https://regex101.com" target="_blank">regex101.com</a> – Test and explain your regex patterns interactively.</li>
+            <li><a href="https://regexr.com" target="_blank">regexr.com</a> – Regex testing and reference site.</li>
+            <li><a href="https://www.regextester.com/" target="_blank">regextester.com</a> – A basic online regex tester.</li>
+          </ul>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Additional Resources</h3>
+          <ul>
+            <li><a href="https://docs.python.org/3/library/re.html" target="_blank">Python re module documentation</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions" target="_blank">MDN Regex Guide for JavaScript</a></li>
+            <li><a href="https://www.regular-expressions.info/" target="_blank">regular-expressions.info</a> – In-depth regex reference and tutorials.</li>
+          </ul>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

@@ -24,7 +24,7 @@
         </section>
 
         <section class="service">
-          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Key Concepts</h3>
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🔑 Key Concepts</h3>
           <ul class="service-list">
             <li class="service-item">
               <div class="service-icon-box">
@@ -74,55 +74,113 @@
         </section>
 
         <section class="about-text">
-          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Technologies Used</h3>
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📖 Technologies Used</h3>
           <p>
             Python, NumPy for numerical operations, Matplotlib for plotting. No machine learning libraries are used to maintain clarity of the algorithm.
           </p>
         </section>
 
         <section class="about-text">
-          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Code</h3>
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🚀 Full Implementation with CSV Dataset</h3>
+          <p>
+            Below is a complete implementation that loads data from a CSV file (<code>training_set.csv</code>), applies gradient descent, and plots the regression line.
+          </p>
           <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
 <code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
-# Mean Squared Error
-def mse(y_true, y_pred):
-    return np.mean((y_true - y_pred)**2)
+# -----------------------------
+# Step 1: Load Training Dataset
+# -----------------------------
+training_set = pd.read_csv("training_set.csv")
 
-# Prediction
-def predict(X, weights, bias):
-    return np.dot(X, weights) + bias
+x_train = training_set["YearsExperience"].values   # Input feature
+y_train = training_set["Salary"].values            # Target values
 
-# Training using Gradient Descent
-def train(X, y, lr=0.01, epochs=1000):
-    n_samples, n_features = X.shape
-    weights = np.zeros(n_features)
-    bias = 0
+# Visualize data points
+plt.scatter(x_train, y_train)
+plt.xlabel("YearsExperience")
+plt.ylabel("Salary")
+plt.show()
 
-    for _ in range(epochs):
-        y_pred = predict(X, weights, bias)
-        dw = -(2/n_samples) * np.dot(X.T, (y - y_pred))
-        db = -(2/n_samples) * np.sum(y - y_pred)
+# -----------------------------
+# Step 2: Cost Function (MSE)
+# -----------------------------
+def cost_function(x, y, w, b):
+    m = len(x)
+    cost_sum = 0
+    for i in range(m):
+        f = w * x[i] + b   # Prediction
+        cost = (f - y[i]) ** 2
+        cost_sum += cost
+    total_cost = (1/(2*m)) * cost_sum
+    return total_cost
 
-        weights -= lr * dw
-        bias -= lr * db
+# -----------------------------
+# Step 3: Gradient Calculation
+# -----------------------------
+def gradient_function(x, y, w, b):
+    m = len(x)
+    dc_dw = 0
+    dc_db = 0
+    for i in range(m):
+        f = w * x[i] + b
+        dc_dw += (f - y[i]) * x[i]
+        dc_db += (f - y[i])
+    dc_dw = (1/m) * dc_dw
+    dc_db = (1/m) * dc_db
+    return dc_dw, dc_db
 
-    return weights, bias</code>
-          </pre>
+# -----------------------------
+# Step 4: Gradient Descent Loop
+# -----------------------------
+def gradient_descent(x, y, alpha, iterations):
+    w = 0
+    b = 0
+    for i in range(iterations):
+        dc_dw, dc_db = gradient_function(x, y, w, b)
+        w = w - alpha * dc_dw
+        b = b - alpha * dc_db
+        # Optional: Uncomment below to track cost every 10000 iterations
+        # if i % 10000 == 0:
+        #     print(f"Iteration {i}: Cost {cost_function(x, y, w, b)}")
+    return w, b
+
+# -----------------------------
+# Step 5: Train Model
+# -----------------------------
+learning_rate = 0.01
+iterations = 100000
+final_w, final_b = gradient_descent(x_train, y_train, learning_rate, iterations)
+
+print(f"w: {final_w:.4f}, b: {final_b:.4f}")
+
+# -----------------------------
+# Step 6: Plot Regression Line
+# -----------------------------
+plt.scatter(x_train, y_train, label='Data Points')
+x_vals = np.linspace(min(x_train), max(x_train), 100)
+y_vals = final_w * x_vals + final_b
+plt.plot(x_vals, y_vals, color='red', label='Regression Line')
+plt.xlabel("YearsExperience")
+plt.ylabel("Salary")
+plt.legend()
+plt.show()</code></pre>
           <!-- <button class="form-btn" style="margin-top: 10px; padding: 8px 16px;" onclick="copyToClipboard(this, event)">
             <span>Copy Code</span>
           </button> -->
         </section>
 
         <section class="about-text">
-          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">How to Use</h3>
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">⚙️ How to Use</h3>
           <p>
             Prepare your data in NumPy arrays, then pass them into the <code>train()</code> function. After training, use the returned weights and bias to make predictions.
           </p>
         </section>
 
         <section class="about-text">
-          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Example</h3>
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🧮 Example</h3>
           <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
 <code># Example usage
 X = np.array([[1], [2], [3], [4], [5]])
@@ -133,9 +191,14 @@ print("Weights:", weights)
 print("Bias:", bias)
 
 y_pred = predict(X, weights, bias)
-print("Predictions:", y_pred)
-</code>
-          </pre>
+print("Predictions:", y_pred)</code></pre>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🧑‍💻 Code</h3>
+          <p>
+            <b>GitHub: <u style="color: var(--orange-yellow-crayola);"><a href="https://github.com/santhoshclx/LinearRegressionFromScratch" target="_blank" style="color: var(--orange-yellow-crayola);">Linear Regression From Scratch</a><br></u></b>
+          </p>
         </section>
 
       </article>

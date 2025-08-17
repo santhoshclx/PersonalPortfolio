@@ -660,6 +660,10 @@
             </li>
 
             <li class="filter-item">
+                <button data-select-item>Cloud computing</button>
+            </li>
+      
+            <li class="filter-item">
               <button data-filter-btn>Web development</button>
             </li>
           </ul>
@@ -683,6 +687,10 @@
 
               <li class="select-item">
                 <button data-select-item>Applications</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Cloud computing</button>
               </li>
 
               <li class="select-item">
@@ -728,6 +736,19 @@
                 </figure>
                 <h3 class="project-title">Personal Portfolio Website</h3>
                 <p class="project-category">Web development</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="Cloud computing">
+              <a href="#" onclick="loadProjectContent('./projects/AWSCodePipelineCICD.html'); return false;">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/project-8.jpg" alt="AWS CodePipeline (CI/CD) with CloudFormation" loading="lazy">
+                </figure>
+                <h3 class="project-title">AWS CodePipeline (CI/CD) with CloudFormation</h3>
+                <p class="project-category">Cloud computing</p>
               </a>
             </li>
 
@@ -880,6 +901,63 @@
                   <h3 class="h3 blog-item-title">Regular Expressions Guide</h3>
                   <p class="blog-text">
                     Regular expressions (regex or regexp) are powerful tools for pattern matching in text.
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#" onclick="loadProjectContent('./blogs/AWSCloudWatchAgent.html'); return false;">
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-2.jpg" alt="AWS CloudWatch Agent Guide" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+                    <span class="dot"></span>
+                    <time datetime="2022-02-23">Sept 09, 2022</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">AWS CloudWatch Agent Guide</h3>
+                  <p class="blog-text">
+                    Amazon CloudWatch Agent helps you collect system-level metrics and logs (CPU, memory, disk, and custom logs).
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#" onclick="loadProjectContent('./blogs/AWSSystemsManager.html'); return false;">
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-6.jpg" alt="Mastering AWS Systems Manager (SSM)" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+                    <span class="dot"></span>
+                    <time datetime="2022-02-23">Nov 18, 2022</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">Mastering AWS Systems Manager (SSM)</h3>
+                  <p class="blog-text">
+                    AWS Systems Manager (SSM) is a service that helps you manage your Amazon EC2 instances, on-premises servers, and virtual machines.
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#" onclick="loadProjectContent('./blogs/AWSCodePipeline.html'); return false;">
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-4.jpg" alt="AWS CodePipeline (CI/CD)" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+                    <span class="dot"></span>
+                    <time datetime="2022-02-23">Dec 25, 2022</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">AWS CodePipeline (CI/CD)</h3>
+                  <p class="blog-text">
+                    Continuous Integration and Continuous Delivery (CI/CD) help teams automate code build, test, and deployment processes.
                   </p>
                 </div>
               </a>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS CloudWatch Agent Guide - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h2 class="h2 article-title">AWS CloudWatch Agent Setup Guide</h2>
+        </header>
+
+        <!-- Overview -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📘 Overview</h3>
+          <p>
+            Amazon CloudWatch Agent helps you collect system-level metrics and logs (CPU, memory, disk, and custom logs)
+            from your Amazon EC2 instances or on-premises servers. This guide explains how to install, configure, and manage
+            the CloudWatch Agent step by step.
+          </p>
+        </section>
+
+        <!-- Prerequisites -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">⚙️ Prerequisites</h3>
+          <ul>
+            <li>An AWS account</li>
+            <li>IAM Role or IAM User with <code>CloudWatchAgentServerPolicy</code> attached</li>
+            <li>Amazon EC2 instance (Linux/Windows) or on-premises server</li>
+            <li>Basic knowledge of Linux/Windows commands</li>
+          </ul>
+        </section>
+
+        <!-- Installation -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📥 Installation</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto;">
+<code># For Amazon Linux / RHEL
+sudo yum install amazon-cloudwatch-agent
+
+# For Ubuntu / Debian
+sudo apt-get install amazon-cloudwatch-agent</code></pre>
+        </section>
+
+        <!-- Configure CloudWatch Agent -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🛠️ Configure the CloudWatch Agent</h3>
+          <p>
+            Use the CloudWatch Agent configuration wizard to generate a config file:
+          </p>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto;">
+<code>sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard</code></pre>
+        </section>
+
+        <!-- Start CloudWatch Agent -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">▶️ Start the CloudWatch Agent</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto;">
+<code>sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+    -a fetch-config \
+    -m ec2 \
+    -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json \
+    -s</code></pre>
+        </section>
+
+        <!-- Check Agent Status -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🔍 Check the status of the Agent</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto;">
+<code>sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a status</code></pre>
+        </section>
+
+        <!-- Manually edit config -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">✍️ Manually create or edit the CloudWatch config file</h3>
+          <p>
+            The CloudWatch Agent uses a JSON configuration file. You can manually edit it to customize metrics and logs.
+          </p>
+        </section>
+
+        <!-- Path to config file -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📂 Path to Config File</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto;">
+<code>/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json</code></pre>
+        </section>
+
+        <!-- Change permissions -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🔑 Change File Permissions</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto;">
+<code>sudo chown root:root /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+sudo chmod 644 /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json</code></pre>
+        </section>
+
+        <!-- Example Config -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📝 Example Config File</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto;">
+<code>{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "run_as_user": "root"
+  },
+  "metrics": {
+    "metrics_collected": {
+      "cpu": {
+        "measurement": ["usage_system", "usage_user"]
+      },
+      "mem": {
+        "measurement": ["mem_used_percent"]
+      },
+      "disk": {
+        "measurement": ["used_percent"],
+        "resources": ["*"]
+      }
+    }
+  }
+}</code></pre>
+        </section>
+
+        <!-- Official Docs -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📚 More Information</h3>
+          <p>
+            For the full guide and advanced configurations, see the
+            <u style="color: var(--orange-yellow-crayola);"><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html" target="_blank" style="color: var(--orange-yellow-crayola);">
+              AWS Official CloudWatch Agent Documentation
+            </a></u>
+          </p>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

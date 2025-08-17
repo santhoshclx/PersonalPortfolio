@@ -23,6 +23,23 @@
           </p>
         </section>
 
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📊 What is Linear Regression?</h3>
+          <p>
+            At its core, Linear Regression tries to <b>fit a straight line</b> through your data points.
+          </p>
+          <p>
+            The equation of a straight line is:
+            <h4><code>y = m x + c</code></h4>
+          </p>
+          <ul>
+            <li><b>y</b> → predicted output (Salary)</li>
+            <li><b>x</b> → input feature (Years of Experience)</li>
+            <li><b>m</b> → slope (how much Salary increases per year of experience)</li>
+            <li><b>c</b> → intercept (base Salary when Experience = 0)</li>
+          </ul>
+        </section>
+
         <section class="service">
           <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🔑 Key Concepts</h3>
           <ul class="service-list">
@@ -71,6 +88,35 @@
               </div>
             </li>
           </ul>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📉 The Cost Function (MSE)</h3>
+          <p>
+            Not every line will fit well. To measure error, we use <b>Mean Squared Error (MSE)</b>:
+          </p>
+          <p>
+            <h4><code>J(m, c) = (1/n) Σ (yᵢ – (m xᵢ + c))²</code></h4>
+          </p>
+          <p>
+            Our goal is to minimize this cost (make the line fit best).
+          </p>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🌄 Gradient Descent</h3>
+          <p>
+            Imagine standing on a hill and walking downhill step by step to reach the lowest valley.
+            That’s <b>Gradient Descent</b>!
+          </p>
+          <p>
+            Update rules:
+            <br><h4><code>m := m - α (∂J/∂m)</code><br>
+            <code>c := c - α (∂J/∂c)</code></h4>
+          </p>
+          <p>
+            Where <b>α</b> is the learning rate.
+          </p>
         </section>
 
         <section class="about-text">
@@ -195,33 +241,35 @@ print("Predictions:", y_pred)</code></pre>
         </section>
 
         <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📈 Results</h3>
+          <p>
+            After training, the line is approximately:
+            <code>Salary ≈ 5.2 × Experience + 35</code>
+          </p>
+          <p>
+            For 6 years experience: <b>$66,000</b>
+          </p>
+        </section>
+
+        <section class="about-text">
           <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🧑‍💻 Code</h3>
           <p>
-            <b>GitHub: <u style="color: var(--orange-yellow-crayola);"><a href="https://github.com/santhoshclx/LinearRegressionFromScratch" target="_blank" style="color: var(--orange-yellow-crayola);">Linear Regression From Scratch</a><br></u></b>
+            <b>GitHub: <u style="color: var(--orange-yellow-crayola);"><a href="https://github.com/santhoshclx/LinearRegressionFromScratch" target="_blank" style="color: var(--orange-yellow-crayola);">Linear Regression From Scratch</a></u></b>
           </p>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🚀 Why This Matters</h3>
+          <ul>
+            <li>Linear Regression is the <b>“Hello World”</b> of ML</li>
+            <li>Teaches cost functions, optimization, prediction</li>
+            <li>Foundation for Logistic Regression & Neural Nets</li>
+          </ul>
         </section>
 
       </article>
     </div>
   </main>
-
-  <script>
-  function copyToClipboard(button, event) {
-    event.stopPropagation();
-    const pre = button.previousElementSibling;
-    const code = pre.querySelector('code').innerText;
-    
-    navigator.clipboard.writeText(code).then(() => {
-      const span = button.querySelector('span');
-      const originalText = span.innerText;
-      span.innerText = "Copied!";
-      setTimeout(() => (span.innerText = originalText), 2000);
-    }).catch(err => {
-      console.error('Failed to copy: ', err);
-    });
-  }
-</script>
-
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

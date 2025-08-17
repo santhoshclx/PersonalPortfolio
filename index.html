@@ -5,12 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vCard - Personal Portfolio</title>
+  <title>Personal Portfolio</title>
 
   <!--
     - favicon
   -->
-  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
+  <!-- <link rel="shortcut icon" href="./assets/images/my-avatar.png" type="image/x-icon"> -->
 
   <!--
     - custom css link
@@ -122,11 +123,20 @@
             </a>
           </li>
 
+          <!-- <li class="social-item">
+            <a href="https://leetcode.com/u/santhoshkumar_r_" class="social-link">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" 
+                  alt="LeetCode" 
+                  style="width:24px; height:24px;">
+            </a>
+          </li> -->
+
           <li class="social-item">
             <a href="https://stackoverflow.com/users/19519874/santhoshkumar-r" class="social-link">
               <ion-icon name="logo-stackoverflow"></ion-icon>
             </a>
           </li>
+          
         </ul>
       </div>
     </aside>
@@ -636,13 +646,13 @@
         </header>
         <section class="projects">
 
-          <!-- <ul class="filter-list">
+          <ul class="filter-list">
             <li class="filter-item">
               <button class="active" data-filter-btn>All</button>
             </li>
 
             <li class="filter-item">
-              <button data-filter-btn>Web design</button>
+              <button data-filter-btn>AI/ML</button>
             </li>
 
             <li class="filter-item">
@@ -650,9 +660,13 @@
             </li>
 
             <li class="filter-item">
+                <button data-select-item>Cloud computing</button>
+            </li>
+      
+            <li class="filter-item">
               <button data-filter-btn>Web development</button>
             </li>
-          </ul> -->
+          </ul>
 
           <div class="filter-select-box">
             <button class="filter-select" data-select>
@@ -668,11 +682,15 @@
               </li>
 
               <li class="select-item">
-                <button data-select-item>Web design</button>
+                <button data-select-item>AI/ML</button>
               </li>
 
               <li class="select-item">
                 <button data-select-item>Applications</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Cloud computing</button>
               </li>
 
               <li class="select-item">
@@ -688,7 +706,7 @@
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  <img src="./assets/images/blog-5.jpg" alt="regex pattern matcher" loading="lazy">
+                  <img src="./assets/images/project-7.png" alt="regex pattern matcher" loading="lazy">
                 </figure>
                 <h3 class="project-title">Regex Demo</h3>
                 <p class="project-category">Web development</p>
@@ -701,10 +719,36 @@
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  <img src="./assets/images/blog-6.jpg" alt="linear regression model" loading="lazy">
+                  <img src="./assets/images/project-5.png" alt="linear regression model" loading="lazy">
                 </figure>
                 <h3 class="project-title">Linear Regression Model</h3>
                 <p class="project-category">AI/ML</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="Web development">
+              <a href="#" onclick="loadProjectContent('./projects/PersonalPortfolioWebsite.html'); return false;">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/project-6.png" alt="Personal Portfolio Website" loading="lazy">
+                </figure>
+                <h3 class="project-title">Personal Portfolio Website</h3>
+                <p class="project-category">Web development</p>
+              </a>
+            </li>
+
+            <li class="project-item active" data-filter-item data-category="Cloud computing">
+              <a href="#" onclick="loadProjectContent('./projects/AWSCodePipelineCICD.html'); return false;">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/project-8.jpg" alt="AWS CodePipeline (CI/CD) with CloudFormation" loading="lazy">
+                </figure>
+                <h3 class="project-title">AWS CodePipeline (CI/CD) with CloudFormation</h3>
+                <p class="project-category">Cloud computing</p>
               </a>
             </li>
 
@@ -857,6 +901,63 @@
                   <h3 class="h3 blog-item-title">Regular Expressions Guide</h3>
                   <p class="blog-text">
                     Regular expressions (regex or regexp) are powerful tools for pattern matching in text.
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#" onclick="loadProjectContent('./blogs/AWSCloudWatchAgent.html'); return false;">
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-2.jpg" alt="AWS CloudWatch Agent Guide" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+                    <span class="dot"></span>
+                    <time datetime="2022-02-23">Sept 09, 2022</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">AWS CloudWatch Agent Guide</h3>
+                  <p class="blog-text">
+                    Amazon CloudWatch Agent helps you collect system-level metrics and logs (CPU, memory, disk, and custom logs).
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#" onclick="loadProjectContent('./blogs/AWSSystemsManager.html'); return false;">
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-6.jpg" alt="Mastering AWS Systems Manager (SSM)" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+                    <span class="dot"></span>
+                    <time datetime="2022-02-23">Nov 18, 2022</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">Mastering AWS Systems Manager (SSM)</h3>
+                  <p class="blog-text">
+                    AWS Systems Manager (SSM) is a service that helps you manage your Amazon EC2 instances, on-premises servers, and virtual machines.
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#" onclick="loadProjectContent('./blogs/AWSCodePipeline.html'); return false;">
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-4.jpg" alt="AWS CodePipeline (CI/CD)" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+                    <span class="dot"></span>
+                    <time datetime="2022-02-23">Dec 25, 2022</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">AWS CodePipeline (CI/CD)</h3>
+                  <p class="blog-text">
+                    Continuous Integration and Continuous Delivery (CI/CD) help teams automate code build, test, and deployment processes.
                   </p>
                 </div>
               </a>
@@ -1020,9 +1121,3 @@
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
-
-
-
-
-

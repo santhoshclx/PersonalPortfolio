@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AWS CodePipeline (CI/CD) - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* small page-specific styles */
+    .code { background:#00000052; padding:14px; border-radius:8px; color:var(--light-gray); overflow:auto; }
+    .lead { color:var(--light-gray); margin-bottom:1rem; }
+    .muted { color:#c9c9c9; }
+    .note { background:#17202a; padding:10px; border-left:4px solid var(--orange-yellow-crayola); border-radius:6px; margin:12px 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h1 class="h2 article-title">AWS CodePipeline (CI/CD)</h1>
+          <p class="lead">How to design, secure, monitor and operate production-ready CI/CD pipelines on AWS</p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);"><br>Introduction</h3>
+          <p class="muted">Continuous Integration and Continuous Delivery (CI/CD) let teams ship changes quickly while maintaining quality. AWS CodePipeline is a managed orchestration service that sequences source, build, test and deploy actions to automate software releases.</p>
+        </section>
+
+        <!-- What is CodePipeline -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">What is AWS CodePipeline & CI/CD?</h3>
+          <p class="muted">CI focuses on integrating code and running tests. CD focuses on delivering deployable artifacts and automating releases. CodePipeline models these steps as stages and actions and connects to tools like CodeCommit, CodeBuild, CodeDeploy, S3 and third-party providers.</p>
+        </section>
+
+        <!-- Architecture -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Architecture & Key Components</h3>
+          <ul class="muted">
+            <li><strong>Pipeline</strong> — workflow definition and stages.</li>
+            <li><strong>Stages</strong> — Source, Build, Test, Approval, Deploy.</li>
+            <li><strong>Actions</strong> — individual tasks (CodeBuild, CodeDeploy, Lambda).</li>
+            <li><strong>Artifact Store</strong> — S3 bucket holding intermediate artifacts.</li>
+            <li><strong>Service Role</strong> — IAM role for CodePipeline to call other services.</li>
+          </ul>
+
+          <div class="note"><strong>Note:</strong> Artifacts should be encrypted (SSE-KMS) and versioned so you can roll back to known good builds.</div>
+
+          <h4 style="color:var(--orange-yellow-crayola);"><br>Typical stage flow</h4>
+          <ol class="muted">
+            <li>Source → fetch code from repo</li>
+            <li>Build → compile & run unit tests</li>
+            <li>Test → integration or acceptance tests</li>
+            <li>Approval → manual gate for production</li>
+            <li>Deploy → rollout using CodeDeploy/ECS/Lambda</li>
+          </ol>
+        </section>
+
+        <!-- Pipeline as Code -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Pipeline as Code (CloudFormation example)</h3>
+          <p class="muted">Define pipelines as code to make them reproducible and reviewable. The snippet below is a minimal CloudFormation structure — adapt for your environment.</p>
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);"><code>Resources:
+  MyPipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      RoleArn: !GetAtt PipelineRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucket
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeCommit
+                Version: "1"
+              Configuration:
+                RepositoryName: my-repo
+                BranchName: main
+              OutputArtifacts:
+                - Name: SourceOutput
+        - Name: Build
+          Actions:
+            - Name: BuildAction
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: "1"
+              InputArtifacts:
+                - Name: SourceOutput
+              OutputArtifacts:
+                - Name: BuildOutput
+        - Name: Deploy
+          Actions:
+            - Name: DeployAction
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CodeDeploy
+                Version: "1"
+              InputArtifacts:
+                - Name: BuildOutput</code></pre>
+          <p class="muted"><br>This is only a skeleton — you’ll need resources for the IAM roles, CodeBuild project, S3 bucket and CodeDeploy application.</p>
+        </section>
+
+        <!-- Deployment strategies -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Deployment Strategies</h3>
+          <p class="muted">Choose a deployment strategy that matches your risk tolerance and architecture:</p>
+          <ul class="muted">
+            <li><strong>Rolling / in-place</strong> — update instances in batches.</li>
+            <li><strong>Blue/green</strong> — deploy to new environment, switch traffic.</li>
+            <li><strong>Canary</strong> — gradually shift traffic to the new version and validate.</li>
+            <li><strong>Immutable</strong> — create new instances and replace old ones to avoid drift.</li>
+          </ul>
+        </section>
+
+        <!-- Testing & Quality Gates -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Testing & Quality Gates</h3>
+          <p class="muted">Design the pipeline so fast checks run first (lint/unit tests) and longer suites run later (integration/acceptance). Use security scans and policy checks as gates to stop risky changes from progressing.</p>
+        </section>
+
+        <!-- Monitoring & Security -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Monitoring & Security</h3>
+          <h4 style="color:var(--orange-yellow-crayola);">Monitoring</h4>
+          <ul class="muted">
+            <li>Use CloudWatch metrics and alarms for pipeline failures and latencies.</li>
+            <li>Use EventBridge to react to pipeline events (notify Slack, invoke remediation).</li>
+            <li>Ensure CodeBuild and CodeDeploy logs are pushed to CloudWatch Logs.</li>
+          </ul>
+          <h4 style="color:var(--orange-yellow-crayola);"><br>Security</h4>
+          <ul class="muted">
+            <li>Grant least-privilege IAM roles to the pipeline and action providers.</li>
+            <li>Encrypt S3 artifact store with SSE-KMS and grant the pipeline role access to the KMS key.</li>
+            <li>Use separate roles for Build/Deploy actions to isolate privileges.</li>
+            <li>Enable CloudTrail across accounts to audit pipeline changes.</li>
+          </ul>
+        </section>
+
+        <!-- Operational best practices -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Operational Best Practices</h3>
+          <ul class="muted">
+            <li>Keep pipelines small and focused — one pipeline per microservice or logical app.</li>
+            <li>Favor small, frequent deployments over large batch releases.</li>
+            <li>Use caching and pre-baked images to accelerate builds.</li>
+            <li>Place manual approval gates before production deploys and include context (release notes, runbook links).</li>
+            <li>Automate rollbacks via CodeDeploy or CloudFormation when health checks fail.</li>
+          </ul>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Troubleshooting Tips</h3>
+          <ul class="muted">
+            <li>Check CodeBuild logs in CloudWatch for build errors.</li>
+            <li>Verify IAM permissions if actions fail to access S3 or deploy resources.</li>
+            <li>Confirm artifact names and input/output mapping between actions.</li>
+            <li>Use retry and timeout settings for long-running actions.</li>
+          </ul>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Conclusion</h3>
+          <p class="muted">AWS CodePipeline is a powerful orchestration layer that helps teams implement robust CI/CD on AWS. By designing small pipelines, automating tests, enforcing security best practices, and monitoring pipeline health, you can significantly reduce deployment risk and accelerate delivery.</p>
+        </section>
+
+        <!-- References -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">For more information</h3>
+          <ul>
+            <li><a href="https://docs.aws.amazon.com/codepipeline/" target="_blank" style="color:var(--orange-yellow-crayola);">AWS CodePipeline Documentation</a></li>
+            <li><a href="https://aws.amazon.com/codepipeline/" target="_blank" style="color:var(--orange-yellow-crayola);">AWS CodePipeline Overview</a></li>
+          </ul>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

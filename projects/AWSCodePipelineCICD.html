@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AWS CodePipeline (CI/CD) with CloudFormation</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .code { background:#00000052; padding:14px; border-radius:8px; color:var(--light-gray); overflow:auto; }
+    .lead { color:var(--light-gray); margin-bottom:1rem; }
+    .muted { color:#c9c9c9; }
+    .note { background:#17202a; padding:10px; border-left:4px solid var(--orange-yellow-crayola); border-radius:6px; margin:12px 0; }
+    .diagram-wrap { text-align:center; margin:18px 0; }
+    svg { max-width:100%; height:auto; border-radius:8px; background:linear-gradient(180deg,#0f1720, #071018); padding:18px; }
+    .download-btn{ display:inline-block; padding:8px 12px; background:var(--orange-yellow-crayola); color:#000; border-radius:8px; text-decoration:none; font-weight:600; }
+    pre.cf { max-height:480px; overflow:auto; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h1 class="h2 article-title">AWS CodePipeline (CI/CD) with CloudFormation</h1>
+          <p class="lead">Architecture diagram + a full CloudFormation template you can adapt to create a working pipeline (CodeCommit → CodeBuild → CodeDeploy/ECS).</p>
+        </header>
+
+        <!-- Diagram -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);"><br>Architecture Diagram</h3>
+          <div class="diagram-wrap">
+            <!-- SVG diagram embedded -->
+            <svg viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title desc">
+              <title>CodePipeline Architecture</title>
+              <desc>Diagram showing source, build, test, deploy stages and integrations</desc>
+
+              <defs>
+                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.6"/>
+                </filter>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#0ea5a4" />
+                  <stop offset="100%" stop-color="#06b6d4" />
+                </linearGradient>
+                <style>
+                  .box{fill:#071830;stroke:#0ea5a4;stroke-width:2;rx:12;filter:url(#shadow)}
+                  .txt{fill:#e6f7f7;font-family:Inter,Arial; font-size:14px}
+                  .label{fill:var(--orange-yellow-crayola); font-weight:700}
+                </style>
+              </defs>
+
+              <!-- Source -->
+              <rect x="32" y="60" width="220" height="110" rx="12" class="box"/>
+              <text x="142" y="90" text-anchor="middle" class="txt">Source</text>
+              <text x="142" y="112" text-anchor="middle" class="txt">(CodeCommit / GitHub / S3)</text>
+
+              <!-- Arrow 1 -->
+              <line x1="252" y1="115" x2="360" y2="115" stroke="#06b6d4" stroke-width="3" marker-end="url(#arr)" />
+
+              <!-- Build -->
+              <rect x="360" y="36" width="240" height="150" rx="12" class="box"/>
+              <text x="480" y="72" text-anchor="middle" class="txt">Build</text>
+              <text x="480" y="96" text-anchor="middle" class="txt">(CodeBuild / Jenkins)</text>
+              <text x="480" y="120" text-anchor="middle" class="txt">unit tests, artifacts</text>
+
+              <!-- Arrow 2 -->
+              <line x1="600" y1="115" x2="700" y2="115" stroke="#06b6d4" stroke-width="3" marker-end="url(#arr)" />
+
+              <!-- Test -->
+              <rect x="700" y="36" width="200" height="150" rx="12" class="box"/>
+              <text x="800" y="72" text-anchor="middle" class="txt">Test</text>
+              <text x="800" y="100" text-anchor="middle" class="txt">integration / smoke</text>
+
+              <!-- Arrow 3 -->
+              <line x1="900" y1="115" x2="980" y2="115" stroke="#06b6d4" stroke-width="3" marker-end="url(#arr)" />
+
+              <!-- Deploy -->
+              <rect x="980" y="36" width="180" height="150" rx="12" class="box"/>
+              <text x="1070" y="72" text-anchor="middle" class="txt">Deploy</text>
+              <text x="1070" y="100" text-anchor="middle" class="txt">(CodeDeploy / ECS / Lambda)</text>
+
+              <!-- Artifact Store (S3) -->
+              <rect x="380" y="220" width="180" height="80" rx="10" fill="#071830" stroke="#f59e0b" stroke-width="2"/>
+              <text x="470" y="248" text-anchor="middle" class="txt">Artifact Store (S3)</text>
+
+              <!-- Service Role / IAM -->
+              <rect x="640" y="220" width="180" height="80" rx="10" fill="#071830" stroke="#f59e0b" stroke-width="2"/>
+              <text x="730" y="248" text-anchor="middle" class="txt">Service Role (IAM)</text>
+
+              <!-- CloudWatch / Events -->
+              <rect x="920" y="220" width="220" height="80" rx="10" fill="#071830" stroke="#f59e0b" stroke-width="2"/>
+              <text x="1030" y="248" text-anchor="middle" class="txt">CloudWatch / EventBridge</text>
+
+              <!-- arrows to artifact and role -->
+              <line x1="480" y1="190" x2="480" y2="220" stroke="#06b6d4" stroke-width="2" />
+              <line x1="760" y1="190" x2="760" y2="220" stroke="#06b6d4" stroke-width="2" />
+
+              <!-- markers defs -->
+              <defs>
+                <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4" />
+                </marker>
+              </defs>
+
+              <!-- bottom legend -->
+              <text x="60" y="350" class="txt">Source → Build → Test → Deploy</text>
+              <text x="60" y="372" class="txt">Artifacts stored in S3 (encrypted via KMS)</text>
+
+            </svg>
+          </div>
+          <p class="muted">Diagram: simplified flow showing Source → Build → Test → Deploy, artifact store (S3), service role (IAM), and monitoring (CloudWatch/EventBridge).</p>
+        </section>
+
+        <!-- CloudFormation template (full) -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Full CloudFormation Template (Pipeline as Code)</h3>
+          <p class="muted">The template below creates an S3 artifact bucket, IAM roles, a CodeCommit repo, a CodeBuild project, and a CodePipeline that connects them. **Review and adapt the template before running in production.**</p>
+
+          <!-- <a class="download-btn" href="#template">Jump to template</a> -->
+
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);"><code>AWSTemplateFormatVersion: '2010-09-09'
+Description: CodePipeline skeleton with CodeCommit, CodeBuild, S3 artifact store, and pipeline
+
+Parameters:
+  PipelineName:
+    Type: String
+    Default: my-sample-pipeline
+  ArtifactBucketName:
+    Type: String
+    Default: my-codepipeline-artifacts-123456
+  SourceRepoName:
+    Type: String
+    Default: my-sample-repo
+
+Resources:
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref ArtifactBucketName
+      VersioningConfiguration:
+        Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  ArtifactBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ArtifactBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Sub '${ArtifactBucket.Arn}/*'
+
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSCodePipelineFullAccess
+
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+        - arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess
+
+  CodeCommitRepo:
+    Type: AWS::CodeCommit::Repository
+    Properties:
+      RepositoryName: !Ref SourceRepoName
+      RepositoryDescription: Sample repo for CodePipeline
+
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Sub '${PipelineName}-build'
+      ServiceRole: !GetAtt CodeBuildServiceRole.Arn
+      Artifacts:
+        Type: S3
+        Location: !Ref ArtifactBucket
+        Packaging: ZIP
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:6.0
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: ENV
+            Value: dev
+      Source:
+        Type: CODEPIPELINE
+      TimeoutInMinutes: 60
+
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      RoleArn: !GetAtt PipelineRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucket
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeCommit
+                Version: '1'
+              OutputArtifacts:
+                - Name: SourceOutput
+              Configuration:
+                RepositoryName: !Ref SourceRepoName
+                BranchName: main
+              RunOrder: 1
+        - Name: Build
+          Actions:
+            - Name: BuildAction
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              InputArtifacts:
+                - Name: SourceOutput
+              OutputArtifacts:
+                - Name: BuildOutput
+              Configuration:
+                ProjectName: !Ref CodeBuildProject
+              RunOrder: 1
+        - Name: Deploy
+          Actions:
+            - Name: DummyDeploy
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: '1'
+              InputArtifacts:
+                - Name: BuildOutput
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                StackName: !Sub '${PipelineName}-stack'
+                Capabilities: CAPABILITY_NAMED_IAM
+                TemplatePath: BuildOutput::template.yml
+              RunOrder: 1
+
+Outputs:
+  PipelineName:
+    Value: !Ref PipelineName
+    Description: CodePipeline name</code></pre>
+
+<h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);"><br>Notes: </h3>
+<ul>
+  <li>This template is a starting point — it creates a CodeCommit repo (empty), a CodeBuild project wired to CodePipeline, an S3 artifact bucket, and a CloudFormation deploy action which expects a <code>template.yml</code> in the build output. Replace the Deploy action with CodeDeploy/ECS steps as needed.</li>
+  <li><br>Make sure <strong>ArtifactBucketName</strong> is globally unique (or remove the BucketName property to let CFN auto-generate).</li>
+  <li>Create appropriate IAM policies for production (least-privilege) instead of using broad managed policies.</li>
+</ul>
+
+        </section>
+
+        <!-- Conclusion -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">Next Steps</h3>
+          <ul class="muted">
+            <li>Push your app code into the created CodeCommit repo or connect GitHub in the Source stage.</li>
+            <li>Edit the CodeBuild project to include a <code>buildspec.yml</code> that builds artifacts and produces <code>template.yml</code> for deployment.</li>
+            <li>Replace the DummyDeploy step with a CodeDeploy or ECS deploy if you deploy containers.</li>
+          </ul>
+        </section>
+
+        <!-- References -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola);">For more information</h3>
+          <ul>
+            <li><a href="https://docs.aws.amazon.com/codepipeline/" target="_blank" style="color:var(--orange-yellow-crayola);">AWS CodePipeline Documentation</a></li>
+            <li><a href="https://aws.amazon.com/codepipeline/" target="_blank" style="color:var(--orange-yellow-crayola);">AWS CodePipeline Overview</a></li>
+          </ul>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS Systems Manager (SSM) - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h2 class="h2 article-title">Mastering AWS Systems Manager (SSM)</h2>
+        </header>
+
+        <!-- Introduction -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📌 Introduction</h3>
+          <p>
+            Managing a fleet of EC2 instances or on-prem servers can be overwhelming—patching, running commands, collecting logs, and ensuring compliance.
+          </p>
+          <p>
+            AWS Systems Manager (SSM) is like a remote control for your AWS and on-prem infrastructure. With SSM, you can:
+          </p>
+          <ul>
+            <li>Securely connect to EC2 instances without SSH keys</li>
+            <li>Automate patching and updates</li>
+            <li>Run scripts across multiple instances at once</li>
+            <li>Store and retrieve secrets/parameters</li>
+            <li>Monitor compliance and security</li>
+          </ul>
+        </section>
+
+        <!-- Key Features -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🔑 Key Features of AWS Systems Manager</h3>
+          <ul>
+            <li><h4><b>Session Manager</b></h4> – Securely access your instances via AWS Console or CLI (no need for port 22 SSH).</li><br>
+            <li><h4><b>Run Command</b></h4> – Execute scripts/commands across multiple EC2 instances in parallel.</li><br>
+            <li><h4><b>Patch Manager</b></h4> – Automate OS and application patching.</li><br>
+            <li><h4><b>Parameter Store</b></h4> – Securely store config values, API keys, and secrets.</li><br>
+            <li><h4><b>Automation</b></h4> – Run pre-built or custom automation workflows (like restarting services).</li>
+          </ul>
+        </section>
+
+        <!-- Setup -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🛠️ Setting Up AWS Systems Manager</h3>
+          <h4>1. Attach IAM Role to EC2 Instance</h4>
+          <p>Create an IAM Role with the following policy:</p>
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);">
+<code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:*",
+        "ec2messages:*",
+        "cloudwatch:*",
+        "logs:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}</code></pre>
+          <p>👉 Attach this role (e.g., <code>AmazonSSMManagedInstanceCore</code>) to your EC2 instance.</p>
+
+          <h4><br>2. Install & Start the SSM Agent</h4>
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);">
+<code># For Amazon Linux / RHEL
+sudo yum install -y amazon-ssm-agent
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
+
+# For Ubuntu/Debian
+sudo snap install amazon-ssm-agent --classic
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent</code></pre>
+
+          <h4><br>3. Verify SSM Agent Status</h4>
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);">
+<code>aws ssm describe-instance-information</code></pre>
+          <p>If the instance is listed, it’s successfully registered! ✅</p>
+        </section>
+
+        <!-- Usage -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🚀 Using AWS Systems Manager</h3>
+          <h4>1. Connect to an Instance (Session Manager)</h4>
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);">
+<code>aws ssm start-session --target &lt;Instance-ID&gt;</code></pre>
+          <p>Now you’re inside the instance without needing SSH keys or open ports 🎉</p>
+
+          <h4><br>2. Run Commands Across Instances</h4>
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);">
+<code>aws ssm send-command \
+  --targets "Key=instanceIds,Values=&lt;Instance-ID&gt;" \
+  --document-name "AWS-RunShellScript" \
+  --comment "Update packages" \
+  --parameters 'commands=["sudo yum update -y"]'</code></pre>
+
+          <h4><br>3. Store Parameters & Secrets (Parameter Store)</h4>
+          <pre style="background:#00000052;padding:15px;border-radius:10px;overflow-x:auto;color:var(--light-gray);">
+<code>aws ssm put-parameter \
+  --name "DB_PASSWORD" \
+  --value "SuperSecret123" \
+  --type "SecureString"</code></pre>
+
+          <h4><br>4. Automate Patching</h4>
+          <p>Enable Patch Manager to automatically install security updates and increase compliance.</p>
+        </section>
+
+        <!-- Real World -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🌍 Real-World Use Case</h3>
+          <p>
+            Imagine you have 50 EC2 instances running across different environments.  
+            Instead of manually SSH-ing into each one:
+          </p>
+          <ul>
+            <li>Use Run Command to apply updates in one go.</li>
+            <li>Use Session Manager for secure troubleshooting.</li>
+            <li>Store DB passwords in Parameter Store instead of hardcoding them.</li>
+            <li>Automate patching to meet compliance with minimal effort.</li>
+          </ul>
+        </section>
+
+        <!-- Automation amd Hybrid Activation-->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">Automation and Hybrid Activation</h3>
+          <p>
+            <h4><b>Automation</b></h4> Automates repetitive IT tasks like patching, AMI creation, or instance configuration. You can chain multiple steps using automation documents.<br>
+
+            <br><h4><b>Hybrid Activation</b></h4> Allows you to use SSM with on-premises servers or VMs. You generate activation codes in the AWS console, install the SSM agent, and register the servers.
+          </p>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🎯 Conclusion</h3>
+          <p>
+            AWS Systems Manager is more than just a management tool—it’s a Swiss Army Knife for your cloud infrastructure.
+          </p>
+          <ul>
+            <li>✅ Improve security (no exposed SSH/RDP)</li>
+            <li>✅ Automate repetitive tasks</li>
+            <li>✅ Scale operations across hundreds of instances</li>
+            <li>✅ Stay compliant with less effort</li>
+          </ul>
+          <p><br>If you haven’t tried it yet, spin up an EC2 instance and start exploring SSM today! 🚀</p>
+        </section>
+
+        <!-- References -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">References</h3>
+          <ul><u style="color: var(--orange-yellow-crayola);">
+            <li><a href="https://docs.aws.amazon.com/systems-manager/" target="_blank" style="color: var(--orange-yellow-crayola);">AWS Systems Manager Documentation</a></li>
+            <li><a href="https://aws.amazon.com/systems-manager/" target="_blank" style="color: var(--orange-yellow-crayola);">AWS Systems Manager Overview</a></li>
+          </u></ul>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

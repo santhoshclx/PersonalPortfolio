@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Portfolio Website - Santhosh Kumar</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <h2 class="h2 article-title">Personal Portfolio Website</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            A modern, responsive personal portfolio website showcasing my work as a Software Engineer specializing in AI/ML, DevOps, and Web Development.
+          </p>
+        </section>
+
+        <section class="service">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🔑 Key Features</h3>
+          <ul class="service-list">
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="albums-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Dynamic Content Loading</h4>
+                <p class="service-item-text">
+                  Single-page application feel with seamless project/blog navigation without page reload.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="code-slash-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Interactive Code Examples</h4>
+                <p class="service-item-text">
+                  Copy-to-clipboard for code snippets, syntax highlighting, and interactive demos.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="document-text-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Blog Integration</h4>
+                <p class="service-item-text">
+                  Technical blog posts with proper formatting, responsive layout, and syntax highlighting.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <ion-icon name="phone-portrait-outline"></ion-icon>
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Responsive Design</h4>
+                <p class="service-item-text">
+                  Mobile-first design, smooth transitions, professional typography, and modern color scheme.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📖 Technologies Used</h3>
+          <p>
+            <b>Frontend:</b> HTML5, CSS3, JavaScript (Vanilla)<br>
+            <b>Styling:</b> CSS custom properties, responsive design<br>
+            <b>Icons:</b> Ionicons<br>
+            <b>Fonts:</b> Google Fonts (Poppins)<br>
+            <b>Deployment:</b> Static hosting ready
+          </p>
+        </section>
+
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📂 Project Structure</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
+<code>├── assets/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── script.js
+│   └── images/
+├── projects/
+│   ├── PatternMatchingRegEx.html
+│   └── LinearRegressionFromSCRATCH.html
+├── blogs/
+│   └── RegularExpressionsGuide.html
+├── index.html
+└── README.md</code></pre>
+        </section>
+
+        <!-- 🚀 Getting Started -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🚀 Getting Started</h3>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
+<code># Clone the repository
+git clone https://github.com/santhoshclx/portfolio.git
+cd portfolio
+
+# Open locally
+# Open index.html in your browser, or use a local server:
+
+# Using Python
+python -m http.server 8000
+
+# Using Node.js
+npx serve .
+
+# Using VS Code Live Server extension</code></pre>
+          <p><br>
+            View the portfolio at <code>http://localhost:8000</code> (if using local server) or by opening <code>index.html</code> directly.
+          </p>
+        </section>
+
+        <!-- 📱 Sections -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">📱 Sections</h3>
+          <ul>
+            <li><b>About</b> – Personal introduction and services offered</li>
+            <li><b>Resume</b> – Professional experience and education</li>
+            <li><b>Projects</b> – Showcase of technical projects with interactive demos</li>
+            <li><b>Blog</b> – Technical articles and tutorials</li>
+            <li><b>Contact</b> – Contact form and social media links</li>
+          </ul>
+        </section>
+
+        <!-- 🎨 Customization -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🎨 Customization</h3>
+          <h4><p><b>Content</b></p></h4>
+          <ul>
+            <li>Update personal information in <code><b>index.html</b></code></li>
+            <li>Add new projects in the <code><b>projects/</code></b> directory</li>
+            <li>Add new blog posts in the <code><b>blogs/</code></b> directory</li>
+            <li>Update project/blog links in the main <code><b>index.html</code></b> file</li>
+          </ul>
+          <br><h4><p><b>Colors</b></p></h4>
+          <p>The website uses CSS custom properties for easy theming. Main colors can be modified in <code>assets/css/style.css</code>:</p>
+          <pre style="background: #00000052; padding: 15px; border-radius: 10px; overflow-x: auto; color: var(--light-gray);">
+<code>:root {
+  --orange-yellow-crayola: #ffdb70;
+  --smoky-black: #0c0c0c;
+  --eerie-black-1: #1e1e1f;
+  /* ... other color variables */
+}</code></pre>
+        </section>
+
+        <!-- Contact -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color: var(--orange-yellow-crayola);">🧑‍💻 Code</h3>
+          <p>
+            <b>GitHub: <u style="color: var(--orange-yellow-crayola);"><a href="https://github.com/santhoshclx/PersonalPortfolio" target="_blank" style="color: var(--orange-yellow-crayola);">Personal Portfolio Repo</a><br></u></b>
+          </p>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

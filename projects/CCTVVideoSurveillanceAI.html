@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Edge-to-Cloud AI CCTV Surveillance Platform - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .code { background: #00000052; padding: 14px; border-radius: 8px; color: var(--light-gray); overflow: auto; font-family: monospace; }
+    .lead { color: var(--light-gray); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.6; }
+    .diagram-wrap { text-align: center; margin: 24px 0; }
+    svg { max-width: 100%; height: auto; border-radius: 12px; background: linear-gradient(180deg, #0b1320, #040912); padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+    .metric-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; text-align: center; }
+    .metric-val { font-size: 1.8rem; font-weight: 700; color: var(--accent-primary, #38bdf8); margin-bottom: 4px; }
+    .metric-label { font-size: 0.85rem; color: var(--light-gray-70); text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .tech-pill { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+    .badge-sec { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <div class="pill-group">
+            <span class="tech-pill">Edge AI & Computer Vision</span>
+            <span class="tech-pill">AWS MLOps</span>
+            <span class="badge-sec">Enterprise Production</span>
+          </div>
+          <h1 class="h2 article-title">AI-Powered CCTV Surveillance & Intelligence Platform</h1>
+          <p class="lead">
+            An end-to-end, multi-facility AI video analytics system providing real-time YOLO object detection, ArcFace facial recognition with pgvector vector search, edge inference on NVIDIA Jetson Orin Nano, cloud scaling on Amazon SageMaker, and LLM-assisted video event summarization.
+          </p>
+        </header>
+
+        <!-- Key Outcomes / Metrics -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">Verified Performance & Engineering Impact</h3>
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-val">~91%</div>
+              <div class="metric-label">mAP@0.5 Detection Accuracy (from ~82%)</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val">35–45 FPS</div>
+              <div class="metric-label">Jetson Orin Nano Super Edge Inference</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val">100+ FPS</div>
+              <div class="metric-label">RTX 5090 Cloud & Local Processing</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val">40%</div>
+              <div class="metric-label">Operational Cloud Cost Reduction</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Architecture Diagram -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">System Architecture Diagram</h3>
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="shadow-box" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+                </filter>
+                <linearGradient id="edgeGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#0284c7"/>
+                  <stop offset="100%" stop-color="#0369a1"/>
+                </linearGradient>
+                <linearGradient id="cloudGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#d97706"/>
+                  <stop offset="100%" stop-color="#b45309"/>
+                </linearGradient>
+                <linearGradient id="dbGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#059669"/>
+                  <stop offset="100%" stop-color="#047857"/>
+                </linearGradient>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+                </marker>
+              </defs>
+
+              <!-- Group 1: Video Ingestion -->
+              <rect x="20" y="50" width="200" height="320" rx="12" fill="#0f172a" stroke="#334155" stroke-width="2" filter="url(#shadow-box)"/>
+              <text x="120" y="85" text-anchor="middle" fill="#94a3b8" font-size="14" font-weight="700">1. CAMERA INGESTION</text>
+              <rect x="35" y="110" width="170" height="60" rx="8" fill="#1e293b" stroke="#475569"/>
+              <text x="120" y="135" text-anchor="middle" fill="#f8fafc" font-size="13">RTSP Video Feeds</text>
+              <text x="120" y="155" text-anchor="middle" fill="#64748b" font-size="11">Multi-Camera Multi-Facility</text>
+              <rect x="35" y="190" width="170" height="60" rx="8" fill="#1e293b" stroke="#475569"/>
+              <text x="120" y="215" text-anchor="middle" fill="#f8fafc" font-size="13">GStreamer Pipeline</text>
+              <text x="120" y="235" text-anchor="middle" fill="#38bdf8" font-size="11">nvv4l2decoder HW Accel</text>
+              <rect x="35" y="270" width="170" height="70" rx="8" fill="#1e293b" stroke="#475569"/>
+              <text x="120" y="295" text-anchor="middle" fill="#f8fafc" font-size="12">OpenCV Preprocessing</text>
+              <text x="120" y="315" text-anchor="middle" fill="#94a3b8" font-size="11">CLAHE / Lighting Normalize</text>
+
+              <!-- Arrow 1 to 2 -->
+              <path d="M 220 210 L 280 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+              <!-- Group 2: Edge Inference -->
+              <rect x="290" y="50" width="240" height="320" rx="12" fill="#0f172a" stroke="#0284c7" stroke-width="2" filter="url(#shadow-box)"/>
+              <text x="410" y="85" text-anchor="middle" fill="#38bdf8" font-size="14" font-weight="700">2. EDGE / HYBRID INFERENCE</text>
+              <rect x="310" y="110" width="200" height="65" rx="8" fill="url(#edgeGrad)"/>
+              <text x="410" y="135" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Jetson Orin Nano Super</text>
+              <text x="410" y="155" text-anchor="middle" fill="#e0f2fe" font-size="11">TensorRT YOLO Engine (35–45 FPS)</text>
+              <rect x="310" y="190" width="200" height="65" rx="8" fill="#1e293b" stroke="#38bdf8"/>
+              <text x="410" y="215" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="600">Dual RTX 5090 Server</text>
+              <text x="410" y="235" text-anchor="middle" fill="#94a3b8" font-size="11">100+ FPS, LoRA VLM Tuning</text>
+              <rect x="310" y="270" width="200" height="70" rx="8" fill="#1e293b" stroke="#475569"/>
+              <text x="410" y="295" text-anchor="middle" fill="#f8fafc" font-size="12">ArcFace Identity Embedding</text>
+              <text x="410" y="315" text-anchor="middle" fill="#38bdf8" font-size="11">InsightFace 512-d feature vector</text>
+
+              <!-- Arrow 2 to 3 -->
+              <path d="M 530 210 L 580 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+              <!-- Group 3: AWS Cloud & Vector DB -->
+              <rect x="590" y="50" width="240" height="320" rx="12" fill="#0f172a" stroke="#d97706" stroke-width="2" filter="url(#shadow-box)"/>
+              <text x="710" y="85" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="700">3. AWS CLOUD &amp; MLOPS</text>
+              <rect x="610" y="110" width="200" height="65" rx="8" fill="url(#cloudGrad)"/>
+              <text x="710" y="135" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">SageMaker Endpoints</text>
+              <text x="710" y="155" text-anchor="middle" fill="#fef3c7" font-size="11">Docker Containers (ml.g5.xlarge)</text>
+              <rect x="610" y="190" width="200" height="65" rx="8" fill="#1e293b" stroke="#f59e0b"/>
+              <text x="710" y="215" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="600">PostgreSQL + pgvector</text>
+              <text x="710" y="235" text-anchor="middle" fill="#34d399" font-size="11">HNSW Indexing Similarity Search</text>
+              <rect x="610" y="270" width="200" height="70" rx="8" fill="#1e293b" stroke="#475569"/>
+              <text x="710" y="295" text-anchor="middle" fill="#f8fafc" font-size="12">CI/CD Model Pipeline</text>
+              <text x="710" y="315" text-anchor="middle" fill="#94a3b8" font-size="11">ECR, CodePipeline, Auto-Retrain</text>
+
+              <!-- Arrow 3 to 4 -->
+              <path d="M 830 210 L 880 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+              <!-- Group 4: GenAI & Security -->
+              <rect x="890" y="50" width="190" height="320" rx="12" fill="#0f172a" stroke="#059669" stroke-width="2" filter="url(#shadow-box)"/>
+              <text x="985" y="85" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700">4. GENAI &amp; SECURITY</text>
+              <rect x="905" y="110" width="160" height="65" rx="8" fill="url(#dbGrad)"/>
+              <text x="985" y="135" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">LLM Summarization</text>
+              <text x="985" y="155" text-anchor="middle" fill="#d1fae5" font-size="11">Automated incident text</text>
+              <rect x="905" y="190" width="160" height="65" rx="8" fill="#1e293b" stroke="#10b981"/>
+              <text x="985" y="215" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="600">RAG Video Search</text>
+              <text x="985" y="235" text-anchor="middle" fill="#6ee7b7" font-size="11">Natural language queries</text>
+              <rect x="905" y="270" width="160" height="70" rx="8" fill="#1e293b" stroke="#475569"/>
+              <text x="985" y="295" text-anchor="middle" fill="#f8fafc" font-size="12">HIPAA &amp; SOC2 Audit</text>
+              <text x="985" y="315" text-anchor="middle" fill="#34d399" font-size="11">80% Security Score</text>
+            </svg>
+          </div>
+        </section>
+
+        <!-- Technical Deep Dive -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">Engineering Architecture &amp; Contributions</h3>
+          
+          <h4 style="color:#ffffff; margin-top:20px;">1. Custom YOLO Model Fine-Tuning &amp; False-Positive Suppression</h4>
+          <p>
+            Trained and tuned custom YOLO object detection models across 10,000+ curated and annotated images (using CVAT &amp; Label Studio). Optimized detection for persons, staff/visitor status, PPE wear, carried items, and facility physical state. Designed targeted augmentations (contrast jitter, shadow simulation, glare filtering) to tackle difficult real-world CCTV lighting conditions, elevating detection precision from <b>~82% to ~91% mAP@0.5</b>.
+          </p>
+
+          <h4 style="color:#ffffff; margin-top:20px;">2. Hardware-Accelerated Video Pipeline &amp; Edge Inference</h4>
+          <p>
+            Built an ultra-low latency RTSP ingestion pipeline using GStreamer with NVIDIA hardware codecs (<code>nvv4l2decoder</code> and <code>nvv4l2h264enc</code>). Deployed TensorRT-optimized models directly onto <b>NVIDIA Jetson Orin Nano Super</b> edge appliances, sustaining smooth 35–45 FPS multi-stream processing 24/7 without frame drop, and scaling up to 100+ FPS on a dual-GPU local rig (2× RTX 5090).
+          </p>
+
+          <h4 style="color:#ffffff; margin-top:20px;">3. Identity Vector Search with ArcFace &amp; PostgreSQL pgvector</h4>
+          <p>
+            Replaced brittle face-matching heuristics with InsightFace/ArcFace high-dimensional (512-D) facial embedding extraction. Indexed facial vectors into PostgreSQL using <b>pgvector with HNSW (Hierarchical Navigable Small World)</b> indexing, delivering sub-15ms nearest-neighbor identity lookups across large employee databases.
+          </p>
+
+          <h4 style="color:#ffffff; margin-top:20px;">4. Containerized SageMaker Deployment &amp; MLOps Automation</h4>
+          <p>
+            Architected custom Docker containers for real-time inference on AWS SageMaker (<code>ml.g5.xlarge</code> / <code>ml.g5.2xlarge</code>). Integrated the deployment lifecycle with AWS CodePipeline, ECR, and CloudWatch alarms for automated blue/green canary promotions and automated endpoint health recovery.
+          </p>
+
+          <h4 style="color:#ffffff; margin-top:20px;">5. Multimodal LLM Summaries &amp; Cloud Security Hardening</h4>
+          <p>
+            Integrated foundation LLMs to generate continuous natural-language surveillance event logs, enabling operators to query surveillance history via semantic RAG search ("show unescorted visitors near server room after 8 PM"). Implemented VPC endpoints, WAF rules, GuardDuty anomaly detection, and AWS Inspector security scanning, achieving an <b>80% cloud security benchmark score</b> with HIPAA &amp; SOC 2 compliance.
+          </p>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="about-text" style="margin-top: 30px;">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">Technologies Used</h3>
+          <div class="pill-group">
+            <span class="tech-pill">YOLO (v8/Custom)</span>
+            <span class="tech-pill">NVIDIA Jetson Orin Nano</span>
+            <span class="tech-pill">TensorRT &amp; CUDA</span>
+            <span class="tech-pill">GStreamer</span>
+            <span class="tech-pill">OpenCV</span>
+            <span class="tech-pill">InsightFace / ArcFace</span>
+            <span class="tech-pill">PostgreSQL + pgvector (HNSW)</span>
+            <span class="tech-pill">AWS SageMaker (ml.g5)</span>
+            <span class="tech-pill">Docker &amp; ECR</span>
+            <span class="tech-pill">AWS CodePipeline</span>
+            <span class="tech-pill">LLM CCTV Summarization &amp; RAG</span>
+            <span class="tech-pill">AWS WAF, GuardDuty, Inspector</span>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

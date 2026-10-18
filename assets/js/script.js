@@ -3,32 +3,59 @@
 // -------------------------------------------------------------
 // THEME MANAGEMENT (Dark / Light Mode)
 // -------------------------------------------------------------
-const initTheme = () => {
-  const savedTheme = localStorage.getItem('portfolio-theme');
-  const initialTheme = savedTheme || 'light'; // Default to white / light theme
-  
-  document.documentElement.setAttribute('data-theme', initialTheme);
-  updateThemeIcon(initialTheme);
+const getThemeConfig = () => {
+  const siteConfig = window.PortfolioDatasource ? window.PortfolioDatasource.getSiteConfig() : null;
+  const themeCfg = siteConfig?.theme || {};
+  const defaultFromAttr = document.documentElement.getAttribute('data-theme');
+  const defaultTheme = themeCfg.default || defaultFromAttr || 'dark';
+  const storageKey = themeCfg.storageKey || 'portfolio-theme';
+  const allowToggle = themeCfg.allowToggle !== false;
+  return { defaultTheme, storageKey, allowToggle };
 };
 
 const updateThemeIcon = (theme) => {
   const toggleBtn = document.querySelector('[data-theme-btn]');
   if (!toggleBtn) return;
   const icon = toggleBtn.querySelector('ion-icon');
+  const isLight = theme === 'light';
   if (icon) {
-    icon.setAttribute('name', theme === 'light' ? 'moon-outline' : 'sunny-outline');
-    toggleBtn.setAttribute('title', theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode');
-    toggleBtn.setAttribute('aria-label', theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+    icon.setAttribute('name', isLight ? 'moon-outline' : 'sunny-outline');
+    toggleBtn.setAttribute('title', isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+    toggleBtn.setAttribute('aria-label', isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+  }
+};
+
+const initTheme = (forcedDefault) => {
+  const { defaultTheme, storageKey, allowToggle } = getThemeConfig();
+  const effectiveDefault = forcedDefault || defaultTheme;
+  const savedTheme = localStorage.getItem(storageKey);
+  const activeTheme = savedTheme || effectiveDefault;
+  
+  document.documentElement.setAttribute('data-theme', activeTheme);
+  updateThemeIcon(activeTheme);
+
+  const toggleBtn = document.querySelector('[data-theme-btn]');
+  if (toggleBtn) {
+    toggleBtn.style.display = allowToggle ? '' : 'none';
   }
 };
 
 const toggleTheme = () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  const { storageKey } = getThemeConfig();
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
   const newTheme = currentTheme === 'light' ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('portfolio-theme', newTheme);
+  localStorage.setItem(storageKey, newTheme);
   updateThemeIcon(newTheme);
   document.dispatchEvent(new CustomEvent('theme:change', { detail: { theme: newTheme } }));
+};
+
+// Global theme API
+window.PortfolioTheme = {
+  initTheme,
+  toggleTheme,
+  updateThemeIcon,
+  getThemeConfig
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,6 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeBtn = document.querySelector('[data-theme-btn]');
   if (themeBtn) {
     themeBtn.addEventListener('click', toggleTheme);
+  }
+});
+
+// Automatically sync when site-config.json finishes loading
+document.addEventListener('datasource:ready', (e) => {
+  const siteConfig = e.detail?.siteConfig || (window.PortfolioDatasource && window.PortfolioDatasource.getSiteConfig());
+  if (siteConfig?.theme) {
+    initTheme(siteConfig.theme.default);
   }
 });
 
@@ -85,9 +120,13 @@ const switchPage = (targetPageName) => {
 
   // Refresh LiquidFX reveals & visualizer for newly active section
   if (window.LiquidFX) {
+    if (window.LiquidFX.updateNavPill) window.LiquidFX.updateNavPill();
     setTimeout(() => {
       if (window.LiquidFX.refreshReveals) window.LiquidFX.refreshReveals();
-      if (targetPageName === 'about' && window.LiquidFX.refreshPipeline) window.LiquidFX.refreshPipeline();
+      if (targetPageName === 'about') {
+        if (window.LiquidFX.refreshPipeline) window.LiquidFX.refreshPipeline();
+        if (window.LiquidFX.refreshAISimulator) window.LiquidFX.refreshAISimulator();
+      }
     }, 50);
   }
 };

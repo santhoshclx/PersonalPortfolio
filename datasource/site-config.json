@@ -21,13 +21,13 @@
   "canonicalUrl": "https://santhoshclx.github.io/PersonalPortfolio/",
   "ogImage": "./assets/images/project-cctv.jpg",
   "scaling": {
-    "websiteScale": 0.95,
+    "websiteScale": 1.0,
     "baseFontSize": "16px",
-    "fontScale": 0.90,
+    "fontScale": 0.85,
     "description": "Adjust 'websiteScale' (e.g., 0.9 = 90% compact, 1.0 = standard, 1.1 = 110% enlarged) to control entire website size and all font sizes proportionally with a single value."
   },
   "theme": {
-    "default": "light",
+    "default": "dark",
     "allowToggle": true,
     "storageKey": "portfolio-theme"
   },

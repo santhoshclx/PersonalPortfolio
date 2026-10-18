@@ -1,0 +1,70 @@
+{
+  "sectionTitle": "Certifications & Education",
+  "introduction": "Official digital credentials and professional accreditations verified via <b>Credly</b> and the <b>AWS Certification Verification Portal</b>.",
+  "certifications": [
+    {
+      "id": "aws-security-specialty",
+      "name": "AWS Certified Security – Specialty",
+      "issuer": "Amazon Web Services (AWS)",
+      "credentialCode": "SCS-C03",
+      "status": "Earned",
+      "issueDate": "June 25, 2026",
+      "expirationDate": "June 25, 2029",
+      "validationId": "3f1b61349dcc49dbb308e938016c7e33",
+      "featured": true,
+      "icon": "shield-checkmark",
+      "description": "Validates advanced expertise in securing AWS infrastructure, encryption at rest/transit, IAM zero-trust access controls, incident response, and regulatory compliance.",
+      "verificationLinks": [
+        {
+          "label": "Verify on AWS Portal",
+          "url": "https://aws.amazon.com/verification",
+          "icon": "open-outline"
+        },
+        {
+          "label": "View on Credly",
+          "url": "https://www.credly.com/users/santhoshkumar-r-2806/badges/credly",
+          "icon": "ribbon-outline"
+        }
+      ]
+    },
+    {
+      "id": "aws-genai-developer",
+      "name": "AWS Certified Generative AI Developer – Professional (AIP-C01)",
+      "issuer": "Amazon Web Services (AWS)",
+      "credentialCode": "AIP-C01",
+      "status": "In Progress",
+      "tag": "Preparing / In Progress",
+      "tagColor": "indigo",
+      "icon": "sparkles-outline",
+      "iconStyle": "background: rgba(56, 189, 248, 0.12); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);",
+      "description": "Focusing on foundation model fine-tuning, Bedrock agent architectures, multimodal embeddings, RAG optimization, and prompt engineering safety on AWS.",
+      "verificationLinks": []
+    },
+    {
+      "id": "hipaa-awareness",
+      "name": "HIPAA Awareness for Business Associates Certificate",
+      "issuer": "HIPAA Training",
+      "credentialCode": "HIPAA-BA",
+      "status": "Earned",
+      "tag": "Verified Certificate",
+      "tagColor": "emerald",
+      "icon": "medkit-outline",
+      "iconStyle": "background: rgba(16, 185, 129, 0.12); color: #34d399; border-color: rgba(16, 185, 129, 0.3);",
+      "description": "Covers Protected Health Information (PHI) safeguards, administrative and physical security rules, and healthcare cloud data privacy compliance.",
+      "verificationLinks": []
+    },
+    {
+      "id": "data-science-r",
+      "name": "Data Science Using R",
+      "issuer": "Vani Analytics",
+      "credentialCode": "DS-R-VA",
+      "status": "Earned",
+      "tag": "Statistical ML Accreditation",
+      "tagColor": "",
+      "icon": "stats-chart-outline",
+      "iconStyle": "background: rgba(99, 102, 241, 0.12); color: #a5b4fc; border-color: rgba(99, 102, 241, 0.3);",
+      "description": "Comprehensive statistical inference, regression modeling, hierarchical clustering, and data visualization using ggplot2 and R Shiny.",
+      "verificationLinks": []
+    }
+  ]
+}

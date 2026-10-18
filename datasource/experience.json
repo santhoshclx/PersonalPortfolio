@@ -1,0 +1,71 @@
+{
+  "sectionTitle": "Professional Experience",
+  "history": [
+    {
+      "id": "clustrex-mle",
+      "jobTitle": "Machine Learning Engineer",
+      "company": "Clustrex Data Private Limited",
+      "type": "Full-Time",
+      "location": "Chennai, India",
+      "startDate": "2022-06",
+      "endDate": null,
+      "dateDisplay": "06/2022 — Present (4+ Years)",
+      "current": true,
+      "bullets": [
+        {
+          "heading": "Custom YOLO Fine-Tuning & False-Positive Suppression",
+          "text": "Built and fine-tuned custom YOLO object detection models for an AI-powered CCTV surveillance platform across office and sports facilities — detecting persons, employee/visitor status, PPE, carried objects, and facility state. Improved <b>mAP@0.5 from ~82% to ~91%</b> by fine-tuning on 10,000+ annotated images (CVAT, Label Studio) with targeted augmentation under variable illumination."
+        },
+        {
+          "heading": "Edge & GPU Acceleration",
+          "text": "Achieved real-time inference at <b>35–45 FPS on NVIDIA Jetson Orin Nano Super</b> edge appliances and <b>100+ FPS on RTX 5090 GPUs</b>, developing GStreamer hardware decode/encode pipelines (<code>nvv4l2decoder</code> / <code>nvv4l2h264enc</code>) and CUDA video processing for 24/7 continuous multi-camera feeds."
+        },
+        {
+          "heading": "Face Recognition with Vector Search",
+          "text": "Designed a high-speed identity-search engine using <b>InsightFace / ArcFace</b> facial embeddings stored in PostgreSQL with <b>pgvector (HNSW indexing)</b>, enabling sub-millisecond nearest-neighbor similarity search for employee verification."
+        },
+        {
+          "heading": "Production SageMaker MLOps",
+          "text": "Deployed production computer vision models as containerized real-time inference endpoints on <b>Amazon SageMaker (ml.g5.xlarge / ml.g5.2xlarge)</b>, building custom Docker inference images and integrating automated CI/CD deployments with health monitoring."
+        },
+        {
+          "heading": "Hybrid Training Infrastructure",
+          "text": "Orchestrated model training and experimentation across hybrid environments — SageMaker Training Jobs for cloud scalability, and a local dual-GPU server (<b>2× NVIDIA RTX 5090, 64GB RAM</b>) for YOLO training, LoRA fine-tuning of vision-language models, and rapid benchmarking before cloud promotion."
+        },
+        {
+          "heading": "GenAI Summarization & Cloud Security",
+          "text": "Extended surveillance with LLM-based event summarization and RAG search; architected hardened AWS infrastructure (VPC, WAF, GuardDuty, Inspector, Config) that <b>raised the cloud security benchmark to 80%</b> while achieving <b>HIPAA & SOC 2</b> compliance."
+        },
+        {
+          "heading": "Cost & Performance Optimization",
+          "text": "<b>Reduced operational cloud costs by 40%</b> and enhanced system performance by 20% through infrastructure auto-scaling and automated CI/CD pipelines (AWS CodePipeline, ECR) for model artifact management."
+        }
+      ]
+    },
+    {
+      "id": "vani-analytics-intern",
+      "jobTitle": "Data Science Intern",
+      "company": "Vani Analytics",
+      "type": "Internship",
+      "location": "Chennai, India",
+      "startDate": "2021-06",
+      "endDate": "2021-11",
+      "dateDisplay": "06/2021 — 11/2021",
+      "current": false,
+      "bullets": [
+        {
+          "heading": "Exploratory Data Analysis",
+          "text": "Conducted in-depth statistical modeling and exploratory data analysis (EDA) using R on real-world healthcare datasets to support clinical ML development."
+        },
+        {
+          "heading": "Statistical & ML Modeling",
+          "text": "Applied linear regression, logistic regression, k-means, and hierarchical clustering to analyze clinical attributes and evaluate model baselines."
+        },
+        {
+          "heading": "Interactive Dashboards",
+          "text": "Built interactive visualizations and dashboards using ggplot2, Plotly, and R Shiny to present data quality findings and model insights to stakeholders."
+        }
+      ]
+    }
+  ]
+}

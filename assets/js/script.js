@@ -53,9 +53,8 @@ if (sidebar && sidebarBtn) {
 // -------------------------------------------------------------
 // PAGE NAVIGATION
 // -------------------------------------------------------------
-const navigationLinks = document.querySelectorAll('[data-nav-link]');
-const pages = document.querySelectorAll('[data-page]');
-
+// PAGE NAVIGATION
+// -------------------------------------------------------------
 const switchPage = (targetPageName) => {
   // Remove any open project detail before switching
   const projectDetail = document.querySelector('[data-page="project-detail"]');
@@ -63,6 +62,7 @@ const switchPage = (targetPageName) => {
     projectDetail.remove();
   }
 
+  const pages = document.querySelectorAll('[data-page]');
   pages.forEach(page => {
     if (page.dataset.page === targetPageName) {
       page.classList.add('active');
@@ -71,6 +71,7 @@ const switchPage = (targetPageName) => {
     }
   });
 
+  const navigationLinks = document.querySelectorAll('[data-nav-link]');
   navigationLinks.forEach(link => {
     if (link.dataset.navLink === targetPageName || link.innerText.trim().toLowerCase() === targetPageName) {
       link.classList.add('active');
@@ -82,12 +83,14 @@ const switchPage = (targetPageName) => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-navigationLinks.forEach(link => {
-  link.addEventListener('click', function (e) {
+// Event delegation for navigation links (supports dynamically rendered nav links)
+document.addEventListener('click', function (e) {
+  const navLink = e.target.closest('[data-nav-link]');
+  if (navLink) {
     e.preventDefault();
-    const targetPage = this.dataset.navLink || this.innerText.trim().toLowerCase();
+    const targetPage = navLink.dataset.navLink || navLink.innerText.trim().toLowerCase();
     switchPage(targetPage);
-  });
+  }
 });
 
 // Quick navigation triggers from Hero CTA buttons
@@ -98,14 +101,9 @@ window.navigateToSection = function(sectionName) {
 // -------------------------------------------------------------
 // PROJECT FILTERING
 // -------------------------------------------------------------
-const select = document.querySelector('[data-select]');
-const selectItems = document.querySelectorAll('[data-select-item]');
-const selectValue = document.querySelector('[data-select-value]');
-const filterBtns = document.querySelectorAll('[data-filter-btn]');
-const filterItems = document.querySelectorAll('[data-filter-item]');
-
 const filterFunc = (selectedValue) => {
   const normVal = selectedValue.trim().toLowerCase();
+  const filterItems = document.querySelectorAll('[data-filter-item]');
   filterItems.forEach(item => {
     const itemCat = (item.dataset.category || '').toLowerCase();
     if (normVal === 'all' || itemCat.includes(normVal)) {
@@ -116,35 +114,39 @@ const filterFunc = (selectedValue) => {
   });
 };
 
-if (select && selectValue) {
-  select.addEventListener('click', function () {
-    this.classList.toggle('active');
-  });
+// Event delegation for filter buttons (supports dynamically rendered filter buttons)
+document.addEventListener('click', function (e) {
+  const filterBtn = e.target.closest('[data-filter-btn]');
+  if (filterBtn) {
+    const allBtns = document.querySelectorAll('[data-filter-btn]');
+    allBtns.forEach(btn => btn.classList.remove('active'));
+    filterBtn.classList.add('active');
 
-  selectItems.forEach(item => {
-    item.addEventListener('click', function () {
-      const selectedValue = this.innerText;
-      selectValue.innerText = selectedValue;
-      select.classList.remove('active');
-      filterFunc(selectedValue);
-    });
-  });
-}
+    const selectedValue = filterBtn.innerText;
+    const selectValue = document.querySelector('[data-select-value]');
+    if (selectValue) selectValue.innerText = selectedValue;
 
-if (filterBtns.length > 0) {
-  let lastClickedBtn = filterBtns[0];
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const selectedValue = this.innerText;
-      if (selectValue) selectValue.innerText = selectedValue;
-      filterFunc(selectedValue);
+    filterFunc(selectedValue);
+  }
+});
 
-      if (lastClickedBtn) lastClickedBtn.classList.remove('active');
-      this.classList.add('active');
-      lastClickedBtn = this;
-    });
-  });
-}
+// Mobile filter dropdown select
+document.addEventListener('click', function (e) {
+  const select = e.target.closest('[data-select]');
+  if (select) {
+    select.classList.toggle('active');
+  }
+
+  const selectItem = e.target.closest('[data-select-item]');
+  if (selectItem) {
+    const selectedValue = selectItem.innerText;
+    const selectValue = document.querySelector('[data-select-value]');
+    if (selectValue) selectValue.innerText = selectedValue;
+    const selectParent = document.querySelector('[data-select]');
+    if (selectParent) selectParent.classList.remove('active');
+    filterFunc(selectedValue);
+  }
+});
 
 // -------------------------------------------------------------
 // DYNAMIC PROJECT DETAIL LOADING
@@ -159,9 +161,14 @@ window.loadProjectContent = function (projectUrl) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       
-      const projectContent = doc.querySelector('article')?.innerHTML || 
-                            doc.querySelector('main')?.innerHTML || 
-                            doc.querySelector('body').innerHTML;
+      const sourceContainer = doc.querySelector('article') || 
+                              doc.querySelector('main') || 
+                              doc.body;
+      const clone = sourceContainer.cloneNode(true);
+      // Remove any static standalone back button if present
+      const existingBack = clone.querySelector('.back-btn');
+      if (existingBack) existingBack.remove();
+      const projectContent = clone.innerHTML;
 
       // Remove existing project detail if any
       const existing = document.querySelector('[data-page="project-detail"]');
@@ -184,13 +191,18 @@ window.loadProjectContent = function (projectUrl) {
       `;
 
       // Hide all standard pages and append the detail article
+      const pages = document.querySelectorAll('[data-page]');
       pages.forEach(page => page.classList.remove('active'));
-      document.querySelector('.main-content').appendChild(projectArticle);
+      const mainContent = document.querySelector('.main-content');
+      if (mainContent) {
+        mainContent.appendChild(projectArticle);
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     })
     .catch(error => {
-      console.error('Error loading project content:', error);
-      alert('Unable to load project details. Please check connection.');
+      console.warn('Inline fetch failed, navigating directly to:', projectUrl, error);
+      // Fallback gracefully to direct page navigation
+      window.location.href = projectUrl;
     });
 };
 

@@ -1,0 +1,46 @@
+{
+  "$schema": "./site-config.schema.json",
+  "siteTitle": "Santhoshkumar R | Machine Learning Engineer | GenAI & Computer Vision",
+  "siteDescription": "Portfolio of Santhoshkumar R — Machine Learning Engineer specializing in Generative AI, Computer Vision (YOLO, ArcFace, pgvector), NVIDIA Jetson edge inference, and secure AWS MLOps infrastructure.",
+  "keywords": [
+    "Santhoshkumar R",
+    "Machine Learning Engineer",
+    "Generative AI",
+    "Computer Vision",
+    "YOLO",
+    "SageMaker",
+    "NVIDIA Jetson Orin Nano",
+    "ArcFace",
+    "pgvector",
+    "AWS Certified Security",
+    "Terraform",
+    "Docker",
+    "Kubernetes"
+  ],
+  "author": "Santhoshkumar R",
+  "canonicalUrl": "https://santhoshclx.github.io/PersonalPortfolio/",
+  "ogImage": "./assets/images/project-cctv.jpg",
+  "theme": {
+    "default": "light",
+    "allowToggle": true,
+    "storageKey": "portfolio-theme"
+  },
+  "resume": {
+    "filename": "Santhoshkumar-R-Resume-20260718.pdf",
+    "path": "./assets/Santhoshkumar-R-Resume-20260718.pdf",
+    "label": "Download Resume",
+    "badge": "PDF"
+  },
+  "footer": {
+    "copyrightYear": 2026,
+    "author": "Santhoshkumar R",
+    "text": "Built with clean web standards & engineering precision.",
+    "tagline": "Machine Learning Engineer · Generative AI · Computer Vision · Cloud MLOps & Security"
+  },
+  "features": {
+    "themeToggle": true,
+    "blog": true,
+    "projectFilters": true,
+    "dynamicProjectModals": true
+  }
+}

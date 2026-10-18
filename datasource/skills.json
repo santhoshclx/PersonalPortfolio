@@ -1,0 +1,150 @@
+{
+  "sectionTitle": "Technical Skills Matrix",
+  "introduction": "Structured around hands-on engineering depth across Computer Vision, Edge AI, Generative AI, MLOps, Cloud Infrastructure, and Cloud Security. Prioritizing verifiable production skills over arbitrary percentages.",
+  "categories": [
+    {
+      "id": "computer-vision",
+      "title": "Computer Vision & Object Detection",
+      "icon": "eye-outline",
+      "tags": [
+        "Custom YOLOv8/v9",
+        "OpenCV",
+        "CVAT Annotation",
+        "Label Studio",
+        "False-Positive Reduction",
+        "PPE Detection"
+      ],
+      "bullets": [
+        "Custom YOLO fine-tuning on 10k annotated images, boosting mAP@0.5 to ~91%.",
+        "Multi-class object & attribute detection, pose, PPE, and carried objects.",
+        "Domain-specific data augmentation for harsh, variable lighting conditions."
+      ]
+    },
+    {
+      "id": "generative-ai",
+      "title": "Generative AI & Vector Embeddings",
+      "icon": "sparkles-outline",
+      "tags": [
+        "LLM Summarization",
+        "Video RAG",
+        "pgvector (HNSW)",
+        "InsightFace / ArcFace",
+        "LoRA Fine-Tuning",
+        "VLM Evaluation"
+      ],
+      "bullets": [
+        "LLM-based continuous event summarization and RAG search over CCTV records.",
+        "512-dimensional facial embedding extraction and cosine distance verification.",
+        "PostgreSQL with pgvector using HNSW indexing for sub-15ms vector queries."
+      ]
+    },
+    {
+      "id": "edge-ai",
+      "title": "Edge AI & GPU Infrastructure",
+      "icon": "hardware-chip-outline",
+      "tags": [
+        "NVIDIA Jetson Orin Nano",
+        "TensorRT",
+        "CUDA Acceleration",
+        "GStreamer Pipelines",
+        "2× RTX 5090 Rig",
+        "LoRA Fine-Tuning"
+      ],
+      "bullets": [
+        "Hardware-accelerated decode/encode (nvv4l2decoder, nvv4l2h264enc) at 35–45 FPS.",
+        "Local dual-GPU server (2× RTX 5090, 64GB RAM) for 100+ FPS rapid benchmarking.",
+        "Low-rank adaptation (LoRA) fine-tuning of vision-language models for edge deployment."
+      ]
+    },
+    {
+      "id": "cloud-mlops",
+      "title": "Cloud ML Services & MLOps",
+      "icon": "cloudy-outline",
+      "tags": [
+        "AWS SageMaker",
+        "SageMaker Endpoints (ml.g5)",
+        "MLflow",
+        "Docker Containers",
+        "Amazon ECR",
+        "Model Versioning"
+      ],
+      "bullets": [
+        "Custom Docker containers for real-time model inference on SageMaker ml.g5.",
+        "Automated CI/CD retraining workflows using AWS CodePipeline and Step Functions.",
+        "Model drift detection, endpoint health checks, and latency telemetry in CloudWatch."
+      ]
+    },
+    {
+      "id": "cloud-devops",
+      "title": "Cloud Infrastructure & DevOps",
+      "icon": "construct-outline",
+      "tags": [
+        "Terraform (IaC)",
+        "AWS ECS Fargate",
+        "Amazon EKS",
+        "AWS VPC (3-Tier)",
+        "Aurora RDS",
+        "API Gateway & Lambda"
+      ],
+      "bullets": [
+        "Modular Terraform codebase managing multi-tenant production AWS infrastructure.",
+        "Auto-scaling ECS Fargate clusters and serverless Lambda microservices.",
+        "Infrastructure automation resulting in a 40% reduction in cloud operating costs."
+      ]
+    },
+    {
+      "id": "cloud-security",
+      "title": "Cloud Security & Compliance",
+      "icon": "shield-outline",
+      "tags": [
+        { "name": "AWS Security Specialty", "type": "gold" },
+        { "name": "HIPAA & SOC 2", "type": "emerald" },
+        { "name": "Zero-Trust Access", "type": "" },
+        { "name": "AWS Systems Manager (SSM)", "type": "" },
+        { "name": "AWS KMS Encryption", "type": "" },
+        { "name": "GuardDuty & Inspector", "type": "" }
+      ],
+      "bullets": [
+        "Zero-trust SSH tunneling via SSM ProxyCommand, closing all public SSH ports.",
+        "Customer-managed key (CMK) envelope encryption across S3, EBS, and Aurora RDS.",
+        "AWS Config rules, CloudTrail immutable auditing, and 80% security benchmark score."
+      ]
+    },
+    {
+      "id": "programming",
+      "title": "Programming & Frameworks",
+      "icon": "code-slash-outline",
+      "tags": [
+        "Python (NumPy, Pandas)",
+        "Scikit-learn",
+        "TensorFlow / PyTorch",
+        "SQL (PostgreSQL)",
+        "JavaScript / Web",
+        "Bash Scripting"
+      ],
+      "bullets": [
+        "High-performance Python for computer vision pipelines and ML training loops.",
+        "Complex SQL schema design, pgvector indexing, and query optimization.",
+        "Production shell scripting for edge deployment automation and CI/CD steps."
+      ]
+    },
+    {
+      "id": "cicd-observability",
+      "title": "CI/CD & Observability",
+      "icon": "analytics-outline",
+      "tags": [
+        "AWS CodePipeline",
+        "CloudWatch & SNS",
+        "Jenkins",
+        "GitHub Actions",
+        "Git / Bitbucket",
+        "Prometheus / Metrics"
+      ],
+      "bullets": [
+        "Continuous integration and delivery pipelines for Dockerized ML containers.",
+        "Real-time CloudWatch alarms with SNS notifications for inference latency spikes.",
+        "Automated blue-green canary deployment workflows for zero-downtime updates."
+      ]
+    }
+  ]
+}

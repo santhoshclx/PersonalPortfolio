@@ -1,0 +1,25 @@
+{
+  "sectionTitle": "Academic Background",
+  "degrees": [
+    {
+      "id": "msc-ai",
+      "degree": "Master of Science (M.Sc.) — Artificial Intelligence",
+      "institution": "Sri Ramachandra Institute of Higher Education and Research",
+      "status": "Graduated",
+      "graduationDate": "08/2024",
+      "tag": "Graduated 08/2024",
+      "tagColor": "emerald",
+      "description": "Focus on <b>advanced optimization algorithms</b> for machine learning models, deep learning, and neural networks. Completed part-time while working full-time at Clustrex. In-depth research into optimizers (SGD, Adam, RMSprop, Adagrad) to accelerate model convergence and inference efficiency."
+    },
+    {
+      "id": "bca",
+      "degree": "Bachelor of Computer Applications (BCA)",
+      "institution": "Guru Nanak College, University of Madras",
+      "status": "Graduated",
+      "graduationDate": "07/2022",
+      "tag": "Graduated 07/2022",
+      "tagColor": "",
+      "description": "Minors in <b>Mathematics and Computational Algorithms</b>. Rigorous coursework in data structures, algorithmic complexity, software engineering principles, and distributed systems."
+    }
+  ]
+}

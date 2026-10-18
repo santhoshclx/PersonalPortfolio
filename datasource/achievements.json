@@ -1,0 +1,48 @@
+{
+  "metrics": [
+    {
+      "id": "years-experience",
+      "value": "4.4+",
+      "label": "Years Production Exp",
+      "highlight": ""
+    },
+    {
+      "id": "yolo-map",
+      "value": "~91%",
+      "label": "YOLO mAP@0.5 (from ~82%)",
+      "highlight": ""
+    },
+    {
+      "id": "jetson-fps",
+      "value": "35–45",
+      "label": "FPS Jetson Edge Inference",
+      "highlight": ""
+    },
+    {
+      "id": "cost-reduction",
+      "value": "40%",
+      "label": "Cloud Cost Reduction",
+      "highlight": "gold"
+    },
+    {
+      "id": "security-score",
+      "value": "80%",
+      "label": "Cloud Security Score",
+      "highlight": "emerald"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "mAP@0.5 Detection Improvement",
+      "description": "Improved YOLO mAP@0.5 from ~82% to ~91% through targeted augmentation and annotation curation."
+    },
+    {
+      "title": "Cloud Operating Cost Reduction",
+      "description": "Architected Terraform auto-scaling and serverless architectures saving 40% in monthly infrastructure spend."
+    },
+    {
+      "title": "Zero-Trust Security Benchmark",
+      "description": "Raised cloud security benchmark to 80% while establishing HIPAA & SOC 2 Type II compliance controls."
+    }
+  ]
+}

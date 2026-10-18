@@ -13,7 +13,7 @@ Hosted on GitHub Pages: [https://santhoshclx.github.io/PersonalPortfolio/](https
 1. **Brand Positioning & Hero Overview**:
    - Redesigned around verified professional background: *AI/ML & GenAI Engineer | Computer Vision & MLOps | Enterprise Cloud Security*.
    - Live pulse availability indicator.
-   - Verified resume impact metrics: **4.2+ Years Experience**, **~91% mAP@0.5 YOLO Detection**, **35–45 FPS Jetson Edge Inference**, **40% Cloud Cost Reduction**, and **80% Security Score**.
+   - Verified resume impact metrics: **4.4+ Years Experience**, **~91% mAP@0.5 YOLO Detection**, **35–45 FPS Jetson Edge Inference**, **40% Cloud Cost Reduction**, and **80% Security Score**.
    - Direct download link for authentic PDF resume (`assets/Santhoshkumar-R-Resume-20260718.pdf`).
 
 2. **Dark & Light Mode Theming**:
@@ -45,15 +45,18 @@ Hosted on GitHub Pages: [https://santhoshclx.github.io/PersonalPortfolio/](https
    - **Data Science Using R Certificate**: Vani Analytics.
    - **Academic Credentials**: Master of Science (M.Sc.) in Artificial Intelligence from Sri Ramachandra Institute of Higher Education and Research, and Bachelor of Computer Applications (BCA) from Guru Nanak College, University of Madras.
 
-6. **Privacy & Security**:
-   - Removed exposed personal phone numbers from public view.
-   - Functional contact form with mailto fallback dispatch.
+6. **Centralized Single Source of Truth (`datasource/`)**:
+   - All profile data, projects, metrics, skills, certifications, and links are managed in canonical JSON records under `datasource/`.
+   - Dynamic UI hydration via `assets/js/datasource.js`.
+   - Automated schema & integrity validator scripts in `scripts/validate_datasource.py` and `scripts/validate-datasource.js`.
+   - CI validation gate integrated into GitHub Actions deployment workflow.
 
 ---
 
 ## 🛠️ Technology Stack
 
 - **Core**: HTML5, Vanilla JavaScript (ES6+), CSS3 Custom Properties
+- **Architecture**: Centralized `datasource/` Single Source of Truth + Dynamic Hydration
 - **Typography**: Google Fonts (*Plus Jakarta Sans*, *Fira Code*)
 - **Icons**: Ionicons (CDN)
 - **Deployment**: GitHub Pages via `.github/workflows/static.yml`
@@ -66,28 +69,36 @@ Hosted on GitHub Pages: [https://santhoshclx.github.io/PersonalPortfolio/](https
 ```
 ├── .github/
 │   └── workflows/
-│       └── static.yml                      # GitHub Actions static deployment workflow
+│       └── static.yml                      # GitHub Actions static deployment workflow with validation
+├── datasource/                             # Single Source of Truth for all portfolio content
+│   ├── site-config.json                    # Global metadata, theme settings, resume paths, SEO
+│   ├── profile.json                        # Name, role, bio, hero copy, core disciplines
+│   ├── social-links.json                   # Verified links (GitHub, LinkedIn, Credly, etc.)
+│   ├── skills.json                         # Technical capabilities matrix
+│   ├── experience.json                     # Employment history and verified achievements
+│   ├── projects.json                       # Projects, categories, thumbnails, and detail links
+│   ├── certifications.json                 # Verifiable certifications, credential IDs, and URLs
+│   ├── education.json                      # Academic background and degrees
+│   ├── achievements.json                   # Quantitative metrics & production impact numbers
+│   ├── navigation.json                     # Configurable navigation bar items
+│   ├── blogs.json                          # Technical articles and guides
+│   └── README.md                           # Content maintainer guide & schema documentation
 ├── assets/
 │   ├── Santhoshkumar-R-Resume.pdf          # Verified PDF resume
 │   ├── css/
 │   │   └── style.css                       # Modern design system (Dark/Light themes)
 │   ├── js/
+│   │   ├── datasource.js                   # Data-access layer and dynamic hydration
 │   │   └── script.js                       # Theme toggle, routing, dynamic loading, forms
 │   └── images/                             # Project thumbnails and icons
-├── projects/
-│   ├── CCTVVideoSurveillanceAI.html        # Flagship AI CCTV project detail & architecture
-│   ├── AWSIaaSTerraform.html               # AWS IaaS Terraform project detail & architecture
-│   ├── HIPAASOC2ComplianceAWS.html         # Cloud Security & Zero-Trust project detail
-│   ├── AWSCodePipelineCICD.html            # AWS CodePipeline with CloudFormation
-│   ├── LinearRegressionFromSCRATCH.html   # Linear regression from scratch
-│   ├── PatternMatchingRegEx.html          # Interactive regex pattern matcher
-│   └── PersonalPortfolioWebsite.html       # Portfolio website overview
-├── blogs/
-│   ├── AWSCloudWatchAgent.html             # AWS CloudWatch Agent guide
-│   ├── AWSCodePipeline.html                # AWS CodePipeline CI/CD guide
-│   ├── AWSSystemsManager.html              # Mastering AWS Systems Manager (SSM)
-│   └── RegularExpressionsGuide.html        # Comprehensive regex guide
+├── projects/                               # Deep-dive project architecture and detail pages
+├── blogs/                                  # Technical engineering write-ups
+├── scripts/
+│   ├── validate_datasource.py              # Python 3 schema & integrity validator
+│   ├── validate-datasource.js              # Node.js schema validator
+│   └── sync_datasource.py                  # Static fallback synchronization tool
 ├── index.html                              # Main portfolio single-page application
+├── package.json                            # Local development & validation script aliases
 └── README.md                               # Project documentation
 ```
 

@@ -1183,6 +1183,53 @@ article {
 }
 
 /*-----------------------------------*\
+  #PROJECT DETAIL VIEW & BACK BUTTON
+\*-----------------------------------*/
+
+.project-detail {
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface-2);
+  color: var(--text-main);
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: var(--fs-6);
+  font-weight: var(--fw-600);
+  cursor: pointer;
+  margin-bottom: 24px;
+  transition: all var(--transition-1);
+  text-decoration: none;
+}
+
+.back-btn ion-icon {
+  font-size: 1.15rem;
+  color: var(--accent-blue);
+  transition: transform var(--transition-1);
+}
+
+.back-btn:hover {
+  background: var(--accent-blue);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+}
+
+.back-btn:hover ion-icon {
+  color: #ffffff;
+  transform: translateX(-4px);
+}
+
+.project-inner-content {
+  width: 100%;
+}
+
+/*-----------------------------------*\
   #CERTIFICATIONS & CREDLY BADGES
 \*-----------------------------------*/
 

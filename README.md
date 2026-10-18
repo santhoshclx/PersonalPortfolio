@@ -17,9 +17,9 @@ Hosted on GitHub Pages: [https://santhoshclx.github.io/PersonalPortfolio/](https
    - Direct download link for authentic PDF resume (`assets/Santhoshkumar-R-Resume-20260718.pdf`).
 
 2. **Dark & Light Mode Theming**:
-   - Sleek Obsidian/Slate dark mode with glowing cyan and gold accents.
-   - High-contrast, clean light mode.
-   - Smooth toggle switch in the navbar with persistent state in `localStorage` and system preference detection (`prefers-color-scheme`).
+   - Clean, modern light theme set as default.
+   - High-contrast Obsidian/Slate dark mode accessible on-demand via the navbar toggle switch.
+   - Persistent theme state saved in `localStorage`.
 
 3. **Technical Skills Matrix**:
    - Replaced arbitrary percentage progress bars with a structured capability matrix:

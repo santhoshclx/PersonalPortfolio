@@ -5,8 +5,7 @@
 // -------------------------------------------------------------
 const initTheme = () => {
   const savedTheme = localStorage.getItem('portfolio-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initialTheme = savedTheme || (prefersDark ? 'dark' : 'dark'); // Default to sleek dark mode
+  const initialTheme = savedTheme || 'light'; // Default to white / light theme
   
   document.documentElement.setAttribute('data-theme', initialTheme);
   updateThemeIcon(initialTheme);
@@ -24,8 +23,8 @@ const updateThemeIcon = (theme) => {
 };
 
 const toggleTheme = () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('portfolio-theme', newTheme);
   updateThemeIcon(newTheme);

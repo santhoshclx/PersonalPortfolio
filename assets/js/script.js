@@ -28,6 +28,7 @@ const toggleTheme = () => {
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('portfolio-theme', newTheme);
   updateThemeIcon(newTheme);
+  document.dispatchEvent(new CustomEvent('theme:change', { detail: { theme: newTheme } }));
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -81,6 +82,14 @@ const switchPage = (targetPageName) => {
   });
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Refresh LiquidFX reveals & visualizer for newly active section
+  if (window.LiquidFX) {
+    setTimeout(() => {
+      if (window.LiquidFX.refreshReveals) window.LiquidFX.refreshReveals();
+      if (targetPageName === 'about' && window.LiquidFX.refreshPipeline) window.LiquidFX.refreshPipeline();
+    }, 50);
+  }
 };
 
 // Event delegation for navigation links (supports dynamically rendered nav links)
@@ -112,6 +121,10 @@ const filterFunc = (selectedValue) => {
       item.classList.remove('active');
     }
   });
+
+  if (window.LiquidFX && window.LiquidFX.refreshReveals) {
+    setTimeout(window.LiquidFX.refreshReveals, 50);
+  }
 };
 
 // Event delegation for filter buttons (supports dynamically rendered filter buttons)

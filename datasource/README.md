@@ -112,6 +112,25 @@ Open [`achievements.json`](./achievements.json) and modify `"metrics"`:
 ```
 *Effect*: The hero metrics grid updates immediately.
 
+### 7. Control Overall Website Size & Font Size With a Single Value
+Open [`site-config.json`](./site-config.json):
+```json
+{
+  "scaling": {
+    "websiteScale": 1.0,
+    "baseFontSize": "16px",
+    "fontScale": 1.0
+  }
+}
+```
+* **`websiteScale` (Single Master Control)**: Adjust this single value to scale the **entire website** (all font sizes, cards, layouts, images, and spacing proportionally).
+  * `0.9` = 90% scale (compact view)
+  * `1.0` = 100% scale (standard default)
+  * `1.05` = 105% scale (comfortable reading)
+  * `1.1` = 110% scale (large high-DPI display view)
+* **`baseFontSize`** (optional): Root font size (default: `"16px"`).
+* **`fontScale`** (optional): Independent typography multiplier if you only wish to scale text without changing container widths.
+
 ---
 
 ## 🔍 Validation & Linting

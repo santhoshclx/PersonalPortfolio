@@ -102,6 +102,20 @@
     const cfg = dataStore.siteConfig;
     if (!cfg) return;
 
+    // ---------------------------------------------------------
+    // Overall Website & Font Size Scaling Control
+    // Single value controls all website scaling + font sizes
+    // ---------------------------------------------------------
+    const scaleConfig = cfg.scaling || {};
+    const uiScale = cfg.websiteScale ?? cfg.uiScale ?? cfg.scale ?? scaleConfig.websiteScale ?? scaleConfig.uiScale ?? scaleConfig.scale ?? 1.0;
+    const fontScale = cfg.fontScale ?? scaleConfig.fontScale ?? 1.0;
+    const baseFontSize = cfg.baseFontSize ?? scaleConfig.baseFontSize ?? '16px';
+
+    const root = document.documentElement;
+    root.style.setProperty('--ui-scale', uiScale);
+    root.style.setProperty('--font-scale', fontScale);
+    root.style.setProperty('--base-font-size', typeof baseFontSize === 'number' ? `${baseFontSize}px` : baseFontSize);
+
     if (cfg.siteTitle) document.title = cfg.siteTitle;
 
     const metaTitle = document.querySelector('meta[name="title"]');

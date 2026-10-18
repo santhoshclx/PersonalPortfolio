@@ -1403,6 +1403,30 @@ article {
   color: var(--accent-blue);
 }
 
+.contact-details .contact-title {
+  color: var(--text-subtle);
+  font-size: var(--fs-8);
+  text-transform: uppercase;
+  font-weight: var(--fw-600);
+  margin-bottom: 2px;
+}
+
+.contact-details .contact-link {
+  display: block;
+  font-size: var(--fs-7);
+  font-weight: var(--fw-500);
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  transition: color var(--transition-1);
+}
+
+.contact-card-box:hover .contact-details .contact-link {
+  color: var(--accent-blue);
+}
+
 .contact-form { margin-bottom: 10px; }
 
 .form-title { margin-bottom: 20px; }

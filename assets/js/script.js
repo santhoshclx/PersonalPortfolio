@@ -1,228 +1,253 @@
 'use strict';
 
-
-
-// element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
-
-
-
-// sidebar variables
-const sidebar = document.querySelector("[data-sidebar]");
-const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-
-// sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
-
-
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
-
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
-
-// modal toggle function
-const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
-}
-
-// add click event to all modal items
-for (let i = 0; i < testimonialsItem.length; i++) {
-
-  testimonialsItem[i].addEventListener("click", function () {
-
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
-
-    testimonialsModalFunc();
-
-  });
-
-}
-
-// add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
-
-
-
-// custom select variables
-const select = document.querySelector("[data-select]");
-const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-selecct-value]");
-const filterBtn = document.querySelectorAll("[data-filter-btn]");
-
-select.addEventListener("click", function () { elementToggleFunc(this); });
-
-// add event in all select items
-for (let i = 0; i < selectItems.length; i++) {
-  selectItems[i].addEventListener("click", function () {
-
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    elementToggleFunc(select);
-    filterFunc(selectedValue);
-
-  });
-}
-
-// filter variables
-const filterItems = document.querySelectorAll("[data-filter-item]");
-
-const filterFunc = function (selectedValue) {
-
-  for (let i = 0; i < filterItems.length; i++) {
-
-    if (selectedValue === "all") {
-      filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category) {
-      filterItems[i].classList.add("active");
-    } else {
-      filterItems[i].classList.remove("active");
-    }
-
-  }
-
-}
-
-// add event in all filter button items for large screen
-let lastClickedBtn = filterBtn[0];
-
-for (let i = 0; i < filterBtn.length; i++) {
-
-  filterBtn[i].addEventListener("click", function () {
-
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    filterFunc(selectedValue);
-
-    lastClickedBtn.classList.remove("active");
-    this.classList.add("active");
-    lastClickedBtn = this;
-
-  });
-
-}
-
-
-
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
-
-// add event to all form input field
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
-  });
-}
-
-
-
-// page navigation variables
-const navigationLinks = document.querySelectorAll("[data-nav-link]");
-const pages = document.querySelectorAll("[data-page]");
-
-// add event to all nav link
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
-
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
-    }
-
-  });
-}
-
-// Function to load project content dynamically
-function loadProjectContent(projectUrl) {
-  fetch(projectUrl)
-    .then(response => response.text())
-    .then(html => {
-      // Extract content from the fetched HTML
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      
-      // Try to get content in order of preference
-      let projectContent = doc.querySelector('article')?.innerHTML || 
-                          doc.querySelector('main')?.innerHTML || 
-                          doc.querySelector('body').innerHTML;
-      
-      // Create a new article for the project
-      const projectArticle = document.createElement('article');
-      projectArticle.className = 'project-detail active';
-      projectArticle.setAttribute('data-page', 'project-detail');
-      projectArticle.innerHTML = `
-        <div style="padding: 20px; padding-top: 70px;">
-          <button onclick="closeProjectDetail()" class="form-btn" style="position: absolute; top: 20px; left: 20px; width: auto; margin: 0;">
-            <span>← Back to ${projectUrl.includes('/blogs/') ? 'Blog' : 'Projects'}</span>
-          </button>
-          <div style="color: var(--orange-yellow-crayola);">
-            ${projectContent}
-          </div>  
-        </div>
-      `;
-      // Hide other pages and show project detail
-      document.querySelectorAll('[data-page]').forEach(page => page.classList.remove('active'));
-      document.querySelector('.main-content').appendChild(projectArticle);
-      
-      // Scroll to top
-      window.scrollTo(0, 0);
-    })
-    .catch(error => {
-      console.error('Error loading project:', error);
-    });
-}
-
-function closeProjectDetail() {
-  const projectDetail = document.querySelector('[data-page="project-detail"]');
-  const backButton = projectDetail?.querySelector('button span');
-  const isFromBlog = backButton?.textContent.includes('Blog');
+// -------------------------------------------------------------
+// THEME MANAGEMENT (Dark / Light Mode)
+// -------------------------------------------------------------
+const initTheme = () => {
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (prefersDark ? 'dark' : 'dark'); // Default to sleek dark mode
   
+  document.documentElement.setAttribute('data-theme', initialTheme);
+  updateThemeIcon(initialTheme);
+};
+
+const updateThemeIcon = (theme) => {
+  const toggleBtn = document.querySelector('[data-theme-btn]');
+  if (!toggleBtn) return;
+  const icon = toggleBtn.querySelector('ion-icon');
+  if (icon) {
+    icon.setAttribute('name', theme === 'light' ? 'moon-outline' : 'sunny-outline');
+    toggleBtn.setAttribute('title', theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+    toggleBtn.setAttribute('aria-label', theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+  }
+};
+
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('portfolio-theme', newTheme);
+  updateThemeIcon(newTheme);
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  const themeBtn = document.querySelector('[data-theme-btn]');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', toggleTheme);
+  }
+});
+
+// -------------------------------------------------------------
+// SIDEBAR TOGGLE FUNCTIONALITY (Mobile)
+// -------------------------------------------------------------
+const sidebar = document.querySelector('[data-sidebar]');
+const sidebarBtn = document.querySelector('[data-sidebar-btn]');
+
+if (sidebar && sidebarBtn) {
+  sidebarBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  });
+}
+
+// -------------------------------------------------------------
+// PAGE NAVIGATION
+// -------------------------------------------------------------
+const navigationLinks = document.querySelectorAll('[data-nav-link]');
+const pages = document.querySelectorAll('[data-page]');
+
+const switchPage = (targetPageName) => {
+  // Remove any open project detail before switching
+  const projectDetail = document.querySelector('[data-page="project-detail"]');
   if (projectDetail) {
     projectDetail.remove();
   }
-  
-  // Show the appropriate page
-  const targetPage = isFromBlog ? 'blog' : 'projects';
-  document.querySelector(`[data-page="${targetPage}"]`).classList.add('active');
-  
-  // Update navigation
-  document.querySelectorAll('[data-nav-link]').forEach(link => {
-    if (link.innerHTML.toLowerCase() === targetPage) {
+
+  pages.forEach(page => {
+    if (page.dataset.page === targetPageName) {
+      page.classList.add('active');
+    } else {
+      page.classList.remove('active');
+    }
+  });
+
+  navigationLinks.forEach(link => {
+    if (link.dataset.navLink === targetPageName || link.innerText.trim().toLowerCase() === targetPageName) {
       link.classList.add('active');
     } else {
       link.classList.remove('active');
     }
   });
-  
-  window.scrollTo(0, 0);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+navigationLinks.forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const targetPage = this.dataset.navLink || this.innerText.trim().toLowerCase();
+    switchPage(targetPage);
+  });
+});
+
+// Quick navigation triggers from Hero CTA buttons
+window.navigateToSection = function(sectionName) {
+  switchPage(sectionName);
+};
+
+// -------------------------------------------------------------
+// PROJECT FILTERING
+// -------------------------------------------------------------
+const select = document.querySelector('[data-select]');
+const selectItems = document.querySelectorAll('[data-select-item]');
+const selectValue = document.querySelector('[data-select-value]');
+const filterBtns = document.querySelectorAll('[data-filter-btn]');
+const filterItems = document.querySelectorAll('[data-filter-item]');
+
+const filterFunc = (selectedValue) => {
+  const normVal = selectedValue.trim().toLowerCase();
+  filterItems.forEach(item => {
+    const itemCat = (item.dataset.category || '').toLowerCase();
+    if (normVal === 'all' || itemCat.includes(normVal)) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+};
+
+if (select && selectValue) {
+  select.addEventListener('click', function () {
+    this.classList.toggle('active');
+  });
+
+  selectItems.forEach(item => {
+    item.addEventListener('click', function () {
+      const selectedValue = this.innerText;
+      selectValue.innerText = selectedValue;
+      select.classList.remove('active');
+      filterFunc(selectedValue);
+    });
+  });
 }
 
+if (filterBtns.length > 0) {
+  let lastClickedBtn = filterBtns[0];
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const selectedValue = this.innerText;
+      if (selectValue) selectValue.innerText = selectedValue;
+      filterFunc(selectedValue);
 
+      if (lastClickedBtn) lastClickedBtn.classList.remove('active');
+      this.classList.add('active');
+      lastClickedBtn = this;
+    });
+  });
+}
 
+// -------------------------------------------------------------
+// DYNAMIC PROJECT DETAIL LOADING
+// -------------------------------------------------------------
+window.loadProjectContent = function (projectUrl) {
+  fetch(projectUrl)
+    .then(response => {
+      if (!response.ok) throw new Error('Network error: ' + response.statusText);
+      return response.text();
+    })
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      const projectContent = doc.querySelector('article')?.innerHTML || 
+                            doc.querySelector('main')?.innerHTML || 
+                            doc.querySelector('body').innerHTML;
 
+      // Remove existing project detail if any
+      const existing = document.querySelector('[data-page="project-detail"]');
+      if (existing) existing.remove();
+
+      const isFromBlog = projectUrl.includes('/blogs/');
+      const originPage = isFromBlog ? 'blog' : 'projects';
+
+      const projectArticle = document.createElement('article');
+      projectArticle.className = 'project-detail active';
+      projectArticle.setAttribute('data-page', 'project-detail');
+      projectArticle.innerHTML = `
+        <button onclick="closeProjectDetail('${originPage}')" class="back-btn" aria-label="Go back">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          <span>Back to ${isFromBlog ? 'Blog' : 'Projects'}</span>
+        </button>
+        <div class="project-inner-content">
+          ${projectContent}
+        </div>
+      `;
+
+      // Hide all standard pages and append the detail article
+      pages.forEach(page => page.classList.remove('active'));
+      document.querySelector('.main-content').appendChild(projectArticle);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(error => {
+      console.error('Error loading project content:', error);
+      alert('Unable to load project details. Please check connection.');
+    });
+};
+
+window.closeProjectDetail = function (targetPage = 'projects') {
+  const projectDetail = document.querySelector('[data-page="project-detail"]');
+  if (projectDetail) {
+    projectDetail.remove();
+  }
+  switchPage(targetPage);
+};
+
+// -------------------------------------------------------------
+// CONTACT FORM HANDLING
+// -------------------------------------------------------------
+const form = document.querySelector('[data-form]');
+const formInputs = document.querySelectorAll('[data-form-input]');
+const formBtn = document.querySelector('[data-form-btn]');
+
+if (form && formInputs.length > 0 && formBtn) {
+  formInputs.forEach(input => {
+    input.addEventListener('input', () => {
+      if (form.checkValidity()) {
+        formBtn.removeAttribute('disabled');
+      } else {
+        formBtn.setAttribute('disabled', '');
+      }
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.querySelector('[name="fullname"]')?.value || 'Inquirer';
+    const email = form.querySelector('[name="email"]')?.value || '';
+    const message = form.querySelector('[name="message"]')?.value || '';
+
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+    const body = encodeURIComponent(`Sender Name: ${name}\nSender Email: ${email}\n\nMessage:\n${message}`);
+
+    // Trigger user's mail client directly
+    window.location.href = `mailto:santhoshkumar007r@gmail.com?subject=${subject}&body=${body}`;
+
+    const originalBtnContent = formBtn.innerHTML;
+    formBtn.innerHTML = `<ion-icon name="checkmark-done-outline"></ion-icon><span>Opening Mail Client...</span>`;
+    formBtn.setAttribute('disabled', '');
+
+    setTimeout(() => {
+      form.reset();
+      formBtn.innerHTML = originalBtnContent;
+    }, 4000);
+  });
+}
+
+// -------------------------------------------------------------
+// DYNAMIC FOOTER YEAR
+// -------------------------------------------------------------
+const yearEl = document.getElementById('current-year');
+if (yearEl) {
+  yearEl.innerText = new Date().getFullYear();
+}

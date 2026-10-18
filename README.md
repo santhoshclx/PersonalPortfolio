@@ -1,169 +1,143 @@
-# Personal Portfolio Website
+# Personal Portfolio Website — Santhoshkumar R
 
-A modern, responsive personal portfolio website showcasing my work as a Software Engineer specializing in AI/ML, DevOps, and Web Development.
+A modern, high-performance, responsive personal portfolio website engineered for **Santhoshkumar R**, specializing in **AI/ML & GenAI Engineering, Computer Vision & MLOps, and Enterprise Cloud Security**.
 
-## 🚀 Release Notes - v0.9.0
+Hosted on GitHub Pages: [https://santhoshclx.github.io/PersonalPortfolio/](https://santhoshclx.github.io/PersonalPortfolio/)
 
-### New Features
+---
 
-#### Dynamic Content Loading
-- **Single-page application experience** with seamless navigation between sections
-- **Project detail pages** load dynamically without page refresh using `loadProjectContent()`
-- **Blog posts** integrate smoothly into the main portfolio interface
+## 🚀 Release Notes — v1.0.0 (Production Modernization)
 
-#### Interactive Code Examples
-- **Copy-to-clipboard functionality** for all code snippets across projects and blog posts
-- **Syntax highlighting** support for multiple programming languages
-- **Interactive code blocks** with visual feedback on copy actions
+### 🌟 Key Modernizations & Highlights
 
-#### Enhanced Project Showcase
-- **Linear Regression from Scratch** - Complete implementation with mathematical explanations
-- **Pattern Matching with RegEx** - Interactive regex demonstration and guide
-- **Detailed project pages** with comprehensive code examples and usage instructions
+1. **Brand Positioning & Hero Overview**:
+   - Redesigned around verified professional background: *AI/ML & GenAI Engineer | Computer Vision & MLOps | Enterprise Cloud Security*.
+   - Live pulse availability indicator.
+   - Verified resume impact metrics: **4.2+ Years Experience**, **~91% mAP@0.5 YOLO Detection**, **35–45 FPS Jetson Edge Inference**, **40% Cloud Cost Reduction**, and **80% Security Score**.
+   - Direct download link for authentic PDF resume (`assets/Santhoshkumar-R-Resume-20260718.pdf`).
 
-#### Blog Integration
-- **Regular Expressions Guide** - Comprehensive tutorial with practical examples
-- **Technical articles** with proper formatting and code highlighting
-- **Responsive blog layout** that matches the overall portfolio design
+2. **Dark & Light Mode Theming**:
+   - Sleek Obsidian/Slate dark mode with glowing cyan and gold accents.
+   - High-contrast, clean light mode.
+   - Smooth toggle switch in the navbar with persistent state in `localStorage` and system preference detection (`prefers-color-scheme`).
 
-### UI/UX Improvements
-- **Mobile-first responsive design** optimized for all screen sizes
-- **Smooth transitions** and animations throughout the interface
-- **Modern color scheme** using CSS custom properties
-- **Professional typography** with Google Fonts (Poppins)
-- **Enhanced project cards** with hover effects
+3. **Technical Skills Matrix**:
+   - Replaced arbitrary percentage progress bars with a structured capability matrix:
+     - Computer Vision & Object Detection
+     - Face Embeddings & Vector Search (InsightFace, ArcFace, PostgreSQL pgvector)
+     - Edge AI & GPU Infrastructure (Jetson Orin Nano, GStreamer, CUDA, RTX 5090)
+     - Cloud ML Services & MLOps (AWS SageMaker, ECR, Docker, CodePipeline)
+     - Cloud Infrastructure & DevOps (Terraform, ECS Fargate, Aurora RDS, WAF)
+     - Cloud Security & Compliance (AWS Certified Security – Specialty, HIPAA, SOC 2, SSM)
+     - Programming & Frameworks (Python, SQL, JavaScript, Bash)
+     - CI/CD & Observability (CloudWatch, SNS, Jenkins, GitHub Actions)
 
-### Technical Improvements
-- **Modular CSS structure** with well-organized custom properties
-- **Clean JavaScript implementation** for navigation and dynamic content
-- **Semantic HTML structure** for better accessibility and SEO
-- **Performance optimizations** with efficient asset loading
+4. **Flagship Production Projects**:
+   - **AI-Powered CCTV Surveillance & Intelligence Platform**: Custom YOLO fine-tuning (mAP@0.5 ~82% to ~91%), 35–45 FPS edge inference on NVIDIA Jetson Orin Nano, ArcFace face recognition in PostgreSQL pgvector (HNSW), SageMaker real-time endpoints (ml.g5.xlarge), and LLM CCTV summarization with RAG search. Includes 4-stage SVG architecture diagram.
+   - **AWS IaaS Multi-Tenant Automation Using Terraform**: 3-tier VPC, ECS Fargate, Aurora RDS, API Gateway, WAF, and CodePipeline CI/CD.
+   - **HIPAA & SOC 2 Cloud Security & Zero-Trust Automation**: SSM Session Manager ProxyCommand tunneling eliminating public SSH ports, KMS encryption, GuardDuty threat detection, and 80% security benchmark.
+   - Plus interactive showcase projects: AWS CodePipeline CI/CD with CloudFormation, Linear Regression From Scratch, and Interactive Regex Pattern Matcher.
 
-## 🌟 Features
+5. **Verifiable Certifications & Education**:
+   - **AWS Certified Security – Specialty (SCS-C03)**: Includes official validation number (`3f1b61349dcc49dbb308e938016c7e33`), direct links to AWS verification portal and Credly profile.
+   - **AWS Certified Generative AI Developer – Professional (AIP-C01)**: In Progress / Preparing.
+   - **HIPAA Awareness for Business Associates Certificate**: HIPAA Training.
+   - **Data Science Using R Certificate**: Vani Analytics.
+   - **Academic Credentials**: Master of Science (M.Sc.) in Artificial Intelligence from Sri Ramachandra Institute of Higher Education and Research, and Bachelor of Computer Applications (BCA) from Guru Nanak College, University of Madras.
 
-- **Responsive Design** - Works seamlessly across desktop, tablet, and mobile devices
-- **Dynamic Content Loading** - Projects and blog posts load dynamically without page refresh
-- **Interactive Navigation** - Smooth transitions between different sections
-- **Project Showcase** - Detailed project pages with code examples and copy functionality
-- **Blog Integration** - Technical blog posts with syntax highlighting
-- **Contact Form** - Direct contact functionality
-- **Social Media Links** - Easy access to professional profiles
+6. **Privacy & Security**:
+   - Removed exposed personal phone numbers from public view.
+   - Functional contact form with mailto fallback dispatch.
 
-## 🛠️ Technologies Used
+---
 
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Styling**: Custom CSS with CSS Variables for theming
-- **Icons**: Ionicons
-- **Fonts**: Google Fonts (Poppins)
-- **Deployment**: Static hosting ready
+## 🛠️ Technology Stack
 
-## 📁 Project Structure
+- **Core**: HTML5, Vanilla JavaScript (ES6+), CSS3 Custom Properties
+- **Typography**: Google Fonts (*Plus Jakarta Sans*, *Fira Code*)
+- **Icons**: Ionicons (CDN)
+- **Deployment**: GitHub Pages via `.github/workflows/static.yml`
+- **Zero Heavy Dependencies**: Pure static web standards for sub-second load times and 100% reliability
+
+---
+
+## 📁 Repository Structure
 
 ```
+├── .github/
+│   └── workflows/
+│       └── static.yml                      # GitHub Actions static deployment workflow
 ├── assets/
+│   ├── Santhoshkumar-R-Resume.pdf          # Verified PDF resume
 │   ├── css/
-│   │   └── style.css          # Main stylesheet
+│   │   └── style.css                       # Modern design system (Dark/Light themes)
 │   ├── js/
-│   │   └── script.js          # Main JavaScript functionality
-│   └── images/                # Images and icons
+│   │   └── script.js                       # Theme toggle, routing, dynamic loading, forms
+│   └── images/                             # Project thumbnails and icons
 ├── projects/
-│   ├── PatternMatchingRegEx.html
-│   └── LinearRegressionFromSCRATCH.html
+│   ├── CCTVVideoSurveillanceAI.html        # Flagship AI CCTV project detail & architecture
+│   ├── AWSIaaSTerraform.html               # AWS IaaS Terraform project detail & architecture
+│   ├── HIPAASOC2ComplianceAWS.html         # Cloud Security & Zero-Trust project detail
+│   ├── AWSCodePipelineCICD.html            # AWS CodePipeline with CloudFormation
+│   ├── LinearRegressionFromSCRATCH.html   # Linear regression from scratch
+│   ├── PatternMatchingRegEx.html          # Interactive regex pattern matcher
+│   └── PersonalPortfolioWebsite.html       # Portfolio website overview
 ├── blogs/
-│   └── RegularExpressionsGuide.html
-├── index.html                 # Main portfolio page
-└── README.md
+│   ├── AWSCloudWatchAgent.html             # AWS CloudWatch Agent guide
+│   ├── AWSCodePipeline.html                # AWS CodePipeline CI/CD guide
+│   ├── AWSSystemsManager.html              # Mastering AWS Systems Manager (SSM)
+│   └── RegularExpressionsGuide.html        # Comprehensive regex guide
+├── index.html                              # Main portfolio single-page application
+└── README.md                               # Project documentation
 ```
 
-## 🚀 Getting Started
+---
 
-1. **Clone the repository**
+## 🚀 Local Development
+
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/santhoshclx/portfolio.git
-   cd portfolio
+   git clone https://github.com/santhoshclx/PersonalPortfolio.git
+   cd PersonalPortfolio
+   git checkout development
    ```
 
-2. **Open locally**
-   - Open `index.html` in your browser, or
-   - Use a local server (recommended):
-     ```bash
-     # Using Python
-     python -m http.server 8000
-     
-     # Using Node.js
-     npx serve .
-     
-     # Using VS Code Live Server extension
-     ```
+2. **Start a local static server**:
+   ```bash
+   # Using Python
+   python -m http.server 8088
 
-3. **View the portfolio**
-   - Navigate to `http://localhost:8000` (if using local server)
-   - Or simply open `index.html` in your browser
+   # Or using Node.js
+   npx serve .
+   ```
 
-## 📱 Sections
+3. **Access in browser**:
+   Navigate to `http://localhost:8088/`
 
-- **About** - Personal introduction and services offered
-- **Resume** - Professional experience and education
-- **Projects** - Showcase of technical projects with interactive demos
-- **Blog** - Technical articles and tutorials
-- **Contact** - Contact form and social media links
+---
 
-## 🎨 Customization
+## 🚢 Deployment to GitHub Pages
 
-### Colors
-The website uses CSS custom properties for easy theming. Main colors can be modified in `assets/css/style.css`:
+The repository contains an automated GitHub Actions deployment workflow at `.github/workflows/static.yml` targeting the `main` branch.
 
-```css
-:root {
-  --orange-yellow-crayola: #ffdb70;
-  --smoky-black: #0c0c0c;
-  --eerie-black-1: #1e1e1f;
-  /* ... other color variables */
-}
-```
+To review and deploy updates:
+1. Review changes on the `development` branch.
+2. Commit and push the updated branch.
+3. Open a Pull Request from `development` to `main`.
+4. Merging into `main` automatically triggers GitHub Pages deployment.
 
-### Content
-- Update personal information in `index.html`
-- Add new projects in the `projects/` directory
-- Add new blog posts in the `blogs/` directory
-- Update project/blog links in the main `index.html` file
+---
 
-## 🔧 Key Features Implementation
+## 📞 Contact Channels
 
-### Dynamic Content Loading
-Projects and blog posts are loaded dynamically using the `loadProjectContent()` function, providing a seamless single-page application experience.
-
-### Copy Code Functionality
-Code snippets include copy-to-clipboard functionality for better user experience.
-
-### Responsive Navigation
-Mobile-friendly navigation with smooth transitions and active state management.
-
-## 🎯 What's Next (v1.0.0)
-- Additional project showcases
-- More technical blog posts
-- Enhanced animations and micro-interactions
-- Dark/light theme toggle
-- Advanced contact form features
-
-## 📞 Contact
-
-- **Email**: santhoshkumar007r@gmail.com
-- **Phone**: +91 86676 74914
-- **LinkedIn**: [santhoshkumar--r](https://www.linkedin.com/in/santhoshkumar--r/)
-- **GitHub**: [santhoshclx](https://github.com/santhoshclx)
+- **Email**: [santhoshkumar007r@gmail.com](mailto:santhoshkumar007r@gmail.com)
+- **LinkedIn**: [linkedin.com/in/santhoshkumar--r](https://www.linkedin.com/in/santhoshkumar--r)
+- **GitHub**: [github.com/santhoshclx](https://github.com/santhoshclx)
+- **Credly**: [credly.com/users/santhoshkumar-r-2806/badges/credly](https://www.credly.com/users/santhoshkumar-r-2806/badges/credly)
 - **Medium**: [@santhoshkumar007r](https://medium.com/@santhoshkumar007r)
+
+---
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Design inspiration from modern portfolio trends
-- Icons provided by [Ionicons](https://ionicons.com/)
-- Fonts from [Google Fonts](https://fonts.google.com/)
-
----
-
-⭐ Star this repository if you found it helpful!

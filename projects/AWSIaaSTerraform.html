@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AWS IaaS Automation Using Terraform - Santhoshkumar R</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .code { background: #00000052; padding: 14px; border-radius: 8px; color: var(--light-gray); overflow: auto; font-family: monospace; }
+    .lead { color: var(--light-gray); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.6; }
+    .diagram-wrap { text-align: center; margin: 24px 0; }
+    svg { max-width: 100%; height: auto; border-radius: 12px; background: linear-gradient(180deg, #0b1320, #040912); padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+    .metric-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; text-align: center; }
+    .metric-val { font-size: 1.8rem; font-weight: 700; color: var(--accent-primary, #38bdf8); margin-bottom: 4px; }
+    .metric-label { font-size: 0.85rem; color: var(--light-gray-70); text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .tech-pill { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+    .badge-sec { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="main-content">
+      <article class="project-detail active" data-page="project-detail">
+        <header>
+          <div class="pill-group">
+            <span class="tech-pill">Infrastructure as Code</span>
+            <span class="tech-pill">AWS Cloud DevOps</span>
+            <span class="badge-sec">Production Grade</span>
+          </div>
+          <h1 class="h2 article-title">AWS IaaS Automation Using Terraform</h1>
+          <p class="lead">
+            Production-grade, modular Infrastructure as Code (IaC) provisioning a multi-tenant cloud environment across isolated VPC subnets, containerized ECS Fargate services, Aurora Serverless RDS, and automated CI/CD pipelines with comprehensive telemetry.
+          </p>
+        </header>
+
+        <!-- Metric highlights -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">Infrastructure Highlights</h3>
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-val">100% IaC</div>
+              <div class="metric-label">Modular Terraform Configuration</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val">Zero-Downtime</div>
+              <div class="metric-label">Rolling ECS Fargate Updates</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val">Multi-AZ</div>
+              <div class="metric-label">High-Availability Aurora RDS</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-val">&lt; 15 min</div>
+              <div class="metric-label">Full Environment Reproduction</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Architecture Diagram -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">Cloud Infrastructure Architecture</h3>
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="tf-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.6"/>
+                </filter>
+                <marker id="tf-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+                </marker>
+              </defs>
+
+              <!-- Ingress layer -->
+              <rect x="30" y="40" width="180" height="300" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" filter="url(#tf-shadow)"/>
+              <text x="120" y="70" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="700">INGRESS &amp; EDGE</text>
+              <rect x="45" y="95" width="150" height="50" rx="6" fill="#1e293b"/>
+              <text x="120" y="125" text-anchor="middle" fill="#f8fafc" font-size="12">Route 53 &amp; ACM SSL</text>
+              <rect x="45" y="160" width="150" height="50" rx="6" fill="#1e293b"/>
+              <text x="120" y="190" text-anchor="middle" fill="#f8fafc" font-size="12">AWS WAF Shield</text>
+              <rect x="45" y="225" width="150" height="50" rx="6" fill="#1e293b"/>
+              <text x="120" y="255" text-anchor="middle" fill="#f8fafc" font-size="12">API Gateway (JWT)</text>
+
+              <!-- Arrow 1 to 2 -->
+              <path d="M 210 185 L 260 185" stroke="#38bdf8" stroke-width="2" marker-end="url(#tf-arrow)"/>
+
+              <!-- Public Subnet / ALB -->
+              <rect x="270" y="40" width="200" height="300" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5" filter="url(#tf-shadow)"/>
+              <text x="370" y="70" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="700">PUBLIC SUBNETS</text>
+              <rect x="285" y="110" width="170" height="75" rx="6" fill="#1e293b" stroke="#38bdf8"/>
+              <text x="370" y="140" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="600">Application Load Balancer</text>
+              <text x="370" y="160" text-anchor="middle" fill="#94a3b8" font-size="11">SSL Termination / Multi-AZ</text>
+              <rect x="285" y="210" width="170" height="65" rx="6" fill="#1e293b"/>
+              <text x="370" y="240" text-anchor="middle" fill="#f8fafc" font-size="12">NAT Gateways</text>
+              <text x="370" y="260" text-anchor="middle" fill="#64748b" font-size="11">Egress only for private tier</text>
+
+              <!-- Arrow 2 to 3 -->
+              <path d="M 470 185 L 520 185" stroke="#38bdf8" stroke-width="2" marker-end="url(#tf-arrow)"/>
+
+              <!-- Private App Subnet -->
+              <rect x="530" y="40" width="220" height="300" rx="10" fill="#0f172a" stroke="#0284c7" stroke-width="1.5" filter="url(#tf-shadow)"/>
+              <text x="640" y="70" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="700">PRIVATE APP TIER</text>
+              <rect x="545" y="100" width="190" height="80" rx="6" fill="#0284c7" fill-opacity="0.2" stroke="#0284c7"/>
+              <text x="640" y="130" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="700">AWS ECS Fargate</text>
+              <text x="640" y="150" text-anchor="middle" fill="#e0f2fe" font-size="11">Docker ML &amp; Backend Tasks</text>
+              <text x="640" y="168" text-anchor="middle" fill="#7dd3fc" font-size="10">Auto-Scaling Target Tracking</text>
+              <rect x="545" y="200" width="190" height="60" rx="6" fill="#1e293b"/>
+              <text x="640" y="225" text-anchor="middle" fill="#f8fafc" font-size="12">AWS Lambda Workers</text>
+              <text x="640" y="245" text-anchor="middle" fill="#94a3b8" font-size="11">Async event processing</text>
+
+              <!-- Arrow 3 to 4 -->
+              <path d="M 750 185 L 800 185" stroke="#38bdf8" stroke-width="2" marker-end="url(#tf-arrow)"/>
+
+              <!-- Data Tier -->
+              <rect x="810" y="40" width="160" height="300" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1.5" filter="url(#tf-shadow)"/>
+              <text x="890" y="70" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700">DATA TIER</text>
+              <rect x="825" y="105" width="130" height="70" rx="6" fill="#1e293b" stroke="#10b981"/>
+              <text x="890" y="135" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="600">Aurora RDS</text>
+              <text x="890" y="155" text-anchor="middle" fill="#34d399" font-size="11">Multi-AZ Encrypted</text>
+              <rect x="825" y="195" width="130" height="65" rx="6" fill="#1e293b"/>
+              <text x="890" y="225" text-anchor="middle" fill="#f8fafc" font-size="12">S3 Buckets</text>
+              <text x="890" y="245" text-anchor="middle" fill="#94a3b8" font-size="11">KMS-SSE &amp; Versioning</text>
+            </svg>
+          </div>
+        </section>
+
+        <!-- Detailed Description -->
+        <section class="about-text">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">Architecture Details</h3>
+          <p>
+            Designed a modular Terraform codebase following DRY (Don't Repeat Yourself) principles with separate environments (development, staging, production) managed via Terraform workspaces and remote state locking in S3 + DynamoDB.
+          </p>
+          <ul style="margin: 16px 0; padding-left: 20px; line-height: 1.8;">
+            <li><b>Networking &amp; Isolation:</b> 3-tier VPC architecture across 2 Availability Zones containing Public, Private Application, and Isolated Database subnets with route table controls.</li>
+            <li><b>Compute Services:</b> Containerized workloads on AWS ECS Fargate, eliminating server patching and scaling based on CPU/Memory thresholds.</li>
+            <li><b>Security &amp; Ingress:</b> AWS WAF protecting API Gateway with rate limiting, SQL injection rules, and JWT verification before routing to backend microservices.</li>
+            <li><b>CI/CD Pipeline:</b> AWS CodePipeline and CodeBuild triggering automatic Docker build and deployment upon git push, complete with CloudWatch alarms and SNS notification topics.</li>
+          </ul>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="about-text" style="margin-top: 30px;">
+          <h3 class="h3 service-title" style="color:var(--orange-yellow-crayola, #f59e0b);">Technologies Used</h3>
+          <div class="pill-group">
+            <span class="tech-pill">Terraform (HCL)</span>
+            <span class="tech-pill">AWS VPC</span>
+            <span class="tech-pill">AWS ECS (Fargate)</span>
+            <span class="tech-pill">Amazon Aurora RDS</span>
+            <span class="tech-pill">AWS Lambda</span>
+            <span class="tech-pill">API Gateway</span>
+            <span class="tech-pill">AWS WAF &amp; Shield</span>
+            <span class="tech-pill">Route 53 &amp; ACM</span>
+            <span class="tech-pill">AWS CodePipeline</span>
+            <span class="tech-pill">CloudWatch &amp; SNS</span>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

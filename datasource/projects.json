@@ -1,0 +1,133 @@
+{
+  "sectionTitle": "Featured Engineering Projects",
+  "introduction": "Real production implementations, architectural blueprints, and interactive demonstrations spanning Computer Vision, MLOps, Infrastructure as Code, and Cloud Security.",
+  "categories": [
+    "All",
+    "Computer Vision & AI",
+    "Cloud & MLOps",
+    "Security & Compliance",
+    "Interactive Tools"
+  ],
+  "projects": [
+    {
+      "id": "cctv-surveillance-ai",
+      "title": "AI-Powered CCTV Surveillance & Intelligence Platform",
+      "category": "Computer Vision & AI",
+      "filterCategory": "computer vision & ai",
+      "metaPill": "YOLO · Jetson Orin Nano · ArcFace · SageMaker · pgvector",
+      "summary": "Multi-facility vision analytics platform: fine-tuned YOLO (mAP@0.5 ~82% to ~91%), 35–45 FPS edge inference on Jetson Orin Nano, ArcFace face recognition in PostgreSQL pgvector (HNSW), SageMaker endpoints, and LLM-based CCTV summarization.",
+      "badge": {
+        "text": "Flagship Production",
+        "type": "emerald"
+      },
+      "thumbnail": "./assets/images/project-cctv.jpg",
+      "imageAlt": "AI CCTV Surveillance & Vision Analytics Dashboard",
+      "detailUrl": "./projects/CCTVVideoSurveillanceAI.html",
+      "actionLabel": "View Architecture & Details",
+      "actionIcon": "layers-outline",
+      "featured": true,
+      "order": 1,
+      "visible": true
+    },
+    {
+      "id": "aws-iaas-terraform",
+      "title": "AWS IaaS Multi-Tenant Automation Using Terraform",
+      "category": "Cloud & MLOps",
+      "filterCategory": "cloud & mlops",
+      "metaPill": "Terraform · ECS Fargate · Aurora RDS · API Gateway · WAF",
+      "summary": "Production-grade modular Terraform infrastructure provisioning a multi-tenant cloud environment across isolated 3-tier VPC subnets, containerized ECS Fargate services, Aurora Serverless RDS, and automated CodePipeline CI/CD.",
+      "badge": {
+        "text": "Infrastructure as Code",
+        "type": ""
+      },
+      "thumbnail": "./assets/images/project-terraform.jpg",
+      "imageAlt": "AWS IaaS Automation with Terraform",
+      "detailUrl": "./projects/AWSIaaSTerraform.html",
+      "actionLabel": "View Architecture & Details",
+      "actionIcon": "layers-outline",
+      "featured": true,
+      "order": 2,
+      "visible": true
+    },
+    {
+      "id": "hipaa-soc2-compliance",
+      "title": "HIPAA & SOC 2 Cloud Compliance & Zero-Trust Automation",
+      "category": "Security & Compliance",
+      "filterCategory": "security & compliance",
+      "metaPill": "Zero-Trust · SSM Tunneling · KMS · GuardDuty · 80% Score",
+      "summary": "Automated AWS security framework with Terraform embedding HIPAA & SOC 2 controls, eliminating public SSH/bastions via Systems Manager (SSM) ProxyCommand tunneling, KMS encryption, and achieving an 80% cloud security benchmark.",
+      "badge": {
+        "text": "AWS Security Specialty",
+        "type": "gold"
+      },
+      "thumbnail": "./assets/images/project-security.jpg",
+      "imageAlt": "Cloud Compliance & Security Dashboard",
+      "detailUrl": "./projects/HIPAASOC2ComplianceAWS.html",
+      "actionLabel": "View Security Controls",
+      "actionIcon": "shield-checkmark-outline",
+      "featured": true,
+      "order": 3,
+      "visible": true
+    },
+    {
+      "id": "aws-codepipeline-cicd",
+      "title": "AWS CodePipeline (CI/CD) with CloudFormation",
+      "category": "Cloud & MLOps",
+      "filterCategory": "cloud & mlops",
+      "metaPill": "CodePipeline · CloudFormation · CodeBuild · ECS",
+      "summary": "Full CloudFormation infrastructure template and architectural design for an automated delivery pipeline: CodeCommit to CodeBuild to ECS container deployments with built-in rollback telemetry.",
+      "badge": {
+        "text": "CI/CD Automation",
+        "type": ""
+      },
+      "thumbnail": "./assets/images/project-pipeline.jpg",
+      "imageAlt": "AWS CodePipeline CI/CD",
+      "detailUrl": "./projects/AWSCodePipelineCICD.html",
+      "actionLabel": "Interactive Diagram & Template",
+      "actionIcon": "eye-outline",
+      "featured": true,
+      "order": 4,
+      "visible": true
+    },
+    {
+      "id": "linear-regression-from-scratch",
+      "title": "Linear Regression From Scratch",
+      "category": "Interactive Tools",
+      "filterCategory": "interactive tools",
+      "metaPill": "Pure Python · NumPy · Gradient Descent · Cost Function",
+      "summary": "Algorithmic implementation of gradient descent optimization and cost function convergence without high-level ML frameworks, illustrating core mathematical foundations of predictive models.",
+      "badge": {
+        "text": "Core ML Algorithms",
+        "type": "indigo"
+      },
+      "thumbnail": "./assets/images/project-regression.jpg",
+      "imageAlt": "Linear Regression Model from Scratch",
+      "detailUrl": "./projects/LinearRegressionFromSCRATCH.html",
+      "actionLabel": "Explore Algorithm & Math",
+      "actionIcon": "code-slash-outline",
+      "featured": true,
+      "order": 5,
+      "visible": true
+    },
+    {
+      "id": "regex-pattern-matcher",
+      "title": "Interactive Regex Pattern Matcher",
+      "category": "Interactive Tools",
+      "filterCategory": "interactive tools",
+      "metaPill": "JavaScript · Interactive Tester · Real-time Highlighting",
+      "summary": "Full-featured regular expression playground and testing suite with live syntax analysis, flag customization (g, i, m, s), token breakdown, and rapid regex pattern templates.",
+      "badge": {
+        "text": "Live Web Tool",
+        "type": ""
+      },
+      "thumbnail": "./assets/images/project-regex.jpg",
+      "imageAlt": "Regex Pattern Matcher Demo",
+      "detailUrl": "./projects/PatternMatchingRegEx.html",
+      "actionLabel": "Launch Live Tester",
+      "actionIcon": "play-outline",
+      "featured": true,
+      "order": 6,
+      "visible": true
+    }
+  ]
+}

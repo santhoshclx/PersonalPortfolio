@@ -1,0 +1,44 @@
+[
+  {
+    "id": "about",
+    "label": "About",
+    "defaultActive": true,
+    "order": 1
+  },
+  {
+    "id": "experience",
+    "label": "Experience",
+    "defaultActive": false,
+    "order": 2
+  },
+  {
+    "id": "skills",
+    "label": "Skills",
+    "defaultActive": false,
+    "order": 3
+  },
+  {
+    "id": "projects",
+    "label": "Projects",
+    "defaultActive": false,
+    "order": 4
+  },
+  {
+    "id": "certifications",
+    "label": "Certifications",
+    "defaultActive": false,
+    "order": 5
+  },
+  {
+    "id": "blog",
+    "label": "Blog",
+    "defaultActive": false,
+    "order": 6
+  },
+  {
+    "id": "contact",
+    "label": "Contact",
+    "defaultActive": false,
+    "order": 7
+  }
+]

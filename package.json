@@ -1,0 +1,21 @@
+{
+  "name": "personal-portfolio",
+  "version": "1.0.0",
+  "description": "Santhoshkumar R — Personal Portfolio Website with Centralized Datasource",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "validate": "python scripts/validate_datasource.py",
+    "validate:data": "python scripts/validate_datasource.py",
+    "validate:node": "node scripts/validate-datasource.js",
+    "sync": "python scripts/sync_datasource.py"
+  },
+  "keywords": [
+    "portfolio",
+    "machine-learning-engineer",
+    "datasource",
+    "ai",
+    "cloud"
+  ],
+  "author": "Santhoshkumar R",
+  "license": "MIT"
+}

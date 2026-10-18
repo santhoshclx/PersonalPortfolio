@@ -1,0 +1,89 @@
+{
+  "name": "Santhoshkumar R",
+  "headline": "Machine Learning Engineer | Computer Vision | Cloud MLOps & Security",
+  "currentRole": "Machine Learning Engineer",
+  "avatar": "./assets/images/my-avatar.png",
+  "credentialsBadge": {
+    "label": "AWS Security Specialty",
+    "tooltip": "AWS Certified Security – Specialty Verified",
+    "icon": "shield-checkmark"
+  },
+  "status": {
+    "availableForHire": true,
+    "availabilityText": "Available for High-Impact Engineering Roles"
+  },
+  "location": {
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "country": "India",
+    "display": "Chennai, Tamil Nadu, India"
+  },
+  "educationBrief": "M.Sc. Artificial Intelligence",
+  "email": "santhoshkumar007r@gmail.com",
+  "hero": {
+    "badges": [
+      {
+        "type": "indigo",
+        "icon": "sparkles",
+        "text": "Machine Learning Engineer"
+      },
+      {
+        "type": "emerald",
+        "dot": true,
+        "text": "Available for High-Impact Engineering Roles"
+      },
+      {
+        "type": "gold",
+        "icon": "shield-checkmark",
+        "text": "AWS Certified Security – Specialty"
+      }
+    ],
+    "title": "Engineering Production-Ready <span class=\"gradient-text\">AI/ML, GenAI &amp; Computer Vision</span> Systems",
+    "subtitle": "Machine Learning Engineer with <b>4.4+ years of experience</b> designing, fine-tuning, and deploying production ML &amp; GenAI systems across NVIDIA edge appliances (Jetson Orin Nano Super) and AWS cloud infrastructure (SageMaker endpoints, pgvector, Bedrock RAG) — combined with enterprise-grade AWS security and compliance (HIPAA &amp; SOC 2)."
+  },
+  "about": {
+    "paragraphs": [
+      "I specialize in the bridge between <b>applied Artificial Intelligence</b> and <b>robust production infrastructure</b>. Rather than treating ML models as isolated notebooks, I build end-to-end, high-throughput systems that ingest live video feeds, perform sub-second edge/cloud inference, execute vector similarity lookups, and automatically scale under enterprise security boundaries.",
+      "At <b>Clustrex Data Private Limited</b>, I lead the core engineering of an AI-powered CCTV surveillance platform. This involved fine-tuning custom YOLO models on 10k annotated images, building hardware-accelerated video pipelines using GStreamer and CUDA for <b>NVIDIA Jetson Orin Nano</b>, creating real-time face recognition via <b>InsightFace/ArcFace embeddings in PostgreSQL pgvector (HNSW)</b>, and orchestrating containerized real-time inference endpoints on <b>AWS SageMaker (ml.g5.xlarge)</b>.",
+      "Beyond model deployment, I enforce enterprise cloud governance. As an <b>AWS Certified Security – Specialty</b> engineer, I design Terraform-managed cloud environments embedding HIPAA and SOC 2 Type II compliance controls, eliminating public SSH/bastion hosts via AWS Systems Manager (SSM) zero-trust tunneling, and protecting assets with GuardDuty, Inspector, and KMS encryption."
+    ]
+  },
+  "coreDisciplines": [
+    {
+      "id": "cv-edge-ai",
+      "title": "Computer Vision & Edge AI",
+      "icon": "videocam-outline",
+      "description": "Fine-tuning custom YOLO models for multi-class detection (people, PPE, carried items), hardware video decode/encode via GStreamer (nvv4l2decoder), CUDA optimization, and running 35–45 FPS inference on NVIDIA Jetson Orin Nano."
+    },
+    {
+      "id": "genai-rag",
+      "title": "Generative AI & Video RAG",
+      "icon": "sparkles-outline",
+      "description": "Integrating foundation LLMs for automated CCTV event summarization, enabling natural-language semantic RAG search across surveillance events, and conducting LoRA fine-tuning of vision-language models."
+    },
+    {
+      "id": "vector-search",
+      "title": "Vector Search & Identity Recognition",
+      "icon": "finger-print-outline",
+      "description": "Extracting 512-D face embeddings with InsightFace/ArcFace, storing vectors in PostgreSQL using pgvector with HNSW indexing, and executing ultra-fast nearest-neighbor similarity search for live employee identification."
+    },
+    {
+      "id": "sagemaker-mlops",
+      "title": "AWS MLOps & Scalable Deployment",
+      "icon": "cloud-upload-outline",
+      "description": "Building containerized real-time inference endpoints on AWS SageMaker (ml.g5.xlarge), managing model artifacts with ECR and CodePipeline, and running hybrid cloud training + dual RTX 5090 local benchmarking."
+    },
+    {
+      "id": "cloud-security",
+      "title": "Cloud Security & Compliance (HIPAA / SOC 2)",
+      "icon": "shield-checkmark-outline",
+      "description": "AWS Certified Security – Specialty. Architecting zero-trust EC2 access with AWS Systems Manager (SSM) ProxyCommand, eliminating public IPs and bastion hosts, automated KMS encryption, and raising security benchmark scores to 80%."
+    },
+    {
+      "id": "devops-iac",
+      "title": "Infrastructure as Code & DevOps",
+      "icon": "layers-outline",
+      "description": "Modular Terraform automation for multi-tenant AWS environments (VPC 3-tier subnets, ECS Fargate, Aurora RDS, API Gateway, WAF, Route53, and CodePipeline CI/CD) reducing operational costs by 40%."
+    }
+  ]
+}

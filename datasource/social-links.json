@@ -1,0 +1,54 @@
+[
+  {
+    "id": "github",
+    "platform": "GitHub",
+    "url": "https://github.com/santhoshclx",
+    "icon": "logo-github",
+    "displayHandle": "github.com/santhoshclx",
+    "title": "GitHub Profile",
+    "showInSidebar": true,
+    "showInContact": true,
+    "contactCardTitle": "GitHub Work"
+  },
+  {
+    "id": "linkedin",
+    "platform": "LinkedIn",
+    "url": "https://www.linkedin.com/in/santhoshkumar--r",
+    "icon": "logo-linkedin",
+    "displayHandle": "in/santhoshkumar--r",
+    "title": "LinkedIn Profile",
+    "showInSidebar": true,
+    "showInContact": true,
+    "contactCardTitle": "LinkedIn Message"
+  },
+  {
+    "id": "credly",
+    "platform": "Credly",
+    "url": "https://www.credly.com/users/santhoshkumar-r-2806/badges/credly",
+    "icon": "ribbon-outline",
+    "displayHandle": "credly.com/users/santhoshkumar-r-2806",
+    "title": "Credly Verified Credentials",
+    "showInSidebar": true,
+    "showInContact": false
+  },
+  {
+    "id": "medium",
+    "platform": "Medium",
+    "url": "https://medium.com/@santhoshkumar007r",
+    "icon": "logo-medium",
+    "displayHandle": "@santhoshkumar007r",
+    "title": "Medium Technical Articles",
+    "showInSidebar": true,
+    "showInContact": false
+  },
+  {
+    "id": "stackoverflow",
+    "platform": "StackOverflow",
+    "url": "https://stackoverflow.com/users/19519874/santhoshkumar-r",
+    "icon": "logo-stackoverflow",
+    "displayHandle": "users/19519874/santhoshkumar-r",
+    "title": "StackOverflow Profile",
+    "showInSidebar": true,
+    "showInContact": false
+  }
+]

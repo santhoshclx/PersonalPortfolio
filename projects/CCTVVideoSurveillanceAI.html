@@ -6,23 +6,36 @@
   <title>Edge-to-Cloud AI CCTV Surveillance Platform - Santhoshkumar R</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <style>
-    .code { background: #00000052; padding: 14px; border-radius: 8px; color: var(--light-gray); overflow: auto; font-family: monospace; }
-    .lead { color: var(--light-gray); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.6; }
-    .diagram-wrap { text-align: center; margin: 24px 0; }
-    svg { max-width: 100%; height: auto; border-radius: 12px; background: linear-gradient(180deg, #0b1320, #040912); padding: 20px; border: 1px solid rgba(255,255,255,0.08); }
-    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
-    .metric-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; text-align: center; }
-    .metric-val { font-size: 1.8rem; font-weight: 700; color: var(--accent-primary, #38bdf8); margin-bottom: 4px; }
-    .metric-label { font-size: 0.85rem; color: var(--light-gray-70); text-transform: uppercase; letter-spacing: 0.5px; }
+    .code { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(12px); padding: 16px; border-radius: 12px; border: 1px solid var(--border-subtle); color: var(--light-gray); overflow: auto; font-family: var(--ff-mono, monospace); font-size: 0.88rem; }
+    .lead { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.08rem; line-height: 1.7; }
+    .diagram-wrap { text-align: center; margin: 28px 0; }
+    svg { max-width: 100%; height: auto; border-radius: 16px; background: linear-gradient(180deg, rgba(11, 19, 36, 0.85), rgba(4, 9, 18, 0.95)); backdrop-filter: blur(16px); padding: 24px; border: 1px solid var(--border-medium); box-shadow: var(--shadow-1); }
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+    .metric-card { background: var(--glass-bg-card, rgba(255, 255, 255, 0.05)); backdrop-filter: blur(12px); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 20px; text-align: center; transition: transform var(--transition-spring, 0.3s ease), border-color 0.2s ease; }
+    .metric-card:hover { transform: translateY(-3px); border-color: var(--accent-blue, #38bdf8); }
+    .metric-val { font-size: 2rem; font-weight: 800; color: var(--accent-blue, #38bdf8); margin-bottom: 4px; }
+    .metric-label { font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
     .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
-    .tech-pill { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
-    .badge-sec { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+    .tech-pill { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+    .badge-sec { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+    @keyframes svg-flow {
+      from { stroke-dashoffset: 24; }
+      to { stroke-dashoffset: 0; }
+    }
+    .flowing-arrow {
+      stroke-dasharray: 6 6;
+      animation: svg-flow 1.2s linear infinite;
+    }
   </style>
 </head>
 <body>
   <main>
     <div class="main-content">
       <article class="project-detail active" data-page="project-detail">
+        <a href="../index.html" class="back-btn" aria-label="Back to Projects">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          <span>Back to Projects</span>
+        </a>
         <header>
           <div class="pill-group">
             <span class="tech-pill">Edge AI & Computer Vision</span>
@@ -98,7 +111,7 @@
               <text x="120" y="315" text-anchor="middle" fill="#94a3b8" font-size="11">CLAHE / Lighting Normalize</text>
 
               <!-- Arrow 1 to 2 -->
-              <path d="M 220 210 L 280 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+              <path d="M 220 210 L 280 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)" class="flowing-arrow"/>
 
               <!-- Group 2: Edge Inference -->
               <rect x="290" y="50" width="240" height="320" rx="12" fill="#0f172a" stroke="#0284c7" stroke-width="2" filter="url(#shadow-box)"/>
@@ -114,7 +127,7 @@
               <text x="410" y="315" text-anchor="middle" fill="#38bdf8" font-size="11">InsightFace 512-d feature vector</text>
 
               <!-- Arrow 2 to 3 -->
-              <path d="M 530 210 L 580 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+              <path d="M 530 210 L 580 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)" class="flowing-arrow"/>
 
               <!-- Group 3: AWS Cloud & Vector DB -->
               <rect x="590" y="50" width="240" height="320" rx="12" fill="#0f172a" stroke="#d97706" stroke-width="2" filter="url(#shadow-box)"/>
@@ -130,7 +143,7 @@
               <text x="710" y="315" text-anchor="middle" fill="#94a3b8" font-size="11">ECR, CodePipeline, Auto-Retrain</text>
 
               <!-- Arrow 3 to 4 -->
-              <path d="M 830 210 L 880 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)"/>
+              <path d="M 830 210 L 880 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)" class="flowing-arrow"/>
 
               <!-- Group 4: GenAI & Security -->
               <rect x="890" y="50" width="190" height="320" rx="12" fill="#0f172a" stroke="#059669" stroke-width="2" filter="url(#shadow-box)"/>
@@ -199,5 +212,7 @@
       </article>
     </div>
   </main>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

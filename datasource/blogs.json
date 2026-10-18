@@ -1,0 +1,54 @@
+{
+  "sectionTitle": "Technical Articles & Guides",
+  "introduction": "Practical engineering write-ups detailing AWS observability, systems management, CI/CD automation pipelines, and regular expressions.",
+  "articles": [
+    {
+      "id": "aws-systems-manager",
+      "title": "Mastering AWS Systems Manager (SSM)",
+      "tag": "AWS Cloud Security",
+      "tagColor": "gold",
+      "date": "2022-11-18",
+      "dateDisplay": "Nov 18, 2022",
+      "thumbnail": "./assets/images/blog-6.jpg",
+      "imageAlt": "Mastering AWS Systems Manager (SSM)",
+      "detailUrl": "./blogs/AWSSystemsManager.html",
+      "summary": "How to eliminate bastion hosts and open SSH ports using SSM Session Manager tunneling via ProxyCommand for hardened zero-trust access."
+    },
+    {
+      "id": "aws-codepipeline",
+      "title": "AWS CodePipeline (CI/CD) Architecture",
+      "tag": "DevOps & CI/CD",
+      "tagColor": "",
+      "date": "2022-12-25",
+      "dateDisplay": "Dec 25, 2022",
+      "thumbnail": "./assets/images/blog-4.jpg",
+      "imageAlt": "AWS CodePipeline (CI/CD)",
+      "detailUrl": "./blogs/AWSCodePipeline.html",
+      "summary": "Implementing automated build, container test, and zero-downtime deployment workflows with CodeCommit, CodeBuild, and ECS."
+    },
+    {
+      "id": "aws-cloudwatch-agent",
+      "title": "AWS CloudWatch Agent Telemetry Guide",
+      "tag": "Observability",
+      "tagColor": "",
+      "date": "2022-09-09",
+      "dateDisplay": "Sept 09, 2022",
+      "thumbnail": "./assets/images/blog-2.jpg",
+      "imageAlt": "AWS CloudWatch Agent Guide",
+      "detailUrl": "./blogs/AWSCloudWatchAgent.html",
+      "summary": "Collecting system-level metrics (CPU memory, disk I/O) and forwarding custom application logs from EC2 and edge servers to CloudWatch."
+    },
+    {
+      "id": "regular-expressions-guide",
+      "title": "Comprehensive Regular Expressions Guide",
+      "tag": "Software Engineering",
+      "tagColor": "indigo",
+      "date": "2022-07-23",
+      "dateDisplay": "Jul 23, 2022",
+      "thumbnail": "./assets/images/blog-1.jpg",
+      "imageAlt": "Regular Expressions Guide",
+      "detailUrl": "./blogs/RegularExpressionsGuide.html",
+      "summary": "Mastering regex mechanics: greedy vs lazy quantifiers, lookahead and lookbehind assertions, and text parsing algorithms."
+    }
+  ]
+}

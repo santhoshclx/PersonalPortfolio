@@ -120,9 +120,13 @@ const switchPage = (targetPageName) => {
 
   // Refresh LiquidFX reveals & visualizer for newly active section
   if (window.LiquidFX) {
+    if (window.LiquidFX.updateNavPill) window.LiquidFX.updateNavPill();
     setTimeout(() => {
       if (window.LiquidFX.refreshReveals) window.LiquidFX.refreshReveals();
-      if (targetPageName === 'about' && window.LiquidFX.refreshPipeline) window.LiquidFX.refreshPipeline();
+      if (targetPageName === 'about') {
+        if (window.LiquidFX.refreshPipeline) window.LiquidFX.refreshPipeline();
+        if (window.LiquidFX.refreshAISimulator) window.LiquidFX.refreshAISimulator();
+      }
     }, 50);
   }
 };

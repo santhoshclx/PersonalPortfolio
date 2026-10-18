@@ -39,7 +39,7 @@ def sync():
 
     # Ensure key data hooks exist
     hooks = [
-        ('class="avatar-box">\n          <img src="./assets/images/my-avatar.png"', 'class="avatar-box">\n          <img src="./assets/images/my-avatar.png" data-profile-avatar'),
+        ('class="avatar-box">\n          <img src="./assets/images/Stylized_3D_Professional_Avatar.png"', 'class="avatar-box">\n          <img src="./assets/images/Stylized_3D_Professional_Avatar.png" data-profile-avatar'),
         ('<h1 class="name" title="Santhoshkumar R">', '<h1 class="name" title="Santhoshkumar R" data-profile-name>'),
         ('<p class="title">Machine Learning Engineer | Computer Vision | Cloud MLOps & Security</p>', '<p class="title" data-profile-title>Machine Learning Engineer | Computer Vision | Cloud MLOps & Security</p>'),
         ('<div class="sidebar-cred-badge" title="AWS Certified Security – Specialty Verified">', '<div class="sidebar-cred-badge" title="AWS Certified Security – Specialty Verified" data-profile-cred-badge>'),

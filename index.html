@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -38,6 +38,18 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- Pre-render theme synchronization to avoid FOUC -->
+  <script>
+    (function () {
+      try {
+        const saved = localStorage.getItem('portfolio-theme');
+        if (saved) {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -241,8 +253,8 @@
           </div>
 
           <!-- Theme Toggle Switcher -->
-          <button class="theme-toggle-btn" data-theme-btn title="Switch to Dark Mode" aria-label="Switch to Dark Mode">
-            <ion-icon name="moon-outline"></ion-icon>
+          <button class="theme-toggle-btn" data-theme-btn title="Switch to Light Mode" aria-label="Switch to Light Mode">
+            <ion-icon name="sunny-outline"></ion-icon>
           </button>
         </div>
       </nav>

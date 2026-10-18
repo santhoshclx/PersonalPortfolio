@@ -61,10 +61,28 @@ def sync():
         if target in html and replacement not in html:
             html = html.replace(target, replacement)
 
+    # Ensure default theme and toggle button match site-config.json
+    theme_cfg = site_cfg.get("theme", {})
+    default_theme = theme_cfg.get("default", "dark")
+    html = re.sub(r'<html([^>]*?)data-theme="[^"]*"', rf'<html\1data-theme="{default_theme}"', html)
+
+    if default_theme == "dark":
+        html = re.sub(
+            r'<button class="theme-toggle-btn" data-theme-btn title="[^"]*" aria-label="[^"]*">\s*<ion-icon name="[^"]*"></ion-icon>',
+            '<button class="theme-toggle-btn" data-theme-btn title="Switch to Light Mode" aria-label="Switch to Light Mode">\n            <ion-icon name="sunny-outline"></ion-icon>',
+            html
+        )
+    else:
+        html = re.sub(
+            r'<button class="theme-toggle-btn" data-theme-btn title="[^"]*" aria-label="[^"]*">\s*<ion-icon name="[^"]*"></ion-icon>',
+            '<button class="theme-toggle-btn" data-theme-btn title="Switch to Dark Mode" aria-label="Switch to Dark Mode">\n            <ion-icon name="moon-outline"></ion-icon>',
+            html
+        )
+
     with open(INDEX_PATH, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print("[+] index.html verified and synchronized with datasource hooks.")
+    print(f"[+] index.html verified and synchronized (theme: {default_theme}).")
     return True
 
 if __name__ == "__main__":

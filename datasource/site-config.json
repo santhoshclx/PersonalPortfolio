@@ -27,7 +27,7 @@
     "description": "Adjust 'websiteScale' (e.g., 0.9 = 90% compact, 1.0 = standard, 1.1 = 110% enlarged) to control entire website size and all font sizes proportionally with a single value."
   },
   "theme": {
-    "default": "light",
+    "default": "dark",
     "allowToggle": true,
     "storageKey": "portfolio-theme"
   },

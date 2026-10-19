@@ -800,10 +800,10 @@
             <!-- Bottom Video & AI Controls Bar -->
             <div class="cv-controls-bar">
               <div class="cv-controls-group">
-                <button class="cv-action-btn primary" id="cv-play-btn" title="Play or Pause Video Feed">
+                <!-- <button class="cv-action-btn primary" id="cv-play-btn" title="Play or Pause Video Feed">
                   <ion-icon name="play-outline" id="cv-play-icon"></ion-icon>
                   <span id="cv-play-label">Play Video</span>
-                </button>
+                </button> -->
 
                 <!-- Current Timestamp / Duration Display -->
                 <div class="cv-time-display" id="cv-time-display" title="Current Stream Position">
@@ -812,30 +812,53 @@
                 </div>
 
                 <!-- Playback Speed Controls -->
-                <div class="cv-speed-group" id="cv-speed-group" title="Playback Speed">
+                <!-- <div class="cv-speed-group" id="cv-speed-group" title="Playback Speed">
                   <button class="cv-speed-btn" data-speed="0.5">0.5x</button>
                   <button class="cv-speed-btn active" data-speed="1.0">1.0x</button>
                   <button class="cv-speed-btn" data-speed="1.5">1.5x</button>
                   <button class="cv-speed-btn" data-speed="2.0">2.0x</button>
-                </div>
-              </div>
+                </div> -->
 
-              <div class="cv-controls-group">
                 <button class="cv-action-btn secondary" id="cv-feed-toggle-btn" title="Switch Between Medical PPE, Highway Traffic, and Pedestrian Video Feeds">
                   <ion-icon name="swap-horizontal-outline"></ion-icon>
                   <span id="cv-feed-label">Feed: Medical PPE (Clinical)</span>
-                </button>
-                <button class="cv-action-btn secondary active" id="cv-box-toggle-btn" title="Toggle YOLO Bounding Boxes Overlay">
-                  <ion-icon name="scan-outline"></ion-icon>
-                  <span id="cv-box-label">Boxes: ON</span>
                 </button>
                 <button class="cv-action-btn pulse-btn" id="cv-scan-trigger" title="Trigger Detection Radar Scan">
                   <ion-icon name="radio-outline"></ion-icon>
                   <span>Radar Pulse</span>
                 </button>
-                <button class="cv-action-btn secondary icon-btn" id="cv-mute-btn" title="Mute / Unmute Video Audio">
+              </div> 
+
+              <div class="cv-controls-group">
+                <!-- <button class="cv-action-btn secondary active" id="cv-box-toggle-btn" title="Toggle YOLO Bounding Boxes Overlay">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span id="cv-box-label">Boxes: ON</span>
+                </button> -->
+                <!-- <button class="cv-action-btn pulse-btn" id="cv-scan-trigger" title="Trigger Detection Radar Scan">
+                  <ion-icon name="radio-outline"></ion-icon>
+                  <span>Radar Pulse</span>
+                </button> -->
+                <!-- <button class="cv-action-btn secondary icon-btn" id="cv-mute-btn" title="Mute / Unmute Video Audio">
                   <ion-icon name="volume-mute-outline" id="cv-mute-icon"></ion-icon>
-                </button>
+                </button> -->
+              </div>
+            </div>
+
+            <!-- Interactive Video Detection Scene Timeline -->
+            <div class="cv-timeline-strip" id="cv-timeline-strip">
+              <div class="cv-timeline-header">
+                <div class="cv-timeline-title-wrap">
+                  <ion-icon name="film-outline"></ion-icon>
+                  <span class="cv-timeline-title">Detection Scene Timeline</span>
+                  <span class="cv-timeline-sub" id="cv-timeline-sub">(4 Verified Clinical Stages)</span>
+                </div>
+                <div class="cv-timeline-active-pill" id="cv-timeline-active-pill">
+                  <span class="live-dot emerald pulse"></span>
+                  <span id="cv-timeline-stage-name">Stage 1: OR Prep &amp; Vitals</span>
+                </div>
+              </div>
+              <div class="cv-timeline-grid" id="cv-timeline-grid">
+                <!-- Dynamically populated based on active video feed -->
               </div>
             </div>
           </div>
@@ -864,17 +887,6 @@
                   <span class="stat-label">Inference Latency</span>
                   <span class="stat-val gold" id="cv-stat-latency">21.4 ms</span>
                   <span class="stat-meta">GStreamer zero-copy</span>
-                </div>
-              </div>
-
-              <!-- Active Detections in Current Frame -->
-              <div class="cv-active-dets-wrap">
-                <div class="cv-active-dets-title">
-                  <span>Current Frame Detections</span>
-                  <span id="cv-active-dets-count" style="color:var(--accent-cyan); font-family:var(--ff-mono);">12 Active</span>
-                </div>
-                <div class="cv-active-dets-list" id="cv-active-dets-list">
-                  <!-- Dynamically rendered -->
                 </div>
               </div>
 
@@ -911,7 +923,7 @@
           <!-- Predefined Question Chips Selector -->
           <div>
             <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-subtle); font-weight:700; margin-bottom:8px; letter-spacing:0.5px;">
-              Select Predefined Question or Type Below:
+              Select Question to Verify:
             </div>
             <div class="rag-chips-wrap" id="rag-chips-wrap">
               <button class="rag-chip active" data-query="Which people and PPE items are visible in the video?">1. Which people and PPE items are visible in the video?</button>
@@ -924,9 +936,12 @@
 
           <!-- Query Input and Execution Bar -->
           <div class="rag-query-box">
-            <span style="font-size:0.78rem; text-transform:uppercase; color:var(--accent-cyan); font-weight:700;">Query Prompt:</span>
+            <span style="font-size:0.78rem; text-transform:uppercase; color:var(--accent-cyan); font-weight:700; white-space:nowrap;">Selected Prompt:</span>
             <div class="rag-custom-input-box">
-              <input type="text" class="rag-custom-input" id="rag-custom-input" value="Which people and PPE items are visible in the video?" placeholder="Ask a question about people, PPE items, or timestamps in the medical video...">
+              <span class="rag-selected-prompt-icon">
+                <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+              </span>
+              <div class="rag-custom-input" id="rag-custom-input">Which people and PPE items are visible in the video?</div>
             </div>
             <button class="cv-action-btn primary" id="rag-run-btn">
               <ion-icon name="sparkles-outline"></ion-icon>
@@ -983,9 +998,13 @@
             </div>
 
             <!-- Retrieved Evidence Chunks Grid -->
-            <div>
-              <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-subtle); font-weight:700; margin-bottom:8px; letter-spacing:0.5px;">
-                Retrieved Supporting Evidence Chunks (Click timestamp to jump in video player):
+            <div class="rag-evidence-section">
+              <div class="rag-evidence-header">
+                <span class="rag-evidence-title">
+                  <ion-icon name="layers-outline"></ion-icon>
+                  Retrieved Supporting Evidence Chunks
+                </span>
+                <span class="rag-evidence-hint">(Click timestamp to jump in video player)</span>
               </div>
               <div class="rag-evidence-grid" id="rag-evidence-grid">
                 <!-- Dynamically populated -->
@@ -1273,7 +1292,199 @@
     }
 
     window.addEventListener('resize', resizeCvCanvas, { passive: true });
+    
+    // ResizeObserver for rock-solid responsive canvas sizing
+    const cvViewportWrap = document.getElementById('cv-viewport-wrap');
+    if (cvViewportWrap && window.ResizeObserver) {
+      const ro = new ResizeObserver(() => {
+        resizeCvCanvas();
+      });
+      ro.observe(cvViewportWrap);
+    }
     resizeCvCanvas();
+
+    // -------------------------------------------------------------
+    // INTERACTIVE VIDEO DETECTION SCENE TIMELINE
+    // -------------------------------------------------------------
+    const timelineGrid = document.getElementById('cv-timeline-grid');
+    const timelineSub = document.getElementById('cv-timeline-sub');
+    const timelineStageName = document.getElementById('cv-timeline-stage-name');
+
+    const FEED_TIMELINES = {
+      'medical-ppe': [
+        {
+          id: 'stage-1',
+          name: 'Stage 1: OR Prep & Vitals Monitoring',
+          shortName: 'OR Prep & Vitals',
+          timeBadge: '00:00',
+          seek: 0.0,
+          end: 5.0,
+          status: 'Compliant',
+          entities: ['Surgeon #101', 'Doctor #102', 'Masks', 'Gowns', 'Gloves']
+        },
+        {
+          id: 'stage-2',
+          name: 'Stage 2: ICU Ward Corridor Walk',
+          shortName: 'ICU Corridor Walk',
+          timeBadge: '00:05',
+          seek: 5.0,
+          end: 10.0,
+          status: 'Compliant',
+          entities: ['Lead Doctor #202', 'Face Shield', 'Masks', 'Gowns']
+        },
+        {
+          id: 'stage-3',
+          name: 'Stage 3: Sterile Ante-Room Scrubbing',
+          shortName: 'Sterile Ante-Room',
+          timeBadge: '00:10',
+          seek: 10.0,
+          end: 15.0,
+          status: 'Compliant',
+          entities: ['Surgeon #301', 'Doctor #302', 'Glove Donning', 'Caps']
+        },
+        {
+          id: 'stage-4',
+          name: 'Stage 4: ICU Bedside Consultation',
+          shortName: 'ICU Consultation',
+          timeBadge: '00:15',
+          seek: 15.0,
+          end: 20.0,
+          status: 'Compliant',
+          entities: ['Physician #401', 'Nurse #402', 'Masks', 'Gowns', 'Gloves']
+        }
+      ],
+      'traffic': [
+        {
+          id: 'stage-1',
+          name: 'Stage 1: Inbound Lane Flow',
+          shortName: 'Inbound Lane Flow',
+          timeBadge: '00:00',
+          seek: 0.0,
+          end: 6.5,
+          status: 'Flow: 62 km/h',
+          entities: ['Sedan #104', 'Truck #105', 'Flow Analysis']
+        },
+        {
+          id: 'stage-2',
+          name: 'Stage 2: Highway Merge Tracking',
+          shortName: 'Merge Zone Tracking',
+          timeBadge: '00:06',
+          seek: 6.5,
+          end: 13.5,
+          status: 'Normal Density',
+          entities: ['SUV #108', 'Van #112', 'Trajectory Tracking']
+        },
+        {
+          id: 'stage-3',
+          name: 'Stage 3: Multi-Vehicle Radar',
+          shortName: 'Speed Enforcement',
+          timeBadge: '00:13',
+          seek: 13.5,
+          end: 20.0,
+          status: 'Monitored',
+          entities: ['All Vehicles', 'YOLOv8', 'TensorRT 8.6']
+        }
+      ],
+      'people': [
+        {
+          id: 'stage-1',
+          name: 'Stage 1: Entry Gate Access',
+          shortName: 'Entry Gate ArcFace',
+          timeBadge: '00:00',
+          seek: 0.0,
+          end: 7.0,
+          status: 'Authorized',
+          entities: ['Personnel #8042', 'ArcFace 512-D', 'Biometrics']
+        },
+        {
+          id: 'stage-2',
+          name: 'Stage 2: PPE Verification Zone',
+          shortName: 'High-Vis PPE Zone',
+          timeBadge: '00:07',
+          seek: 7.0,
+          end: 14.0,
+          status: 'Compliant',
+          entities: ['High-Vis Vest', 'Safety Protocol', 'YOLO Check']
+        },
+        {
+          id: 'stage-3',
+          name: 'Stage 3: Perimeter Patrol Check',
+          shortName: 'Badge Verification',
+          timeBadge: '00:14',
+          seek: 14.0,
+          end: 20.0,
+          status: 'Logged',
+          entities: ['Visitor #109', 'Security Audit', 'Zero-Trust']
+        }
+      ]
+    };
+
+    function renderTimeline(feedId) {
+      if (!timelineGrid) return;
+      const stages = FEED_TIMELINES[feedId] || FEED_TIMELINES['medical-ppe'];
+      if (timelineSub) {
+        timelineSub.textContent = feedId === 'medical-ppe' 
+          ? '(4 Verified Clinical Stages · Click stage to seek)' 
+          : `(${stages.length} Verified Detection Stages · Click stage to seek)`;
+      }
+
+      timelineGrid.innerHTML = stages.map((st, idx) => `
+        <div class="cv-timeline-card ${idx === 0 ? 'active' : ''}" data-idx="${idx}" data-seek="${st.seek}" data-stage-name="${st.name}" title="${st.name} · Click to seek">
+          <div class="cv-timeline-card-top">
+            <span class="cv-timeline-badge">
+              <ion-icon name="play-circle-outline"></ion-icon>
+              ${st.timeBadge}
+            </span>
+            <span class="cv-timeline-status-tag">${st.status}</span>
+          </div>
+          <div class="cv-timeline-name">${st.shortName}</div>
+          <div class="cv-timeline-dets-row">
+            ${st.entities.map(e => `<span class="cv-timeline-det-tag">${e}</span>`).join('')}
+          </div>
+          <div class="cv-timeline-progress-indicator"></div>
+        </div>
+      `).join('');
+
+      timelineGrid.querySelectorAll('.cv-timeline-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const seekTime = parseFloat(card.dataset.seek || "0");
+          if (video) {
+            video.currentTime = seekTime;
+            if (video.paused) {
+              video.play().then(() => updatePlayUI(true)).catch(() => {});
+            }
+            showToast(`Seeked to ${formatTime(seekTime)} (${card.dataset.stageName})`);
+          }
+        });
+      });
+    }
+
+    function updateTimelineStage(curTime) {
+      if (!timelineGrid) return;
+      const cards = timelineGrid.querySelectorAll('.cv-timeline-card');
+      if (!cards.length) return;
+      const feed = FEEDS[currentFeedIdx] || FEEDS[0];
+      const stages = FEED_TIMELINES[feed.id] || FEED_TIMELINES['medical-ppe'];
+
+      let activeIdx = 0;
+      for (let i = 0; i < stages.length; i++) {
+        if (curTime >= stages[i].seek && curTime < stages[i].end) {
+          activeIdx = i;
+          break;
+        }
+      }
+
+      cards.forEach((c, idx) => {
+        const isActive = (idx === activeIdx);
+        c.classList.toggle('active', isActive);
+      });
+
+      if (timelineStageName && stages[activeIdx]) {
+        timelineStageName.textContent = stages[activeIdx].name;
+      }
+    }
+
+    renderTimeline('medical-ppe');
 
     function updatePlayUI(playing) {
       if (playIcon) playIcon.setAttribute('name', playing ? 'pause-outline' : 'play-outline');
@@ -1330,6 +1541,7 @@
       if (feedLabel) feedLabel.textContent = feed.label;
       if (statFps) statFps.textContent = feed.fps;
       if (statLatency) statLatency.textContent = feed.latency;
+      renderTimeline(feed.id);
     }
 
     if (feedToggleBtn) {
@@ -1367,6 +1579,7 @@
           const pct = (video.currentTime / duration) * 100;
           if (progressBar) progressBar.style.width = `${pct}%`;
           if (timeText) timeText.textContent = `${formatTime(video.currentTime)} / ${formatTime(duration)}`;
+          updateTimelineStage(video.currentTime);
         }
       });
     }
@@ -1377,6 +1590,7 @@
         const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
         const duration = video.duration || 20.0;
         video.currentTime = pos * duration;
+        updateTimelineStage(video.currentTime);
       });
     }
 
@@ -1442,6 +1656,7 @@
 
       const feed = FEEDS[currentFeedIdx] || FEEDS[0];
       const curTime = video ? video.currentTime : 0;
+      updateTimelineStage(curTime);
 
       if (boxesEnabled) {
         if (feed.isPpe) {
@@ -1652,6 +1867,15 @@
     // Populate Initial Evidence Cards
     function renderEvidenceCards(chunks) {
       if (!ragEvidenceGrid) return;
+      if (!chunks || !chunks.length) {
+        ragEvidenceGrid.innerHTML = `
+          <div class="rag-evidence-empty">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>No supporting evidence chunks found for this query filter.</span>
+          </div>
+        `;
+        return;
+      }
       ragEvidenceGrid.innerHTML = chunks.map(chunk => `
         <div class="rag-evidence-card">
           <div class="rag-evidence-top">
@@ -1681,23 +1905,17 @@
       chip.addEventListener('click', () => {
         ragChips.forEach(c => c.classList.toggle('active', c === chip));
         const query = chip.dataset.query || "";
-        if (ragInput) ragInput.value = query;
+        if (ragInput) {
+          ragInput.textContent = query;
+          if ('value' in ragInput) ragInput.value = query;
+        }
         executeRagRetrieval(query);
       });
     });
 
-    if (ragInput) {
-      ragInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          executeRagRetrieval(ragInput.value.trim());
-        }
-      });
-    }
-
     if (ragBtn) {
       ragBtn.addEventListener('click', () => {
-        const query = ragInput ? ragInput.value.trim() : "";
+        const query = ragInput ? (ragInput.textContent || ragInput.value || "").trim() : "";
         executeRagRetrieval(query);
       });
     }

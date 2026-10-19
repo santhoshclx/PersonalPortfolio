@@ -57,6 +57,18 @@
     })();
   </script>
 
+  <!-- Pre-render theme synchronization to avoid FOUC -->
+  <script>
+    (function () {
+      try {
+        const saved = localStorage.getItem('portfolio-theme');
+        if (saved) {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) { }
+    })();
+  </script>
+
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {

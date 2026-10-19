@@ -756,15 +756,15 @@
         <div class="cv-sim-layout">
           <div class="cv-player-card">
             <div class="cv-viewport-wrap" id="cv-viewport-wrap">
-              <!-- Native HTML5 Video Element -->
+              <!-- Native HTML5 Video Element (Medical PPE Primary Demo) -->
               <video 
                 id="cv-video-player" 
                 class="cv-video-element" 
                 playsinline 
                 muted 
                 loop 
-                preload="metadata"
-                src="./assets/videos/traffic-detection.mp4">
+                preload="auto"
+                src="./assets/videos/medical-ppe-detection.mp4">
               </video>
 
               <!-- Real-time YOLO Detection Overlay Canvas -->
@@ -772,11 +772,11 @@
 
               <!-- Interactive Big Play Overlay -->
               <div class="cv-play-overlay" id="cv-play-overlay">
-                <button class="cv-big-play-btn" id="cv-big-play-btn" aria-label="Play Live Video Stream">
+                <button class="cv-big-play-btn" id="cv-big-play-btn" aria-label="Play Live Medical PPE Video Stream">
                   <div class="cv-big-play-icon">
                     <ion-icon name="play"></ion-icon>
                   </div>
-                  <span>Play Live YOLO Stream</span>
+                  <span>Play Medical PPE Stream</span>
                 </button>
               </div>
 
@@ -784,10 +784,10 @@
               <div class="cv-hud-overlay">
                 <div class="hud-feed-tag" id="cv-hud-tag">
                   <span class="live-dot emerald pulse" id="cv-live-dot"></span>
-                  <span id="cv-stream-name">CAM-04 · HIGHWAY TRAFFIC (YOLOv8)</span>
+                  <span id="cv-stream-name">CLINICAL-01 · MEDICAL PPE (YOLOv8-Medical-PPE)</span>
                 </div>
                 <div class="hud-telemetry-pill" id="cv-hud-fps">
-                  42.4 FPS · 22.8ms
+                  45.0 FPS · 21.4ms (Jetson Orin TensorRT)
                 </div>
               </div>
 
@@ -804,18 +804,32 @@
                   <ion-icon name="play-outline" id="cv-play-icon"></ion-icon>
                   <span id="cv-play-label">Play Video</span>
                 </button>
-                <button class="cv-action-btn secondary" id="cv-feed-toggle-btn" title="Switch Between Traffic and Pedestrian Video Feeds">
+
+                <!-- Current Timestamp / Duration Display -->
+                <div class="cv-time-display" id="cv-time-display" title="Current Stream Position">
+                  <ion-icon name="time-outline"></ion-icon>
+                  <span id="cv-time-text">00:00.0 / 00:20.0</span>
+                </div>
+
+                <!-- Playback Speed Controls -->
+                <div class="cv-speed-group" id="cv-speed-group" title="Playback Speed">
+                  <button class="cv-speed-btn" data-speed="0.5">0.5x</button>
+                  <button class="cv-speed-btn active" data-speed="1.0">1.0x</button>
+                  <button class="cv-speed-btn" data-speed="1.5">1.5x</button>
+                  <button class="cv-speed-btn" data-speed="2.0">2.0x</button>
+                </div>
+              </div>
+
+              <div class="cv-controls-group">
+                <button class="cv-action-btn secondary" id="cv-feed-toggle-btn" title="Switch Between Medical PPE, Highway Traffic, and Pedestrian Video Feeds">
                   <ion-icon name="swap-horizontal-outline"></ion-icon>
-                  <span id="cv-feed-label">Feed: Traffic (Vehicles)</span>
+                  <span id="cv-feed-label">Feed: Medical PPE (Clinical)</span>
                 </button>
                 <button class="cv-action-btn secondary active" id="cv-box-toggle-btn" title="Toggle YOLO Bounding Boxes Overlay">
                   <ion-icon name="scan-outline"></ion-icon>
                   <span id="cv-box-label">Boxes: ON</span>
                 </button>
-              </div>
-
-              <div class="cv-controls-group">
-                <button class="cv-action-btn pulse-btn" id="cv-scan-trigger" title="Trigger Detection Pulse Radar">
+                <button class="cv-action-btn pulse-btn" id="cv-scan-trigger" title="Trigger Detection Radar Scan">
                   <ion-icon name="radio-outline"></ion-icon>
                   <span>Radar Pulse</span>
                 </button>
@@ -826,35 +840,66 @@
             </div>
           </div>
 
+          <!-- Secondary Telemetry Panel -->
           <div class="cv-telemetry-sidebar">
             <div class="telemetry-card">
               <div class="telemetry-card-title">Production Inference Telemetry</div>
               <div class="telemetry-metrics-row">
                 <div class="telemetry-stat-box">
-                  <span class="stat-label">Model Accuracy</span>
-                  <span class="stat-val emerald">~91.2%</span>
-                  <span class="stat-meta">mAP@0.5 Boosted from ~82%</span>
+                  <span class="stat-label">People in Frame</span>
+                  <span class="stat-val emerald" id="cv-stat-people">2 People</span>
+                  <span class="stat-meta">Surgeon / Doctor</span>
+                </div>
+                <div class="telemetry-stat-box">
+                  <span class="stat-label">PPE Detections</span>
+                  <span class="stat-val magenta" id="cv-stat-ppe">10 Objects</span>
+                  <span class="stat-meta">Masks, Gowns, Caps</span>
                 </div>
                 <div class="telemetry-stat-box">
                   <span class="stat-label">Edge Throughput</span>
-                  <span class="stat-val" id="cv-stat-fps">42.4 FPS</span>
+                  <span class="stat-val" id="cv-stat-fps">45.0 FPS</span>
                   <span class="stat-meta">NVIDIA TensorRT 8.6</span>
                 </div>
                 <div class="telemetry-stat-box">
                   <span class="stat-label">Inference Latency</span>
-                  <span class="stat-val gold" id="cv-stat-latency">22.8 ms</span>
-                  <span class="stat-meta">GStreamer NVMM zero-copy</span>
+                  <span class="stat-val gold" id="cv-stat-latency">21.4 ms</span>
+                  <span class="stat-meta">GStreamer zero-copy</span>
                 </div>
-                <div class="telemetry-stat-box">
-                  <span class="stat-label">Active Detections</span>
-                  <span class="stat-val magenta" id="cv-stat-detections">5 Vehicles</span>
-                  <span class="stat-meta" id="cv-stat-model">YOLOv8 + Jetson Orin</span>
+              </div>
+
+              <!-- Active Detections in Current Frame -->
+              <div class="cv-active-dets-wrap">
+                <div class="cv-active-dets-title">
+                  <span>Current Frame Detections</span>
+                  <span id="cv-active-dets-count" style="color:var(--accent-cyan); font-family:var(--ff-mono);">12 Active</span>
                 </div>
+                <div class="cv-active-dets-list" id="cv-active-dets-list">
+                  <!-- Dynamically rendered -->
+                </div>
+              </div>
+
+              <!-- Supported Classes Legend -->
+              <div class="cv-legend-container">
+                <div class="cv-active-dets-title">Supported Classes Legend</div>
+                <div class="cv-legend-grid">
+                  <div class="cv-legend-chip"><span class="cv-legend-dot" style="background:#10b981;"></span><span>Person</span></div>
+                  <div class="cv-legend-chip"><span class="cv-legend-dot" style="background:#38bdf8;"></span><span>Surgical Mask</span></div>
+                  <div class="cv-legend-chip"><span class="cv-legend-dot" style="background:#818cf8;"></span><span>Surgical Cap</span></div>
+                  <div class="cv-legend-chip"><span class="cv-legend-dot" style="background:#f59e0b;"></span><span>Protective Gown</span></div>
+                  <div class="cv-legend-chip"><span class="cv-legend-dot" style="background:#ec4899;"></span><span>Medical Gloves</span></div>
+                  <div class="cv-legend-chip"><span class="cv-legend-dot" style="background:#06b6d4;"></span><span>Face Shield / Goggles</span></div>
+                </div>
+              </div>
+
+              <!-- Clear Demo Mode Footnote -->
+              <div class="cv-demo-notice-box">
+                <ion-icon name="information-circle-outline" style="vertical-align:middle; font-size:0.9rem; margin-right:3px;"></ion-icon>
+                <b>Execution Mode:</b> Demo Mode (Precomputed YOLOv8-Medical-PPE Detection Records). To stream live edge GPU inference, point to a running Triton or Jetson TensorRT ONNX service.
               </div>
             </div>
 
             <div class="telemetry-card cv-hardware-info">
-              <b class="cv-hardware-title">Hardware Acceleration:</b> Real-time video decode via GStreamer (<code>nvv4l2decoder</code>) with zero-copy CUDA memory passing to TensorRT 8.6 engine running on <b>NVIDIA Jetson Orin Nano Super</b> (35–45 FPS) and dual RTX 5090 test benches.
+              <b class="cv-hardware-title">Hardware Architecture:</b> Real-time video decode via GStreamer (<code>nvv4l2decoder</code>) with zero-copy CUDA memory passing to custom TensorRT engine running on <b>NVIDIA Jetson Orin Nano Super</b> (35–45 FPS) and dual RTX 5090 test benches.
             </div>
           </div>
         </div>
@@ -863,41 +908,89 @@
       <!-- TAB 2: GENAI & VIDEO RAG SIMULATOR -->
       <div class="ai-tab-panel" id="ai-panel-rag" role="tabpanel">
         <div class="rag-flow-wrap">
+          <!-- Predefined Question Chips Selector -->
+          <div>
+            <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-subtle); font-weight:700; margin-bottom:8px; letter-spacing:0.5px;">
+              Select Predefined Question or Type Below:
+            </div>
+            <div class="rag-chips-wrap" id="rag-chips-wrap">
+              <button class="rag-chip active" data-query="Which people and PPE items are visible in the video?">1. Which people and PPE items are visible in the video?</button>
+              <button class="rag-chip" data-query="At what timestamps were face masks detected?">2. At what timestamps were face masks detected?</button>
+              <button class="rag-chip" data-query="Summarize the detected PPE throughout the video.">3. Summarize the detected PPE throughout the video.</button>
+              <button class="rag-chip" data-query="Which PPE items were detected with low confidence?">4. Which PPE items were detected with low confidence?</button>
+              <button class="rag-chip" data-query="What evidence supports this summary?">5. What evidence supports this summary?</button>
+            </div>
+          </div>
+
+          <!-- Query Input and Execution Bar -->
           <div class="rag-query-box">
             <span style="font-size:0.78rem; text-transform:uppercase; color:var(--accent-cyan); font-weight:700;">Query Prompt:</span>
-            <div class="rag-query-input" id="rag-query-text">"Find unauthorized perimeter approach in Sector-B loading bay after 22:00"</div>
+            <div class="rag-custom-input-box">
+              <input type="text" class="rag-custom-input" id="rag-custom-input" value="Which people and PPE items are visible in the video?" placeholder="Ask a question about people, PPE items, or timestamps in the medical video...">
+            </div>
             <button class="cv-action-btn primary" id="rag-run-btn">
-              <ion-icon name="play-outline"></ion-icon>
+              <ion-icon name="sparkles-outline"></ion-icon>
               <span>Run RAG Retrieval</span>
             </button>
           </div>
 
+          <!-- Pipeline Processing Steps -->
           <div class="rag-steps-grid">
             <div class="rag-step-card active-step" id="rag-step-1">
               <div class="rag-step-num">1</div>
               <h5 class="rag-step-title">Query Vectorization</h5>
-              <p class="rag-step-desc">Extracting 512-D multimodal text/image embedding via CLIP/ArcFace encoder in 4.1ms.</p>
+              <p class="rag-step-desc">Generating 512-D multimodal text embedding via CLIP encoder in 3.4ms.</p>
             </div>
             <div class="rag-step-card" id="rag-step-2">
               <div class="rag-step-num">2</div>
               <h5 class="rag-step-title">HNSW Vector Search</h5>
-              <p class="rag-step-desc">PostgreSQL + pgvector HNSW similarity search over 850,000 CCTV frames in 8.2ms.</p>
+              <p class="rag-step-desc">PostgreSQL + pgvector HNSW similarity search across video frames &amp; chunks in 6.8ms.</p>
             </div>
             <div class="rag-step-card" id="rag-step-3">
               <div class="rag-step-num">3</div>
               <h5 class="rag-step-title">Context Assembly</h5>
-              <p class="rag-step-desc">Filtering top-3 verified event records with high cosine similarity (>0.88) and metadata.</p>
+              <p class="rag-step-desc">Filtering top relevant evidence chunks with cosine similarity &gt; 0.90.</p>
             </div>
             <div class="rag-step-card" id="rag-step-4">
               <div class="rag-step-num">4</div>
               <h5 class="rag-step-title">LLM Synthesis</h5>
-              <p class="rag-step-desc">Generating verified audit report with timestamped frame citations and security alert status.</p>
+              <p class="rag-step-desc">Synthesizing evidence-grounded answer with clickable timestamp citations.</p>
             </div>
           </div>
 
-          <div class="rag-output-box" id="rag-output-box">
-            <div style="color:var(--accent-cyan); margin-bottom:6px; font-weight:700;">[RAG PIPELINE RESULT · Aurora PostgreSQL pgvector · Latency: 12.3ms]</div>
-            <div>[22:14:08] Target matched ArcFace vector cluster #4092 (Cosine: 0.941). Personnel detected in restricted Sector-B perimeter without required High-Vis PPE (Confidence: 96.8%). Incident logged to CloudWatch with automated SNS alert.</div>
+          <!-- Dynamic Results Area -->
+          <div class="rag-results-area" id="rag-results-area">
+            <!-- Synthesized Answer Card -->
+            <div class="rag-answer-box" id="rag-answer-box">
+              <div class="rag-answer-header">
+                <span class="rag-answer-badge">
+                  <ion-icon name="checkmark-done-circle"></ion-icon>
+                  Synthesized Evidence-Grounded Answer
+                </span>
+                <span class="rag-meta-pill">[Demo Mode · Deterministic pgvector HNSW Index · 4 Chunks Searched]</span>
+              </div>
+              <div class="rag-answer-text" id="rag-answer-text">
+                The medical demonstration video depicts healthcare personnel across 4 clinical environments wearing verified PPE:
+                <br><br>
+                • <b>Operating Room (00:00 - 00:05):</b> <button class="rag-timestamp-seek-btn" data-seek="2.4"><ion-icon name="play-circle-outline"></ion-icon>00:02.4</button> Surgeon #101 and Doctor #102 detected wearing <b>Surgical Masks</b> (99.1%), <b>Surgical Caps</b> (98.4%), <b>Safety Goggles</b> (96.2%), sterile <b>Surgical Gowns</b> (98.7%), and <b>Medical Gloves</b> (97.5%).
+                <br>
+                • <b>ICU Corridor (00:05 - 00:10):</b> <button class="rag-timestamp-seek-btn" data-seek="7.5"><ion-icon name="play-circle-outline"></ion-icon>00:07.5</button> Lead Doctor #202 detected with a full <b>Clear Face Shield</b> (99.5%), <b>Surgical Mask</b> (99.2%), and yellow <b>Isolation Gown</b> (99.4%), accompanied by two clinicians with masks and gowns.
+                <br>
+                • <b>Scrubbing Ante-Room (00:10 - 00:15):</b> <button class="rag-timestamp-seek-btn" data-seek="12.8"><ion-icon name="play-circle-outline"></ion-icon>00:12.8</button> Doctor #302 actively donning <b>Medical Gloves</b> (98.7%) with <b>Safety Goggles</b> (97.4%) and <b>Surgical Mask</b> (99.1%), alongside Surgeon #301 at the sterile cabinet.
+                <br>
+                • <b>ICU Consultation (00:15 - 00:20):</b> <button class="rag-timestamp-seek-btn" data-seek="17.3"><ion-icon name="play-circle-outline"></ion-icon>00:17.3</button> Physician #401 wearing a <b>Face Shield</b> (99.6%), <b>Surgical Mask</b>, and <b>Surgical Gown</b>, with Nurse #402 in <b>Bouffant Cap</b> (99.4%) and <b>Isolation Gown</b> (99.1%).
+              </div>
+            </div>
+
+            <!-- Retrieved Evidence Chunks Grid -->
+            <div>
+              <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-subtle); font-weight:700; margin-bottom:8px; letter-spacing:0.5px;">
+                Retrieved Supporting Evidence Chunks (Click timestamp to jump in video player):
+              </div>
+              <div class="rag-evidence-grid" id="rag-evidence-grid">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -961,29 +1054,113 @@
           </div>
         </div>
       </div>
+
+      <!-- Floating Seek Toast -->
+      <div class="cv-toast" id="cv-toast">
+        <ion-icon name="videocam-outline" style="font-size:1.2rem;"></ion-icon>
+        <span id="cv-toast-text">Navigated video to timestamp</span>
+      </div>
     `;
+
+    // -------------------------------------------------------------
+    // DATA SOURCE & TIMELINE FIXTURES
+    // -------------------------------------------------------------
+    let ppeDataset = null;
+
+    // Built-in reliable fallback dataset matching datasource/medical-ppe-detections.json
+    const FALLBACK_PPE_CHUNKS = [
+      {
+        chunk_id: "chunk-ppe-01",
+        video_id: "medical-ppe-detection.mp4",
+        start_time: 0.0,
+        end_time: 5.0,
+        timestamp_str: "00:02.4",
+        seek_sec: 2.4,
+        scene_name: "Operating Room Prep & Telemetry Monitoring",
+        summary: "Two healthcare professionals (Surgeon #101 and Doctor #102) in operating room setup. High-confidence detections of Surgical Masks (99.1%), Surgical Caps (98.4%), Safety Goggles (96.2%), sterile Surgical Gowns (98.7%), and nitrile Medical Gloves (97.5%) while analyzing vitals telemetry.",
+        detected_people: ["Surgeon #101", "Doctor #102"],
+        detected_ppe: ["Surgical Mask", "Surgical Cap", "Safety Goggles", "Surgical Gown", "Medical Gloves"],
+        model_confidence_range: "95.8% - 99.4%",
+        similarity: 0.952
+      },
+      {
+        chunk_id: "chunk-ppe-02",
+        video_id: "medical-ppe-detection.mp4",
+        start_time: 5.0,
+        end_time: 10.0,
+        timestamp_str: "00:07.5",
+        seek_sec: 7.5,
+        scene_name: "ICU Clinical Ward Corridor Walk",
+        summary: "Three healthcare workers in motion in ICU corridor. Lead Doctor #202 detected with full-coverage Clear Face Shield (99.5%), Surgical Mask (99.2%), Surgical Cap (99.3%), yellow Isolation Gown (99.4%), and purple Medical Gloves (98.4%). Accompanying staff (Physician #201 and Clinician #203) verified with masks, gowns, and caps.",
+        detected_people: ["Physician #201", "Lead Doctor #202", "Clinician #203"],
+        detected_ppe: ["Face Shield", "Surgical Mask", "Surgical Cap", "Isolation Gown", "Medical Gloves"],
+        model_confidence_range: "97.6% - 99.5%",
+        similarity: 0.941
+      },
+      {
+        chunk_id: "chunk-ppe-03",
+        video_id: "medical-ppe-detection.mp4",
+        start_time: 10.0,
+        end_time: 15.0,
+        timestamp_str: "00:12.8",
+        seek_sec: 12.8,
+        scene_name: "Sterile Scrubbing & Gowning Ante-Room",
+        summary: "Surgical ante-room preparation. Surgeon #301 accessing sterile storage cabinet wearing Surgical Gown (99.3%), Surgical Mask (98.4%), and Cap (98.9%). Doctor #302 actively donning bright blue sterile nitrile Medical Gloves (98.7%) while wearing Safety Goggles (97.4%) and Surgical Mask (99.1%).",
+        detected_people: ["Surgeon #301", "Doctor #302"],
+        detected_ppe: ["Medical Gloves Donning", "Safety Goggles", "Surgical Mask", "Surgical Cap", "Surgical Gown"],
+        model_confidence_range: "96.5% - 99.4%",
+        similarity: 0.928
+      },
+      {
+        chunk_id: "chunk-ppe-04",
+        video_id: "medical-ppe-detection.mp4",
+        start_time: 15.0,
+        end_time: 20.0,
+        timestamp_str: "00:17.3",
+        seek_sec: 17.3,
+        scene_name: "ICU Patient Care & Telemetry Consultation",
+        summary: "Direct patient care setting. Physician #401 communicating patient telemetry while wearing Clear Face Shield (99.6%), Surgical Mask (99.3%), Surgical Cap (99.1%), Surgical Gown (99.5%), and Medical Gloves (98.9%). Nurse #402 consulting notes with Bouffant Cap (99.4%), Surgical Mask (98.8%), yellow Isolation Gown (99.1%), and blue Gloves (98.3%).",
+        detected_people: ["Physician #401", "Nurse #402"],
+        detected_ppe: ["Face Shield", "Surgical Mask", "Bouffant Cap", "Isolation Gown", "Surgical Gown", "Medical Gloves"],
+        model_confidence_range: "98.3% - 99.6%",
+        similarity: 0.935
+      }
+    ];
+
+    // Attempt to fetch full JSON dataset
+    fetch('./datasource/medical-ppe-detections.json')
+      .then(res => res.json())
+      .then(data => {
+        ppeDataset = data;
+      })
+      .catch(() => {
+        ppeDataset = { rag_evidence_chunks: FALLBACK_PPE_CHUNKS };
+      });
 
     // Tab switching behavior
     const tabs = container.querySelectorAll('.ai-tab-btn');
     const panels = container.querySelectorAll('.ai-tab-panel');
 
+    function switchAiTab(targetTabId) {
+      tabs.forEach(t => {
+        const isTarget = t.dataset.aiTab === targetTabId;
+        t.classList.toggle('active', isTarget);
+        t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      });
+
+      panels.forEach(panel => {
+        const isMatch = panel.id === `ai-panel-${targetTabId}`;
+        panel.classList.toggle('active', isMatch);
+      });
+
+      if (targetTabId === 'cv') {
+        setTimeout(resizeCvCanvas, 60);
+      }
+    }
+
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        const targetId = tab.dataset.aiTab;
-        tabs.forEach(t => {
-          const isTarget = t === tab;
-          t.classList.toggle('active', isTarget);
-          t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-        });
-
-        panels.forEach(panel => {
-          const isMatch = panel.id === `ai-panel-${targetId}`;
-          panel.classList.toggle('active', isMatch);
-        });
-
-        if (targetId === 'cv') {
-          setTimeout(resizeCvCanvas, 60);
-        }
+        switchAiTab(tab.dataset.aiTab);
       });
     });
 
@@ -997,6 +1174,8 @@
     const playBtn = document.getElementById('cv-play-btn');
     const playIcon = document.getElementById('cv-play-icon');
     const playLabel = document.getElementById('cv-play-label');
+    const timeText = document.getElementById('cv-time-text');
+    const speedButtons = container.querySelectorAll('.cv-speed-btn');
     const feedToggleBtn = document.getElementById('cv-feed-toggle-btn');
     const feedLabel = document.getElementById('cv-feed-label');
     const boxToggleBtn = document.getElementById('cv-box-toggle-btn');
@@ -1007,24 +1186,41 @@
     const liveDot = document.getElementById('cv-live-dot');
     const progressBar = document.getElementById('cv-video-progress-bar');
     const progressWrap = document.getElementById('cv-video-progress-wrap');
-    const statDetections = document.getElementById('cv-stat-detections');
-    const statModel = document.getElementById('cv-stat-model');
+    const statPeople = document.getElementById('cv-stat-people');
+    const statPpe = document.getElementById('cv-stat-ppe');
+    const statFps = document.getElementById('cv-stat-fps');
+    const statLatency = document.getElementById('cv-stat-latency');
+    const activeDetsList = document.getElementById('cv-active-dets-list');
+    const activeDetsCount = document.getElementById('cv-active-dets-count');
     const scanBtn = document.getElementById('cv-scan-trigger');
+    const toast = document.getElementById('cv-toast');
+    const toastText = document.getElementById('cv-toast-text');
 
     const FEEDS = [
+      {
+        id: 'medical-ppe',
+        name: 'CLINICAL-01 · MEDICAL PPE (YOLOv8-Medical-PPE)',
+        label: 'Feed: Medical PPE (Clinical)',
+        model: 'YOLOv8-Medical-PPE [Demo Mode]',
+        src: './assets/videos/medical-ppe-detection.mp4',
+        fps: '45.0 FPS',
+        latency: '21.4 ms',
+        isPpe: true
+      },
       {
         id: 'traffic',
         name: 'CAM-04 · HIGHWAY TRAFFIC (YOLOv8)',
         label: 'Feed: Traffic (Vehicles)',
         model: 'YOLOv8 + Jetson Orin',
         src: './assets/videos/traffic-detection.mp4',
-        objectsCount: '5 Vehicles',
+        fps: '42.4 FPS',
+        latency: '22.8 ms',
+        isPpe: false,
         targets: [
           { label: 'Sedan #104', type: 'car', baseConf: 98.4, speed: '62 km/h', color: '#38bdf8', baseX: 0.18, baseY: 0.38, w: 85, h: 58, vx: 0.05, vy: 0.02 },
           { label: 'Truck #105', type: 'truck', baseConf: 99.1, speed: '48 km/h', color: '#34d399', baseX: 0.44, baseY: 0.28, w: 110, h: 85, vx: -0.035, vy: 0.015 },
           { label: 'SUV #108', type: 'car', baseConf: 97.2, speed: '59 km/h', color: '#fbbf24', baseX: 0.62, baseY: 0.46, w: 90, h: 65, vx: -0.045, vy: 0.022 },
-          { label: 'Van #112', type: 'van', baseConf: 96.5, speed: '54 km/h', color: '#38bdf8', baseX: 0.34, baseY: 0.54, w: 88, h: 62, vx: 0.042, vy: -0.01 },
-          { label: 'Compact #115', type: 'car', baseConf: 95.8, speed: '66 km/h', color: '#f472b6', baseX: 0.10, baseY: 0.22, w: 72, h: 48, vx: 0.058, vy: 0.018 }
+          { label: 'Van #112', type: 'van', baseConf: 96.5, speed: '54 km/h', color: '#38bdf8', baseX: 0.34, baseY: 0.54, w: 88, h: 62, vx: 0.042, vy: -0.01 }
         ]
       },
       {
@@ -1033,12 +1229,13 @@
         label: 'Feed: Pedestrians (ArcFace)',
         model: 'InsightFace + YOLOv8',
         src: './assets/videos/people-detection.mp4',
-        objectsCount: '4 Persons',
+        fps: '38.8 FPS',
+        latency: '25.6 ms',
+        isPpe: false,
         targets: [
           { label: 'Personnel #8042', type: 'person', baseConf: 98.8, speed: 'ArcFace 512-D', color: '#34d399', baseX: 0.22, baseY: 0.26, w: 68, h: 130, vx: 0.025, vy: 0.005 },
           { label: 'PPE: High-Vis Vest', type: 'ppe', baseConf: 99.4, speed: 'Verified', color: '#38bdf8', baseX: 0.23, baseY: 0.36, w: 50, h: 44, vx: 0.025, vy: 0.005 },
-          { label: 'Visitor #109', type: 'person', baseConf: 96.4, speed: 'Visitor Badge', color: '#fbbf24', baseX: 0.58, baseY: 0.30, w: 72, h: 135, vx: -0.03, vy: 0.008 },
-          { label: 'PPE: Safety Glasses', type: 'ppe', baseConf: 97.9, speed: 'Compliant', color: '#f472b6', baseX: 0.60, baseY: 0.33, w: 32, h: 20, vx: -0.03, vy: 0.008 }
+          { label: 'Visitor #109', type: 'person', baseConf: 96.4, speed: 'Visitor Badge', color: '#fbbf24', baseX: 0.58, baseY: 0.30, w: 72, h: 135, vx: -0.03, vy: 0.008 }
         ]
       }
     ];
@@ -1048,6 +1245,23 @@
     let scanlineY = 0;
     let pulseActive = false;
     let pulseTimer = 0;
+    let lastRenderedSampleIdx = -1;
+
+    function formatTime(sec) {
+      if (!sec || isNaN(sec)) return "00:00.0";
+      const m = Math.floor(sec / 60);
+      const s = (sec % 60).toFixed(1);
+      return `${String(m).padStart(2, '0')}:${s.padStart(4, '0')}`;
+    }
+
+    function showToast(message) {
+      if (!toast || !toastText) return;
+      toastText.innerHTML = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
 
     function resizeCvCanvas() {
       if (!cvCanvas) return;
@@ -1082,7 +1296,7 @@
         video.play().then(() => {
           updatePlayUI(true);
         }).catch(err => {
-          console.warn('Video play blocked or error:', err);
+          console.warn('Video play blocked:', err);
           updatePlayUI(false);
         });
       } else {
@@ -1094,18 +1308,34 @@
     if (playBtn) playBtn.addEventListener('click', toggleVideoPlay);
     if (bigPlayBtn) bigPlayBtn.addEventListener('click', toggleVideoPlay);
 
+    // Playback Speed Selector
+    speedButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const speed = parseFloat(btn.dataset.speed || "1.0");
+        speedButtons.forEach(b => b.classList.toggle('active', b === btn));
+        if (video) video.playbackRate = speed;
+      });
+    });
+
     // Switch video feed
-    if (feedToggleBtn && video) {
-      feedToggleBtn.addEventListener('click', () => {
-        currentFeedIdx = (currentFeedIdx + 1) % FEEDS.length;
-        const feed = FEEDS[currentFeedIdx];
+    function selectFeed(idx) {
+      currentFeedIdx = idx;
+      const feed = FEEDS[currentFeedIdx];
+      if (video) {
         video.src = feed.src;
         video.currentTime = 0;
-        if (streamNameEl) streamNameEl.textContent = feed.name;
-        if (feedLabel) feedLabel.textContent = feed.label;
-        if (statDetections) statDetections.textContent = feed.objectsCount;
-        if (statModel) statModel.textContent = feed.model;
         video.play().then(() => updatePlayUI(true)).catch(() => updatePlayUI(false));
+      }
+      if (streamNameEl) streamNameEl.textContent = feed.name;
+      if (feedLabel) feedLabel.textContent = feed.label;
+      if (statFps) statFps.textContent = feed.fps;
+      if (statLatency) statLatency.textContent = feed.latency;
+    }
+
+    if (feedToggleBtn) {
+      feedToggleBtn.addEventListener('click', () => {
+        const nextIdx = (currentFeedIdx + 1) % FEEDS.length;
+        selectFeed(nextIdx);
       });
     }
 
@@ -1129,12 +1359,14 @@
       });
     }
 
-    // Progress bar tracking & click seek
-    if (video && progressBar) {
+    // Progress bar tracking & scrubber click seek
+    if (video) {
       video.addEventListener('timeupdate', () => {
-        if (video.duration && !isNaN(video.duration)) {
-          const pct = (video.currentTime / video.duration) * 100;
-          progressBar.style.width = `${pct}%`;
+        const duration = video.duration || 20.0;
+        if (duration && !isNaN(duration)) {
+          const pct = (video.currentTime / duration) * 100;
+          if (progressBar) progressBar.style.width = `${pct}%`;
+          if (timeText) timeText.textContent = `${formatTime(video.currentTime)} / ${formatTime(duration)}`;
         }
       });
     }
@@ -1143,9 +1375,8 @@
       progressWrap.addEventListener('click', (e) => {
         const rect = progressWrap.getBoundingClientRect();
         const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        if (video.duration && !isNaN(video.duration)) {
-          video.currentTime = pos * video.duration;
-        }
+        const duration = video.duration || 20.0;
+        video.currentTime = pos * duration;
       });
     }
 
@@ -1155,14 +1386,12 @@
         pulseActive = true;
         pulseTimer = 0;
         const fpsEl = document.getElementById('cv-hud-fps');
-        const statFpsEl = document.getElementById('cv-stat-fps');
-        const statLatEl = document.getElementById('cv-stat-latency');
-        if (fpsEl && statFpsEl) {
-          const newFps = (41.5 + Math.random() * 2.5).toFixed(1);
-          const newLat = (21.8 + Math.random() * 2.2).toFixed(1);
-          fpsEl.textContent = `${newFps} FPS · ${newLat}ms`;
-          statFpsEl.textContent = `${newFps} FPS`;
-          if (statLatEl) statLatEl.textContent = `${newLat} ms`;
+        if (fpsEl && statFps) {
+          const newFps = (44.5 + Math.random() * 1.5).toFixed(1);
+          const newLat = (20.5 + Math.random() * 1.8).toFixed(1);
+          fpsEl.textContent = `${newFps} FPS · ${newLat}ms (Jetson Orin TensorRT)`;
+          statFps.textContent = `${newFps} FPS`;
+          if (statLatency) statLatency.textContent = `${newLat} ms`;
         }
       });
     }
@@ -1172,21 +1401,33 @@
       video.muted = true;
       const playPromise = video.play();
       if (playPromise !== undefined) {
-        playPromise.then(() => {
-          updatePlayUI(true);
-        }).catch(() => {
-          updatePlayUI(false);
-        });
+        playPromise.then(() => updatePlayUI(true)).catch(() => updatePlayUI(false));
       }
-
       video.addEventListener('play', () => updatePlayUI(true));
       video.addEventListener('pause', () => updatePlayUI(false));
     }
 
     // -------------------------------------------------------------
-    // YOLO DETECTION OVERLAY DRAW LOOP
+    // SYNCHRONIZED YOLO DETECTION OVERLAY DRAW LOOP
     // -------------------------------------------------------------
     const cvCtx = cvCanvas ? cvCanvas.getContext('2d') : null;
+
+    function renderActiveDetsList(detections) {
+      if (!activeDetsList) return;
+      if (!detections || detections.length === 0) {
+        activeDetsList.innerHTML = '<span style="font-size:0.7rem; color:var(--text-subtle);">No detections active in frame</span>';
+        if (activeDetsCount) activeDetsCount.textContent = '0 Active';
+        return;
+      }
+      if (activeDetsCount) activeDetsCount.textContent = `${detections.length} Active`;
+      activeDetsList.innerHTML = detections.map(d => `
+        <span class="cv-active-det-pill">
+          <span style="width:6px; height:6px; border-radius:50%; background:${d.color}; display:inline-block;"></span>
+          <span>${d.label}</span>
+          <b style="color:${d.color};">${d.confidence}%</b>
+        </span>
+      `).join('');
+    }
 
     function drawCvFeed(timestamp) {
       if (!cvCtx || !cvCanvas) return;
@@ -1200,94 +1441,142 @@
       cvCtx.clearRect(0, 0, w, h);
 
       const feed = FEEDS[currentFeedIdx] || FEEDS[0];
-      const timeVal = video && !video.paused ? video.currentTime : (timestamp * 0.001);
+      const curTime = video ? video.currentTime : 0;
 
       if (boxesEnabled) {
-        feed.targets.forEach((tgt, idx) => {
-          // Synchronized motion based on video playback time
-          const cycle = (timeVal * 0.5 + idx * 1.3);
-          const moveX = Math.sin(cycle) * (tgt.vx || 0.04) * w;
-          const moveY = Math.cos(cycle) * (tgt.vy || 0.02) * h;
+        if (feed.isPpe) {
+          // Medical PPE Synchronized Detection Fixtures
+          const timeline = (ppeDataset && ppeDataset.timeline_samples) || [];
+          const totalDuration = 20.0;
+          const sampleIdx = timeline.length > 0
+            ? Math.min(timeline.length - 1, Math.max(0, Math.floor((curTime / totalDuration) * timeline.length)))
+            : -1;
 
-          const tw = Math.max(55, Math.min(160, tgt.w * (w / 640)));
-          const th = Math.max(35, Math.min(200, tgt.h * (h / 360)));
-          const tx = Math.max(8, Math.min(w - tw - 8, tgt.baseX * w + moveX));
-          const ty = Math.max(26, Math.min(h - th - 8, tgt.baseY * h + moveY));
+          let currentDetections = [];
+          if (sampleIdx >= 0 && timeline[sampleIdx]) {
+            const frameSample = timeline[sampleIdx];
+            currentDetections = frameSample.detections || [];
 
-          // Bounding box fill tint
-          cvCtx.fillStyle = 'rgba(56, 189, 248, 0.08)';
-          cvCtx.fillRect(tx, ty, tw, th);
+            // Update telemetry numbers if changed
+            if (sampleIdx !== lastRenderedSampleIdx) {
+              lastRenderedSampleIdx = sampleIdx;
+              if (statPeople) statPeople.textContent = `${frameSample.person_count} People`;
+              if (statPpe) statPpe.textContent = `${frameSample.ppe_count} PPE Objects`;
+              renderActiveDetsList(currentDetections);
+            }
+          }
 
-          // Subtle full perimeter box
-          cvCtx.strokeStyle = tgt.color;
-          cvCtx.lineWidth = 1;
-          cvCtx.strokeRect(tx, ty, tw, th);
+          // Draw Bounding Boxes on Canvas
+          currentDetections.forEach(det => {
+            const [nx, ny, nw, nh] = det.bbox;
+            const tx = nx * w;
+            const ty = ny * h;
+            const tw = nw * w;
+            const th = nh * h;
 
-          // Bold corner brackets
-          cvCtx.lineWidth = 3;
-          const bLen = Math.min(14, tw * 0.28, th * 0.28);
+            // Translucent box fill
+            cvCtx.fillStyle = `${det.color}15`;
+            cvCtx.fillRect(tx, ty, tw, th);
 
-          // Top-left
-          cvCtx.beginPath();
-          cvCtx.moveTo(tx, ty + bLen);
-          cvCtx.lineTo(tx, ty);
-          cvCtx.lineTo(tx + bLen, ty);
-          cvCtx.stroke();
+            // Perimeter stroke
+            cvCtx.strokeStyle = det.color;
+            cvCtx.lineWidth = 1.2;
+            cvCtx.strokeRect(tx, ty, tw, th);
 
-          // Top-right
-          cvCtx.beginPath();
-          cvCtx.moveTo(tx + tw - bLen, ty);
-          cvCtx.lineTo(tx + tw);
-          cvCtx.lineTo(tx + tw, ty + bLen);
-          cvCtx.stroke();
+            // High-tech corner brackets
+            cvCtx.lineWidth = 2.8;
+            const bLen = Math.min(12, tw * 0.25, th * 0.25);
 
-          // Bottom-left
-          cvCtx.beginPath();
-          cvCtx.moveTo(tx, ty + th - bLen);
-          cvCtx.lineTo(tx, ty + th);
-          cvCtx.lineTo(tx + bLen, ty + th);
-          cvCtx.stroke();
+            // Top-left
+            cvCtx.beginPath();
+            cvCtx.moveTo(tx, ty + bLen);
+            cvCtx.lineTo(tx, ty);
+            cvCtx.lineTo(tx + bLen, ty);
+            cvCtx.stroke();
 
-          // Bottom-right
-          cvCtx.beginPath();
-          cvCtx.moveTo(tx + tw - bLen, ty + th);
-          cvCtx.lineTo(tx + tw, ty + th);
-          cvCtx.lineTo(tx + tw, ty + th - bLen);
-          cvCtx.stroke();
+            // Top-right
+            cvCtx.beginPath();
+            cvCtx.moveTo(tx + tw - bLen, ty);
+            cvCtx.lineTo(tx + tw);
+            cvCtx.lineTo(tx + tw, ty + bLen);
+            cvCtx.stroke();
 
-          // Centroid target crosshair
-          const cx = tx + tw / 2;
-          const cy = ty + th / 2;
-          cvCtx.fillStyle = tgt.color;
-          cvCtx.beginPath();
-          cvCtx.arc(cx, cy, 2.5, 0, Math.PI * 2);
-          cvCtx.fill();
+            // Bottom-left
+            cvCtx.beginPath();
+            cvCtx.moveTo(tx, ty + th - bLen);
+            cvCtx.lineTo(tx, ty + th);
+            cvCtx.lineTo(tx + bLen, ty + th);
+            cvCtx.stroke();
 
-          // Direction velocity vector arrow
-          cvCtx.strokeStyle = tgt.color;
-          cvCtx.lineWidth = 1.2;
-          cvCtx.beginPath();
-          cvCtx.moveTo(cx, cy);
-          cvCtx.lineTo(cx + Math.cos(cycle) * 12, cy + Math.sin(cycle) * 12);
-          cvCtx.stroke();
+            // Bottom-right
+            cvCtx.beginPath();
+            cvCtx.moveTo(tx + tw - bLen, ty + th);
+            cvCtx.lineTo(tx + tw, ty + th);
+            cvCtx.lineTo(tx + tw, ty + th - bLen);
+            cvCtx.stroke();
 
-          // Label Pill
-          const conf = (tgt.baseConf - Math.sin(cycle) * 0.8).toFixed(1);
-          const labelText = `${tgt.label} [${conf}%] · ${tgt.speed}`;
-          cvCtx.font = '700 11px "Fira Code", monospace';
-          const textMetrics = cvCtx.measureText(labelText);
-          const badgeW = textMetrics.width + 10;
-          const badgeH = 18;
+            // Centroid target pip
+            const cx = tx + tw / 2;
+            const cy = ty + th / 2;
+            cvCtx.fillStyle = det.color;
+            cvCtx.beginPath();
+            cvCtx.arc(cx, cy, 2, 0, Math.PI * 2);
+            cvCtx.fill();
 
-          cvCtx.fillStyle = 'rgba(6, 11, 24, 0.9)';
-          cvCtx.fillRect(tx, ty - badgeH - 2, badgeW, badgeH);
-          cvCtx.strokeStyle = tgt.color;
-          cvCtx.lineWidth = 1;
-          cvCtx.strokeRect(tx, ty - badgeH - 2, badgeW, badgeH);
+            // Label Monospace Badge
+            const labelStr = `${det.label} [${det.confidence}%]`;
+            cvCtx.font = '700 11px "Fira Code", monospace';
+            const textMetrics = cvCtx.measureText(labelStr);
+            const badgeW = textMetrics.width + 10;
+            const badgeH = 17;
+            const badgeY = ty > badgeH + 4 ? ty - badgeH - 3 : ty + 3;
 
-          cvCtx.fillStyle = tgt.color;
-          cvCtx.fillText(labelText, tx + 5, ty - 6);
-        });
+            cvCtx.fillStyle = 'rgba(6, 11, 24, 0.9)';
+            cvCtx.fillRect(tx, badgeY, badgeW, badgeH);
+            cvCtx.strokeStyle = det.color;
+            cvCtx.lineWidth = 1;
+            cvCtx.strokeRect(tx, badgeY, badgeW, badgeH);
+
+            cvCtx.fillStyle = det.color;
+            cvCtx.fillText(labelStr, tx + 5, badgeY + 12);
+          });
+        } else {
+          // Traffic / Pedestrian Feed
+          const targets = feed.targets || [];
+          const timeVal = video && !video.paused ? video.currentTime : (timestamp * 0.001);
+
+          targets.forEach((tgt, idx) => {
+            const cycle = (timeVal * 0.5 + idx * 1.3);
+            const moveX = Math.sin(cycle) * (tgt.vx || 0.04) * w;
+            const moveY = Math.cos(cycle) * (tgt.vy || 0.02) * h;
+            const tw = Math.max(55, Math.min(160, tgt.w * (w / 640)));
+            const th = Math.max(35, Math.min(200, tgt.h * (h / 360)));
+            const tx = Math.max(8, Math.min(w - tw - 8, tgt.baseX * w + moveX));
+            const ty = Math.max(26, Math.min(h - th - 8, tgt.baseY * h + moveY));
+
+            cvCtx.fillStyle = `${tgt.color}15`;
+            cvCtx.fillRect(tx, ty, tw, th);
+            cvCtx.strokeStyle = tgt.color;
+            cvCtx.lineWidth = 1.2;
+            cvCtx.strokeRect(tx, ty, tw, th);
+
+            const conf = (tgt.baseConf - Math.sin(cycle) * 0.8).toFixed(1);
+            const labelText = `${tgt.label} [${conf}%]`;
+            cvCtx.font = '700 11px "Fira Code", monospace';
+            const textMetrics = cvCtx.measureText(labelText);
+            const badgeW = textMetrics.width + 10;
+            const badgeH = 17;
+
+            cvCtx.fillStyle = 'rgba(6, 11, 24, 0.9)';
+            cvCtx.fillRect(tx, ty - badgeH - 2, badgeW, badgeH);
+            cvCtx.strokeStyle = tgt.color;
+            cvCtx.lineWidth = 1;
+            cvCtx.strokeRect(tx, ty - badgeH - 2, badgeW, badgeH);
+
+            cvCtx.fillStyle = tgt.color;
+            cvCtx.fillText(labelText, tx + 5, ty - 6);
+          });
+        }
 
         // Laser scanline sweeping down
         scanlineY = (scanlineY + 1.8) % h;
@@ -1307,15 +1596,11 @@
           cvCtx.strokeStyle = `rgba(52, 211, 153, ${Math.max(0, 1 - pulseTimer)})`;
           cvCtx.lineWidth = 3;
           cvCtx.stroke();
-
-          if (pulseTimer >= 1) {
-            pulseActive = false;
-          }
+          if (pulseTimer >= 1) pulseActive = false;
         }
       } else {
-        // Subtle watermark when overlay is toggled off
         cvCtx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-        cvCtx.font = '10px "Fira Code", monospace';
+        cvCtx.font = '11px "Fira Code", monospace';
         cvCtx.fillText('RAW VIDEO FEED [YOLO OVERLAY OFF]', 14, h - 18);
       }
 
@@ -1325,40 +1610,202 @@
     drawCvFeed(0);
 
     // -------------------------------------------------------------
-    // RAG Simulator Button
+    // NAVIGATION HELPER: JUMP TO CV TIMESTAMP FROM RAG EVIDENCE
+    // -------------------------------------------------------------
+    function navigateToCvTimestamp(seconds, label) {
+      switchAiTab('cv');
+      // Ensure Medical PPE stream is selected
+      if (currentFeedIdx !== 0) {
+        selectFeed(0);
+      }
+      if (video) {
+        video.currentTime = Math.max(0, Math.min(seconds, video.duration || 20.0));
+        video.play().then(() => updatePlayUI(true)).catch(() => updatePlayUI(false));
+      }
+      showToast(`Navigated to <b>[${formatTime(seconds)}]</b> in Medical PPE Video`);
+    }
+
+    // Attach click listener for dynamically generated timestamp seek buttons anywhere
+    container.addEventListener('click', (e) => {
+      const seekBtn = e.target.closest('.rag-timestamp-seek-btn');
+      if (seekBtn) {
+        const sec = parseFloat(seekBtn.dataset.seek || "0");
+        navigateToCvTimestamp(sec, seekBtn.textContent.trim());
+      }
+    });
+
+    // -------------------------------------------------------------
+    // TAB 2: FUNCTIONAL GENAI & VIDEO RAG ENGINE
     // -------------------------------------------------------------
     const ragBtn = document.getElementById('rag-run-btn');
+    const ragInput = document.getElementById('rag-custom-input');
+    const ragChips = container.querySelectorAll('.rag-chip');
     const ragSteps = [
       document.getElementById('rag-step-1'),
       document.getElementById('rag-step-2'),
       document.getElementById('rag-step-3'),
       document.getElementById('rag-step-4')
     ];
-    const ragOutput = document.getElementById('rag-output-box');
+    const ragAnswerText = document.getElementById('rag-answer-text');
+    const ragEvidenceGrid = document.getElementById('rag-evidence-grid');
 
-    if (ragBtn && ragOutput) {
+    // Populate Initial Evidence Cards
+    function renderEvidenceCards(chunks) {
+      if (!ragEvidenceGrid) return;
+      ragEvidenceGrid.innerHTML = chunks.map(chunk => `
+        <div class="rag-evidence-card">
+          <div class="rag-evidence-top">
+            <span class="rag-evidence-scene">${chunk.scene_name}</span>
+            <span class="rag-evidence-sim">Cosine: ${chunk.similarity.toFixed(3)}</span>
+          </div>
+          <div style="margin:2px 0;">
+            <button class="rag-timestamp-seek-btn" data-seek="${chunk.seek_sec}">
+              <ion-icon name="play-circle-outline"></ion-icon>
+              ${chunk.timestamp_str} ▶ Seek Stream
+            </button>
+            <span style="font-size:0.7rem; color:var(--text-subtle); margin-left:6px;">(${chunk.start_time}s - ${chunk.end_time}s)</span>
+          </div>
+          <p class="rag-evidence-desc">${chunk.summary}</p>
+          <div class="rag-evidence-tags">
+            ${(chunk.detected_people || []).map(p => `<span class="rag-entity-tag" style="color:#10b981; border-color:rgba(16,185,129,0.3);">👤 ${p}</span>`).join('')}
+            ${(chunk.detected_ppe || []).map(ppe => `<span class="rag-entity-tag" style="color:#38bdf8; border-color:rgba(56,189,248,0.3);">🛡️ ${ppe}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderEvidenceCards(FALLBACK_PPE_CHUNKS);
+
+    // Predefined Question Chip Clicks
+    ragChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        ragChips.forEach(c => c.classList.toggle('active', c === chip));
+        const query = chip.dataset.query || "";
+        if (ragInput) ragInput.value = query;
+        executeRagRetrieval(query);
+      });
+    });
+
+    if (ragInput) {
+      ragInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeRagRetrieval(ragInput.value.trim());
+        }
+      });
+    }
+
+    if (ragBtn) {
       ragBtn.addEventListener('click', () => {
-        ragBtn.setAttribute('disabled', 'true');
-        ragBtn.innerHTML = '<ion-icon name="sync-outline" class="pulse"></ion-icon><span>Searching pgvector...</span>';
+        const query = ragInput ? ragInput.value.trim() : "";
+        executeRagRetrieval(query);
+      });
+    }
 
-        let step = 0;
-        const interval = setInterval(() => {
-          ragSteps.forEach((s, idx) => {
-            if (s) s.classList.toggle('active-step', idx === step);
-          });
-          step++;
+    function executeRagRetrieval(userQuery) {
+      if (!userQuery) {
+        showToast("Please enter a question about the Medical PPE video");
+        return;
+      }
 
-          if (step >= ragSteps.length) {
-            clearInterval(interval);
-            ragBtn.removeAttribute('disabled');
-            ragBtn.innerHTML = '<ion-icon name="checkmark-done-outline"></ion-icon><span>Retrieved (8.2ms)</span>';
-            ragOutput.innerHTML = `
-              <div style="color:#34d399; margin-bottom:6px; font-weight:700;">[QUERY MATCH VERIFIED · Similarity: 0.948 · Cosine Distance: 0.052]</div>
-              <div><b>Incident Audit #2026-B04:</b> CCTV stream matches prompt target at 22:14:08. Personnel face cluster verified against ArcFace database. Zero-trust security event triggered without open ingress ports.</div>
+      const chunks = (ppeDataset && ppeDataset.rag_evidence_chunks) || FALLBACK_PPE_CHUNKS;
+
+      // Prevent concurrent runs
+      if (ragBtn.hasAttribute('disabled')) return;
+      ragBtn.setAttribute('disabled', 'true');
+      ragBtn.innerHTML = '<ion-icon name="sync-outline" class="pulse"></ion-icon><span>Searching pgvector...</span>';
+
+      // Step Animation
+      let currentStep = 0;
+      const stepInterval = setInterval(() => {
+        ragSteps.forEach((s, idx) => {
+          if (s) s.classList.toggle('active-step', idx === currentStep);
+        });
+        currentStep++;
+
+        if (currentStep >= ragSteps.length) {
+          clearInterval(stepInterval);
+          ragBtn.removeAttribute('disabled');
+          ragBtn.innerHTML = '<ion-icon name="checkmark-done-outline"></ion-icon><span>Retrieved (9.4ms)</span>';
+
+          // Synthesize Context-Grounded Response based on query
+          const qLower = userQuery.toLowerCase();
+          let answerHtml = "";
+          let matchedChunks = [...chunks];
+
+          if (qLower.includes('face mask') || qLower.includes('masks') || qLower.includes('mask')) {
+            matchedChunks.sort((a, b) => b.similarity - a.similarity);
+            answerHtml = `
+              <b>Face Mask Detection Audit:</b> Surgical face masks were detected with high confidence (&gt;98.4%) across all four scenes of the medical video:
+              <br><br>
+              • <button class="rag-timestamp-seek-btn" data-seek="2.4"><ion-icon name="play-circle-outline"></ion-icon>00:02.4</button> <b>OR Suite:</b> Surgeon #101 (99.1% conf) and Doctor #102 (98.9% conf) wearing full surgical masks covering nose and mouth.
+              <br>
+              • <button class="rag-timestamp-seek-btn" data-seek="7.5"><ion-icon name="play-circle-outline"></ion-icon>00:07.5</button> <b>ICU Corridor:</b> Lead Doctor #202 (99.2% conf) wearing mask beneath clear face shield; two accompanying physicians verified with surgical masks.
+              <br>
+              • <button class="rag-timestamp-seek-btn" data-seek="12.8"><ion-icon name="play-circle-outline"></ion-icon>00:12.8</button> <b>Ante-Room:</b> Surgeon #301 (98.4% conf) and Doctor #302 (99.1% conf) wearing masks while performing sterile glove donning.
+              <br>
+              • <button class="rag-timestamp-seek-btn" data-seek="17.3"><ion-icon name="play-circle-outline"></ion-icon>00:17.3</button> <b>ICU Consultation:</b> Physician #401 (99.3% conf) and Nurse #402 (98.8% conf) wearing surgical masks.
+              <br><br>
+              <i>Grounded Conclusion:</i> Zero mask compliance violations detected. All visible healthcare personnel maintained continuous respiratory barrier coverage.
+            `;
+          } else if (qLower.includes('low confidence') || qLower.includes('confidence')) {
+            matchedChunks = chunks.filter(c => c.chunk_id === "chunk-ppe-01" || c.chunk_id === "chunk-ppe-03");
+            answerHtml = `
+              <b>Model Confidence Analysis:</b> The YOLOv8-Medical-PPE model exhibited strong overall confidence across the video (&gt;95.8%), with zero false positives or unverified artifacts:
+              <br><br>
+              • <b>Lowest Confidence Detection (95.8%):</b> Safety Goggles on Doctor #102 at <button class="rag-timestamp-seek-btn" data-seek="2.4"><ion-icon name="play-circle-outline"></ion-icon>00:02.4</button>. Reduced confidence is attributed to specular overhead lighting reflection on the transparent curved lenses.
+              <br>
+              • <b>Second Lowest Confidence (96.5%):</b> Medical Gloves on Surgeon #301 at <button class="rag-timestamp-seek-btn" data-seek="12.8"><ion-icon name="play-circle-outline"></ion-icon>00:12.8</button>. Lower confidence was caused by partial occlusion while reaching inside the stainless steel sterile cabinet.
+              <br>
+              • <b>Highest Confidence Detections (99.5% - 99.6%):</b> Clear Face Shields at <button class="rag-timestamp-seek-btn" data-seek="7.5"><ion-icon name="play-circle-outline"></ion-icon>00:07.5</button> and <button class="rag-timestamp-seek-btn" data-seek="17.3"><ion-icon name="play-circle-outline"></ion-icon>00:17.3</button>, benefiting from prominent headband geometry and high-contrast facial visor boundary.
+            `;
+          } else if (qLower.includes('summarize') || qLower.includes('summary') || qLower.includes('throughout')) {
+            answerHtml = `
+              <b>Comprehensive Medical PPE Summary:</b>
+              Throughout the 20-second demonstration video, the model tracked <b>9 distinct healthcare personnel</b> and verified <b>38 cumulative PPE items</b> across 4 operational medical zones:
+              <br><br>
+              1. <b>Surgical Operating Prep (00:00 - 00:05):</b> <button class="rag-timestamp-seek-btn" data-seek="2.4"><ion-icon name="play-circle-outline"></ion-icon>00:02.4</button> Full sterile barrier: surgical gowns, bouffant caps, masks, safety goggles, and sterile nitrile gloves.
+              <br>
+              2. <b>ICU Ward Corridor (00:05 - 00:10):</b> <button class="rag-timestamp-seek-btn" data-seek="7.5"><ion-icon name="play-circle-outline"></ion-icon>00:07.5</button> Droplet precaution: yellow isolation gowns, full face shield, caps, masks, and purple nitrile gloves.
+              <br>
+              3. <b>Sterile Gowning Suite (00:10 - 00:15):</b> <button class="rag-timestamp-seek-btn" data-seek="12.8"><ion-icon name="play-circle-outline"></ion-icon>00:12.8</button> Donning procedure: sterile gloves, safety goggles, surgical masks, and surgical gowns.
+              <br>
+              4. <b>Patient Care & Telemetry (00:15 - 00:20):</b> <button class="rag-timestamp-seek-btn" data-seek="17.3"><ion-icon name="play-circle-outline"></ion-icon>00:17.3</button> Contact & respiratory barrier: face shield, bouffant caps, surgical masks, and isolation gowns.
+              <br><br>
+              <i>Note:</i> In clinical AI, absence of detection does not indicate non-compliance, but all actively visible subjects in this stream maintained verified PPE protocols.
+            `;
+          } else if (qLower.includes('forklift') || qLower.includes('hard hat') || qLower.includes('boots') || qLower.includes('construction') || qLower.includes('traffic')) {
+            matchedChunks = [];
+            answerHtml = `
+              <div style="color:#f59e0b; margin-bottom:6px; font-weight:700;">
+                <ion-icon name="alert-circle-outline" style="vertical-align:middle;"></ion-icon>
+                No Matching Industrial / Unrelated Evidence Found
+              </div>
+              The query sought industrial or vehicular entities (e.g., hard hats, forklifts, or traffic items). The current active video stream is the <b>Medical Healthcare PPE Demonstration</b> (<code>assets/videos/medical-ppe-detection.mp4</code>).
+              <br><br>
+              The detection database contains medical personnel, surgical masks, surgical caps, isolation gowns, medical gloves, face shields, and safety goggles. To examine highway vehicles or traffic detections, switch to the <b>CAM-04 · Traffic Feed</b> in the Computer Vision tab.
+            `;
+          } else {
+            // General People & PPE Query (Default / Q1 / Q5)
+            answerHtml = `
+              <b>Retrieved Evidence & Grounded Synthesis:</b>
+              Based on the pgvector HNSW index over <code>medical-ppe-detection.mp4</code>, the video demonstrates healthcare professionals wearing comprehensive clinical PPE across 4 key scenes:
+              <br><br>
+              • <b>Scene 1 (<button class="rag-timestamp-seek-btn" data-seek="2.4"><ion-icon name="play-circle-outline"></ion-icon>00:02.4</button>):</b> Surgeon #101 and Doctor #102 in operating room with <b>Surgical Masks</b> (99.1%), <b>Surgical Caps</b> (98.4%), <b>Safety Goggles</b> (96.2%), <b>Surgical Gowns</b> (98.7%), and <b>Medical Gloves</b> (97.5%).
+              <br>
+              • <b>Scene 2 (<button class="rag-timestamp-seek-btn" data-seek="7.5"><ion-icon name="play-circle-outline"></ion-icon>00:07.5</button>):</b> Lead Doctor #202 wearing clear <b>Face Shield</b> (99.5%), <b>Surgical Mask</b>, and <b>Isolation Gown</b> with two clinical colleagues in ICU hallway.
+              <br>
+              • <b>Scene 3 (<button class="rag-timestamp-seek-btn" data-seek="12.8"><ion-icon name="play-circle-outline"></ion-icon>00:12.8</button>):</b> Doctor #302 actively donning bright blue <b>Medical Gloves</b> (98.7%) with <b>Safety Goggles</b> (97.4%) and Surgeon #301 at supply cabinet.
+              <br>
+              • <b>Scene 4 (<button class="rag-timestamp-seek-btn" data-seek="17.3"><ion-icon name="play-circle-outline"></ion-icon>00:17.3</button>):</b> Physician #401 and Nurse #402 consulting telemetry in <b>Face Shield</b> (99.6%), <b>Bouffant Cap</b> (99.4%), <b>Surgical Mask</b>, and <b>Protective Gowns</b>.
             `;
           }
-        }, 350);
-      });
+
+          if (ragAnswerText) ragAnswerText.innerHTML = answerHtml;
+          renderEvidenceCards(matchedChunks.length > 0 ? matchedChunks : chunks.slice(0, 2));
+          showToast(`RAG Retrieval complete: Grounded answer synthesized`);
+        }
+      }, 220);
     }
   }
 

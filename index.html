@@ -43,7 +43,19 @@
     rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/style.css?v=2.2.0">
+
+  <!-- Pre-render theme synchronization to avoid FOUC -->
+  <script>
+    (function () {
+      try {
+        const saved = localStorage.getItem('portfolio-theme');
+        if (saved) {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) { }
+    })();
+  </script>
 
   <!-- Pre-render theme synchronization to avoid FOUC -->
   <script>
@@ -813,11 +825,15 @@
           <!-- PROJECT 1: CCTV AI Surveillance Platform -->
           <div class="project-item active" data-filter-item data-category="computer vision & ai">
             <div class="project-card">
-              <div class="project-img-wrap">
+              <div class="project-img-wrap" onclick="openImageLightbox('./assets/images/project-cctv.jpg', 'AI-Powered CCTV Surveillance &amp; Intelligence Platform', 'YOLO · Jetson Orin Nano · ArcFace · SageMaker · pgvector')" title="Click to fit image in window">
                 <img src="./assets/images/project-cctv.jpg" alt="AI CCTV Surveillance & Vision Analytics Dashboard"
                   loading="lazy">
                 <div class="project-badge-overlay">
                   <span class="tag-pill emerald">Flagship Production</span>
+                </div>
+                <div class="project-img-expand-hint" aria-hidden="true">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span>Fit in Window</span>
                 </div>
               </div>
               <div class="project-content">
@@ -842,11 +858,15 @@
           <!-- PROJECT 2: AWS IaaS Terraform Automation -->
           <div class="project-item active" data-filter-item data-category="cloud & mlops">
             <div class="project-card">
-              <div class="project-img-wrap">
+              <div class="project-img-wrap" onclick="openImageLightbox('./assets/images/project-terraform.jpg', 'AWS IaaS Multi-Tenant Automation Using Terraform', 'Terraform · ECS Fargate · Aurora RDS · API Gateway · WAF')" title="Click to fit image in window">
                 <img src="./assets/images/project-terraform.jpg" alt="AWS IaaS Automation with Terraform"
                   loading="lazy">
                 <div class="project-badge-overlay">
                   <span class="tag-pill">Infrastructure as Code</span>
+                </div>
+                <div class="project-img-expand-hint" aria-hidden="true">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span>Fit in Window</span>
                 </div>
               </div>
               <div class="project-content">
@@ -871,11 +891,15 @@
           <!-- PROJECT 3: HIPAA & SOC 2 Cloud Security -->
           <div class="project-item active" data-filter-item data-category="security & compliance">
             <div class="project-card">
-              <div class="project-img-wrap">
+              <div class="project-img-wrap" onclick="openImageLightbox('./assets/images/project-security.jpg', 'HIPAA &amp; SOC 2 Cloud Compliance &amp; Zero-Trust Automation', 'Zero-Trust · SSM Tunneling · KMS · GuardDuty · 80% Score')" title="Click to fit image in window">
                 <img src="./assets/images/project-security.jpg" alt="Cloud Compliance & Security Dashboard"
                   loading="lazy">
                 <div class="project-badge-overlay">
                   <span class="tag-pill gold">AWS Security Specialty</span>
+                </div>
+                <div class="project-img-expand-hint" aria-hidden="true">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span>Fit in Window</span>
                 </div>
               </div>
               <div class="project-content">
@@ -900,10 +924,14 @@
           <!-- PROJECT 4: AWS CodePipeline CI/CD -->
           <div class="project-item active" data-filter-item data-category="cloud & mlops">
             <div class="project-card">
-              <div class="project-img-wrap">
+              <div class="project-img-wrap" onclick="openImageLightbox('./assets/images/project-pipeline.jpg', 'AWS CodePipeline (CI/CD) with CloudFormation', 'CodePipeline · CloudFormation · CodeBuild · ECS')" title="Click to fit image in window">
                 <img src="./assets/images/project-pipeline.jpg" alt="AWS CodePipeline CI/CD" loading="lazy">
                 <div class="project-badge-overlay">
                   <span class="tag-pill">CI/CD Automation</span>
+                </div>
+                <div class="project-img-expand-hint" aria-hidden="true">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span>Fit in Window</span>
                 </div>
               </div>
               <div class="project-content">
@@ -927,11 +955,15 @@
           <!-- PROJECT 5: Linear Regression From Scratch -->
           <div class="project-item active" data-filter-item data-category="interactive tools">
             <div class="project-card">
-              <div class="project-img-wrap">
+              <div class="project-img-wrap" onclick="openImageLightbox('./assets/images/project-regression.jpg', 'Linear Regression From Scratch', 'Pure Python · NumPy · Gradient Descent · Cost Function')" title="Click to fit image in window">
                 <img src="./assets/images/project-regression.jpg" alt="Linear Regression Model from Scratch"
                   loading="lazy">
                 <div class="project-badge-overlay">
                   <span class="tag-pill indigo">Core ML Algorithms</span>
+                </div>
+                <div class="project-img-expand-hint" aria-hidden="true">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span>Fit in Window</span>
                 </div>
               </div>
               <div class="project-content">
@@ -955,10 +987,14 @@
           <!-- PROJECT 6: Regex Pattern Matcher -->
           <div class="project-item active" data-filter-item data-category="interactive tools">
             <div class="project-card">
-              <div class="project-img-wrap">
+              <div class="project-img-wrap" onclick="openImageLightbox('./assets/images/project-regex.jpg', 'Interactive Regex Pattern Matcher', 'JavaScript · Interactive Tester · Real-time Highlighting')" title="Click to fit image in window">
                 <img src="./assets/images/project-regex.jpg" alt="Regex Pattern Matcher Demo" loading="lazy">
                 <div class="project-badge-overlay">
                   <span class="tag-pill">Live Web Tool</span>
+                </div>
+                <div class="project-img-expand-hint" aria-hidden="true">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span>Fit in Window</span>
                 </div>
               </div>
               <div class="project-content">
@@ -1148,7 +1184,7 @@
             <li class="blog-post-item">
               <a href="#" onclick="loadProjectContent('./blogs/AWSSystemsManager.html'); return false;">
                 <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-6.jpg" alt="Mastering AWS Systems Manager (SSM)" loading="lazy">
+                  <img src="./assets/images/blog-ssm.jpg" alt="Mastering AWS Systems Manager (SSM)" loading="lazy">
                 </figure>
                 <div class="blog-content">
                   <div class="blog-meta">
@@ -1169,7 +1205,7 @@
             <li class="blog-post-item">
               <a href="#" onclick="loadProjectContent('./blogs/AWSCodePipeline.html'); return false;">
                 <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-4.jpg" alt="AWS CodePipeline (CI/CD)" loading="lazy">
+                  <img src="./assets/images/blog-pipeline.jpg" alt="AWS CodePipeline (CI/CD)" loading="lazy">
                 </figure>
                 <div class="blog-content">
                   <div class="blog-meta">
@@ -1190,7 +1226,7 @@
             <li class="blog-post-item">
               <a href="#" onclick="loadProjectContent('./blogs/AWSCloudWatchAgent.html'); return false;">
                 <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-2.jpg" alt="AWS CloudWatch Agent Guide" loading="lazy">
+                  <img src="./assets/images/blog-cloudwatch.jpg" alt="AWS CloudWatch Agent Guide" loading="lazy">
                 </figure>
                 <div class="blog-content">
                   <div class="blog-meta">
@@ -1211,7 +1247,7 @@
             <li class="blog-post-item">
               <a href="#" onclick="loadProjectContent('./blogs/RegularExpressionsGuide.html'); return false;">
                 <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-1.jpg" alt="Regular Expressions Guide" loading="lazy">
+                  <img src="./assets/images/blog-regex.jpg" alt="Regular Expressions Guide" loading="lazy">
                 </figure>
                 <div class="blog-content">
                   <div class="blog-meta">
@@ -1325,10 +1361,36 @@
     </div>
   </main>
 
+  <!-- IMAGE LIGHTBOX MODAL (FIT TO WINDOW) -->
+  <div id="image-lightbox-modal" class="image-lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-backdrop" onclick="closeImageLightbox()"></div>
+    <div class="lightbox-dialog">
+      <div class="lightbox-header">
+        <div class="lightbox-title-wrap">
+          <span class="lightbox-badge">Fit to Window View</span>
+          <h4 class="lightbox-title" id="lightbox-title">Project Preview</h4>
+          <p class="lightbox-subtitle" id="lightbox-subtitle"></p>
+        </div>
+        <button class="lightbox-close-btn" onclick="closeImageLightbox()" aria-label="Close dialog" title="Close (ESC)">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="lightbox-img-stage">
+        <img id="lightbox-img" src="" alt="Preview Fitted to Window" />
+      </div>
+      <div class="lightbox-footer">
+        <div class="lightbox-hint">
+          <ion-icon name="scan-outline"></ion-icon>
+          <span>Fitted to browser window &bull; Press ESC or click backdrop to close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CUSTOM JAVASCRIPT -->
-  <script src="./assets/js/datasource.js"></script>
-  <script src="./assets/js/script.js"></script>
-  <script src="./assets/js/liquid-fx.js"></script>
+  <script src="./assets/js/datasource.js?v=2.2.0"></script>
+  <script src="./assets/js/script.js?v=2.2.0"></script>
+  <script src="./assets/js/liquid-fx.js?v=2.2.0"></script>
 
   <!-- IONICONS -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

@@ -267,6 +267,43 @@ window.closeProjectDetail = function (targetPage = 'projects') {
 };
 
 // -------------------------------------------------------------
+// IMAGE LIGHTBOX MODAL (FIT TO WINDOW)
+// -------------------------------------------------------------
+window.openImageLightbox = function (imgSrc, title = '', subtitle = '') {
+  const modal = document.getElementById('image-lightbox-modal');
+  const img = document.getElementById('lightbox-img');
+  const titleEl = document.getElementById('lightbox-title');
+  const subtitleEl = document.getElementById('lightbox-subtitle');
+
+  if (!modal || !img) return;
+
+  img.src = imgSrc;
+  img.alt = title || 'Preview';
+  if (titleEl) titleEl.textContent = title || 'Preview';
+  if (subtitleEl) subtitleEl.textContent = subtitle || '';
+
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeImageLightbox = function () {
+  const modal = document.getElementById('image-lightbox-modal');
+  if (!modal) return;
+
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+};
+
+// Keyboard ESC to close lightbox
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    closeImageLightbox();
+  }
+});
+
+// -------------------------------------------------------------
 // CONTACT FORM HANDLING
 // -------------------------------------------------------------
 const form = document.querySelector('[data-form]');

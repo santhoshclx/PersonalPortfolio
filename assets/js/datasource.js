@@ -465,9 +465,13 @@
         return `
           <div class="project-item active" data-filter-item data-category="${p.filterCategory || ''}">
             <div class="project-card">
-              <div class="project-img-wrap">
+              <div class="project-img-wrap" onclick="openImageLightbox('${p.thumbnail}', '${(p.title || '').replace(/'/g, "\\'")}', '${(p.metaPill || '').replace(/'/g, "\\'")}')" title="Click to fit image in window">
                 <img src="${p.thumbnail}" alt="${p.imageAlt || p.title}" loading="lazy">
                 ${badgeHtml}
+                <div class="project-img-expand-hint" aria-hidden="true">
+                  <ion-icon name="scan-outline"></ion-icon>
+                  <span>Fit in Window</span>
+                </div>
               </div>
               <div class="project-content">
                 ${p.metaPill ? `<span class="project-meta-pill">${p.metaPill}</span>` : ''}

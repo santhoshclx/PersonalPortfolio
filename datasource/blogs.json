@@ -9,8 +9,8 @@
       "tagColor": "gold",
       "date": "2022-11-18",
       "dateDisplay": "Nov 18, 2022",
-      "thumbnail": "./assets/images/blog-6.jpg",
-      "imageAlt": "Mastering AWS Systems Manager (SSM)",
+      "thumbnail": "./assets/images/blog-ssm.jpg",
+      "imageAlt": "Mastering AWS Systems Manager (SSM) - Zero Trust Architecture",
       "detailUrl": "./blogs/AWSSystemsManager.html",
       "summary": "How to eliminate bastion hosts and open SSH ports using SSM Session Manager tunneling via ProxyCommand for hardened zero-trust access."
     },
@@ -21,8 +21,8 @@
       "tagColor": "",
       "date": "2022-12-25",
       "dateDisplay": "Dec 25, 2022",
-      "thumbnail": "./assets/images/blog-4.jpg",
-      "imageAlt": "AWS CodePipeline (CI/CD)",
+      "thumbnail": "./assets/images/blog-pipeline.jpg",
+      "imageAlt": "AWS CodePipeline CI/CD Automated Workflow",
       "detailUrl": "./blogs/AWSCodePipeline.html",
       "summary": "Implementing automated build, container test, and zero-downtime deployment workflows with CodeCommit, CodeBuild, and ECS."
     },
@@ -33,8 +33,8 @@
       "tagColor": "",
       "date": "2022-09-09",
       "dateDisplay": "Sept 09, 2022",
-      "thumbnail": "./assets/images/blog-2.jpg",
-      "imageAlt": "AWS CloudWatch Agent Guide",
+      "thumbnail": "./assets/images/blog-cloudwatch.jpg",
+      "imageAlt": "AWS CloudWatch Agent Telemetry Monitoring",
       "detailUrl": "./blogs/AWSCloudWatchAgent.html",
       "summary": "Collecting system-level metrics (CPU memory, disk I/O) and forwarding custom application logs from EC2 and edge servers to CloudWatch."
     },
@@ -45,8 +45,8 @@
       "tagColor": "indigo",
       "date": "2022-07-23",
       "dateDisplay": "Jul 23, 2022",
-      "thumbnail": "./assets/images/blog-1.jpg",
-      "imageAlt": "Regular Expressions Guide",
+      "thumbnail": "./assets/images/blog-regex.jpg",
+      "imageAlt": "Regular Expressions and Pattern Matching Guide",
       "detailUrl": "./blogs/RegularExpressionsGuide.html",
       "summary": "Mastering regex mechanics: greedy vs lazy quantifiers, lookahead and lookbehind assertions, and text parsing algorithms."
     }

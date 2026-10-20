@@ -22,7 +22,49 @@
         },
         {
           "label": "View on Credly",
-          "url": "https://www.credly.com/users/santhoshkumar-r-2806/badges/credly",
+          "url": "https://www.credly.com/badges/6826edbb-6787-4627-9e15-48b4603e2d59/public_url",
+          "icon": "ribbon-outline"
+        }
+      ]
+    },
+    {
+      "id": "aws-agentic-ai",
+      "name": "AWS Agentic AI Demonstrated",
+      "issuer": "Amazon Web Services (AWS)",
+      "credentialCode": "Demonstrated Assessment",
+      "status": "Earned",
+      "tag": "Verified Microcredential",
+      "tagColor": "emerald",
+      "issueDate": "October 08, 2026",
+      "expirationDate": "October 08, 2027",
+      "icon": "hardware-chip-outline",
+      "iconStyle": "background: rgba(168, 85, 247, 0.12); color: #c084fc; border-color: rgba(168, 85, 247, 0.3);",
+      "description": "Validates hands-on proficiency in building, troubleshooting, repairing, integrating, and enhancing Amazon Bedrock Agents and Bedrock Guardrails in production AWS environments.",
+      "verificationLinks": [
+        {
+          "label": "View on Credly",
+          "url": "https://www.credly.com/badges/650f2e09-3c27-4adc-b6e7-b733081dedca/public_url",
+          "icon": "ribbon-outline"
+        }
+      ]
+    },
+    {
+      "id": "aws-mlops",
+      "name": "AWS MLOps Demonstrated",
+      "issuer": "Amazon Web Services (AWS)",
+      "credentialCode": "Demonstrated Assessment",
+      "status": "Earned",
+      "tag": "Verified Microcredential",
+      "tagColor": "emerald",
+      "issueDate": "August 15, 2026",
+      "expirationDate": "August 15, 2027",
+      "icon": "git-network-outline",
+      "iconStyle": "background: rgba(59, 130, 246, 0.12); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3);",
+      "description": "Validates proficiency in deploying foundation models, fine-tuning ML models, running inference, configuring observability, and scaling ML applications using Amazon SageMaker AI.",
+      "verificationLinks": [
+        {
+          "label": "View on Credly",
+          "url": "https://www.credly.com/badges/fe16b189-19b7-4f72-9895-a535e6d123f8/public_url",
           "icon": "ribbon-outline"
         }
       ]

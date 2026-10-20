@@ -664,16 +664,25 @@
       </div>
 
       <div class="pipeline-spec-drawer" data-pipeline-drawer>
-        <div class="spec-content">
-          <div class="spec-header">
-            <span class="spec-tag" id="pipeline-spec-badge">${pipelineStages[0].badge}</span>
-            <span class="spec-id" id="pipeline-spec-pill">${pipelineStages[0].pill}</span>
-            <span class="spec-telemetry" style="margin-left:auto; font-family:var(--ff-mono); font-size:0.75rem; color:#34d399;" id="pipeline-spec-telemetry">
-              Latency: ${pipelineStages[0].latency} · Throughput: ${pipelineStages[0].throughput}
-            </span>
+        <div class="spec-layout">
+          <div class="spec-main">
+            <div class="spec-header">
+              <span class="spec-tag" id="pipeline-spec-badge">${pipelineStages[0].badge}</span>
+              <span class="spec-id" id="pipeline-spec-pill">${pipelineStages[0].pill}</span>
+            </div>
+            <h4 class="spec-title" id="pipeline-spec-title">${pipelineStages[0].name}</h4>
+            <p class="spec-desc" id="pipeline-spec-desc">${pipelineStages[0].spec}</p>
           </div>
-          <h4 class="spec-title" id="pipeline-spec-title">${pipelineStages[0].name}</h4>
-          <p class="spec-desc" id="pipeline-spec-desc">${pipelineStages[0].spec}</p>
+          <div class="spec-telemetry-panel">
+            <div class="spec-stat-chip">
+              <span class="stat-chip-label">Live Latency</span>
+              <span class="stat-chip-val" id="pipeline-spec-latency">${pipelineStages[0].latency}</span>
+            </div>
+            <div class="spec-stat-chip">
+              <span class="stat-chip-label">Throughput</span>
+              <span class="stat-chip-val cyan" id="pipeline-spec-throughput">${pipelineStages[0].throughput}</span>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -681,7 +690,8 @@
     const nodeEls = container.querySelectorAll('.pipeline-node');
     const badgeEl = container.querySelector('#pipeline-spec-badge');
     const pillEl = container.querySelector('#pipeline-spec-pill');
-    const telemetryEl = container.querySelector('#pipeline-spec-telemetry');
+    const latencyEl = container.querySelector('#pipeline-spec-latency');
+    const throughputEl = container.querySelector('#pipeline-spec-throughput');
     const titleEl = container.querySelector('#pipeline-spec-title');
     const descEl = container.querySelector('#pipeline-spec-desc');
 
@@ -694,7 +704,8 @@
 
       if (badgeEl) badgeEl.textContent = stage.badge;
       if (pillEl) pillEl.textContent = stage.pill;
-      if (telemetryEl) telemetryEl.textContent = `Latency: ${stage.latency} · Throughput: ${stage.throughput}`;
+      if (latencyEl) latencyEl.textContent = stage.latency;
+      if (throughputEl) throughputEl.textContent = stage.throughput;
       if (titleEl) titleEl.textContent = stage.name;
       if (descEl) descEl.textContent = stage.spec;
     };

@@ -546,7 +546,7 @@
                 </div>
                 <div>
                   <h4 class="cert-title">${c.name}</h4>
-                  <p class="cert-issuer">${c.issuer} ${c.credentialCode ? `· Credential ${c.credentialCode}` : ''}</p>
+                  <p class="cert-issuer">${c.issuer} ${c.credentialCode ? `· ${c.credentialCode.startsWith('Credential') || c.credentialCode.includes(' ') ? c.credentialCode : `Credential ${c.credentialCode}`}` : ''}</p>
                 </div>
               </div>
               <div class="cert-details">
